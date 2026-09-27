@@ -47,18 +47,18 @@
 /* 2. VARIABLES ========================================================= */
 :root {
   /* Couleurs de marque */
-  --navy-950: #07162c;
-  --navy-900: #0b1f3a;   /* bleu marine profond : couleur principale */
-  --navy-800: #132b4f;
-  --navy-700: #1d3b66;
+  --navy-950: #011633;
+  --navy-900: #021f4d;   /* bleu marine du logo : couleur principale */
+  --navy-800: #0b2d62;
+  --navy-700: #173d7a;
   --blue-600: #2355d6;   /* bleu secondaire */
   --blue-500: #3a6cf0;
   --blue-300: #9db8f5;
   --blue-100: #e3ebfc;
   --blue-50:  #f2f6fe;
-  --gold-500: #c8a04a;   /* doré : à utiliser avec parcimonie */
-  --gold-300: #e3c77f;
-  --gold-700: #8a6516;   /* doré lisible sur fond clair */
+  --gold-500: #f9b603;   /* doré du logo : à utiliser avec parcimonie */
+  --gold-300: #fbc53a;   /* doré pour du texte sur fond marine */
+  --gold-700: #7a5800;   /* doré lisible sur fond clair */
   --green-700: #15803d;  /* WhatsApp (contraste AA avec texte blanc) */
   --green-800: #116a33;
   --error: #b42318;
@@ -80,9 +80,9 @@
   --radius-sm: 12px;
   --radius: 18px;
   --radius-lg: 24px;
-  --shadow-sm: 0 1px 2px rgba(11, 31, 58, 0.05);
-  --shadow: 0 1px 2px rgba(11, 31, 58, 0.04), 0 10px 30px -14px rgba(11, 31, 58, 0.12);
-  --shadow-lg: 0 2px 4px rgba(11, 31, 58, 0.04), 0 28px 56px -24px rgba(11, 31, 58, 0.22);
+  --shadow-sm: 0 1px 2px rgba(2, 31, 77, 0.05);
+  --shadow: 0 1px 2px rgba(2, 31, 77, 0.04), 0 10px 30px -14px rgba(2, 31, 77, 0.12);
+  --shadow-lg: 0 2px 4px rgba(2, 31, 77, 0.04), 0 28px 56px -24px rgba(2, 31, 77, 0.22);
 
   /* Mise en page */
   --container: 1200px;
@@ -342,7 +342,7 @@ main:focus {
 .btn--primary {
   background: var(--navy-900);
   color: #fff;
-  box-shadow: 0 10px 24px -12px rgba(11, 31, 58, 0.6);
+  box-shadow: 0 10px 24px -12px rgba(2, 31, 77, 0.6);
 }
 
 .btn--primary:hover {
@@ -401,13 +401,6 @@ main:focus {
 
 .btn--block {
   width: 100%;
-}
-
-.btn.is-disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  pointer-events: none;
-  box-shadow: none;
 }
 
 /* Lien avec flèche */
@@ -571,7 +564,7 @@ main:focus {
 
 .site-header.is-scrolled {
   border-color: var(--line);
-  box-shadow: 0 8px 28px -22px rgba(11, 31, 58, 0.45);
+  box-shadow: 0 8px 28px -22px rgba(2, 31, 77, 0.45);
 }
 
 .site-header.is-scrolled::before,
@@ -587,39 +580,22 @@ main:focus {
   height: 100%;
 }
 
-/* Nom de l'académie (en attendant le logo officiel) */
+/* Logo */
 .brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.35rem;
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: var(--navy-900);
-  white-space: nowrap;
+  flex-shrink: 0;
+  align-items: center;
 }
 
-.brand__name {
-  font-weight: 800;
-}
-
-.brand__suffix {
-  font-weight: 500;
-  color: var(--blue-600);
-}
-
-.brand img {
-  height: 40px;
+.brand__logo {
   width: auto;
+  height: 40px;
 }
 
-.brand--light {
-  color: #fff;
-}
-
-.brand--light .brand__suffix {
-  color: var(--gold-300);
+@media (min-width: 768px) {
+  .brand__logo {
+    height: 46px;
+  }
 }
 
 /* Menu : version mobile (panneau plein écran) */
@@ -785,8 +761,8 @@ main:focus {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(11, 31, 58, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11, 31, 58, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(2, 31, 77, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 31, 77, 0.045) 1px, transparent 1px);
   background-size: 40px 40px;
   -webkit-mask-image: radial-gradient(ellipse 70% 65% at 72% 35%, #000 15%, transparent 72%);
   mask-image: radial-gradient(ellipse 70% 65% at 72% 35%, #000 15%, transparent 72%);
@@ -1573,30 +1549,6 @@ main:focus {
   color: var(--ink);
 }
 
-.resources__cta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-.soon {
-  padding: 0.3rem 0.75rem;
-  border: 1px solid #efe0b8;
-  border-radius: 999px;
-  background: #fbf6e8;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--gold-700);
-}
-
-.soon[hidden] {
-  display: none;
-}
-
 @media (min-width: 700px) {
   .resources {
     grid-template-columns: repeat(3, 1fr);
@@ -1623,64 +1575,73 @@ main:focus {
 }
 
 .about__visual {
-  order: 2;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
 }
 
-.about__panel {
+.about__figure {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: 340px;
-  padding: clamp(1.75rem, 4vw, 2.75rem);
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  background:
-    radial-gradient(80% 60% at 100% 0%, rgba(58, 108, 240, 0.28), transparent 70%),
-    linear-gradient(160deg, var(--navy-800), var(--navy-950));
-  color: #fff;
+  margin: 0;
+  padding: 0 14px 14px 0;
 }
 
-.about__decor {
+/* Cadre décoratif décalé derrière la photo */
+.about__figure::before {
+  content: "";
   position: absolute;
-  top: -10px;
-  right: -30px;
-  width: 62%;
-  max-width: 300px;
-  color: var(--blue-300);
-  opacity: 0.2;
+  inset: 14px 0 0 14px;
+  border: 1px solid var(--blue-100);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--blue-100), var(--blue-50));
 }
 
-.about__motto {
-  display: grid;
-  font-family: var(--font-heading);
-  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.25rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
-}
-
-.about__motto em {
-  font-style: normal;
-  color: var(--gold-500);
-}
-
-.about__panel-note {
-  margin-top: 1.75rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--muted-light);
+.about__figure picture {
+  display: block;
+  position: relative;
 }
 
 .about__photo {
   width: 100%;
   height: auto;
-  aspect-ratio: 7 / 8;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Étiquette posée sur la photo */
+.about__caption {
+  position: absolute;
+  bottom: 36px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow-lg);
+}
+
+.about__caption img {
+  width: 48px;
+  height: auto;
+}
+
+.about__caption span {
+  display: grid;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.about__caption strong {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
 }
 
 .about__lead {
@@ -1696,9 +1657,14 @@ main:focus {
 
 .pillars {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 0.75rem;
   margin-top: 2rem;
+}
+
+@media (min-width: 480px) {
+  .pillars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .pillars li {
@@ -1725,11 +1691,12 @@ main:focus {
   }
 
   .about__visual {
-    order: 0;
+    max-width: none;
   }
 
-  .about__panel {
-    min-height: 460px;
+  .about__caption {
+    left: -28px;
+    bottom: 56px;
   }
 }
 
@@ -2188,8 +2155,18 @@ main:focus {
   grid-column: 1 / -1;
 }
 
+.footer__logo {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.footer__logo img {
+  width: 96px;
+  height: auto;
+}
+
 .footer__slogan {
-  margin-top: 1.1rem;
+  margin-top: 1.25rem;
   font-family: var(--font-heading);
   font-weight: 700;
   color: #fff;
@@ -2223,7 +2200,12 @@ main:focus {
   color: #fff;
 }
 
-.footer__wa {
+.footer__contacts {
+  display: grid;
+  gap: 1rem;
+}
+
+.footer__contact {
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
@@ -2231,7 +2213,7 @@ main:focus {
   color: #fff;
 }
 
-.footer__wa > .icon {
+.footer__contact > .icon {
   width: 44px;
   height: 44px;
   padding: 11px;
@@ -2240,11 +2222,15 @@ main:focus {
   transition: background-color 0.2s;
 }
 
-.footer__wa:hover > .icon {
+.footer__contact--whatsapp:hover > .icon {
   background: var(--green-700);
 }
 
-.footer__wa-label {
+.footer__contact--youtube:hover > .icon {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.footer__contact-label {
   display: block;
   font-size: 0.8rem;
   font-weight: 500;
@@ -2310,7 +2296,7 @@ main:focus {
   border-radius: 50%;
   background: var(--green-700);
   color: #fff;
-  box-shadow: 0 14px 30px -10px rgba(21, 128, 61, 0.6), 0 4px 12px rgba(11, 31, 58, 0.14);
+  box-shadow: 0 14px 30px -10px rgba(21, 128, 61, 0.6), 0 4px 12px rgba(2, 31, 77, 0.14);
   transition: transform 0.25s var(--ease), opacity 0.3s, visibility 0.3s, background-color 0.2s;
 }
 

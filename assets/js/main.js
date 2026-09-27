@@ -14,13 +14,7 @@
     whatsappNumber: '221711715359',
 
     // Numéro tel qu'il est affiché aux visiteurs.
-    whatsappDisplay: '+221 71 171 53 59',
-
-    // Adresse de la chaîne YouTube (ou de la page des contenus pédagogiques).
-    // Tant qu'elle est vide (''), le bouton « Découvrir nos contenus » reste
-    // désactivé avec la mention « Bientôt disponible ».
-    // Exemple : 'https://www.youtube.com/@xamxamacademy'
-    contentsUrl: ''
+    whatsappDisplay: '+221 71 171 53 59'
   };
 
   /* ===================================================================
@@ -208,23 +202,6 @@
   }
 
   /* ===================================================================
-     BOUTON « DÉCOUVRIR NOS CONTENUS »
-     =================================================================== */
-  function initContentsLink() {
-    var link = document.getElementById('contents-link');
-    var soon = document.getElementById('contents-soon');
-    if (!link || !CONFIG.contentsUrl) return;
-
-    link.href = CONFIG.contentsUrl;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.classList.remove('is-disabled');
-    link.removeAttribute('aria-disabled');
-    link.removeAttribute('role');
-    if (soon) soon.hidden = true;
-  }
-
-  /* ===================================================================
      FORMULAIRE DE CONTACT → MESSAGE WHATSAPP PRÉREMPLI
      Aucun serveur : les informations saisies composent un message
      qui s'ouvre dans WhatsApp, prêt à être envoyé.
@@ -315,7 +292,6 @@
   initMobileNav();
   initScrollSpy();
   initReveal();
-  initContentsLink();
   initContactForm();
   initFloatingButton();
 })();

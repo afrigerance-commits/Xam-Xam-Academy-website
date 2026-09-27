@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Favicon provisoire (initiales « XX ») : à remplacer par le logo officiel -->
-  <rect width="64" height="64" rx="14" fill="#0B1F3A"/>
-  <g fill="none" stroke="#FFFFFF" stroke-width="5.5" stroke-linecap="round">
-    <path d="M13 21l14 22M27 21L13 43"/>
-    <path d="M37 21l14 22M51 21L37 43"/>
-  </g>
-</svg>

@@ -18,8 +18,8 @@ Le site est conçu pour transformer les visiteurs en prospects via **WhatsApp** 
 2. [Lancer le site en local](#2-lancer-le-site-en-local)
 3. [Modifier les textes](#3-modifier-les-textes)
 4. [Modifier le numéro WhatsApp](#4-modifier-le-numéro-whatsapp)
-5. [Remplacer les images (logo, photo, favicon…)](#5-remplacer-les-images)
-6. [Activer le bouton « Découvrir nos contenus »](#6-activer-le-bouton--découvrir-nos-contenus-)
+5. [Logos, photo et images](#5-logos-photo-et-images)
+6. [Modifier le lien YouTube](#6-modifier-le-lien-youtube)
 7. [Couleurs et polices](#7-couleurs-et-polices)
 8. [Déployer le site](#8-déployer-le-site)
 9. [Après la mise en ligne](#9-après-la-mise-en-ligne)
@@ -42,14 +42,19 @@ Xam-Xam-Academy-website/
     ├── js/
     │   └── main.js         ← configuration (WhatsApp…) et interactions
     ├── fonts/              ← polices auto-hébergées (Manrope, Inter)
-    ├── icons/              ← favicon et icônes d'application
-    │   ├── favicon.svg
+    ├── icons/              ← favicon et icônes d'application (symbole « X » du logo)
+    │   ├── favicon.ico
     │   ├── favicon-32.png
     │   ├── apple-touch-icon.png
     │   ├── icon-192.png
     │   └── icon-512.png
     └── img/
-        └── og-image.jpg    ← image affichée lors d'un partage (WhatsApp, Facebook…)
+        ├── logo-horizontal.png   ← logo de l'en-tête et de la page 404
+        ├── logo-badge.png        ← logo rond : pied de page et étiquette de la photo
+        ├── fondateur-480.webp    ← photo du fondateur (section À propos)
+        ├── fondateur-800.webp
+        ├── fondateur-800.jpg     ← version de secours pour les anciens navigateurs
+        └── og-image.jpg          ← image affichée lors d'un partage (WhatsApp, Facebook…)
 ```
 
 Sections de la page (dans l'ordre) et leur identifiant dans `index.html` :
@@ -125,8 +130,7 @@ Le numéro actuel est **+221 71 171 53 59** (lien : `https://wa.me/221711715359`
 ```js
 var CONFIG = {
   whatsappNumber: '221711715359',       // indicatif + numéro, sans « + » ni espaces
-  whatsappDisplay: '+221 71 171 53 59', // tel qu'affiché aux visiteurs
-  contentsUrl: ''
+  whatsappDisplay: '+221 71 171 53 59'  // tel qu'affiché aux visiteurs
 };
 ```
 
@@ -143,55 +147,36 @@ sed -i.bak 's/221711715359/221XXXXXXXXX/g; s/+221 71 171 53 59/+221 XX XXX XX XX
 
 ---
 
-## 5. Remplacer les images
+## 5. Logos, photo et images
 
-Le projet ne contenait ni logo ni photo : **aucun faux logo n'a été créé**. En attendant le logo officiel, le nom « Xam Xam Academy » est simplement écrit en texte stylisé.
+Toutes les images du site proviennent des fichiers officiels fournis (photo, logo rond, logo complet). Elles ont été détourées (fond transparent), recadrées et compressées pour le web.
 
-### Logo
+| Fichier                         | Provenance                                             | Où il apparaît                              |
+| ------------------------------- | ------------------------------------------------------ | ------------------------------------------- |
+| `img/logo-horizontal.png`       | Symbole « X » + nom « XamXam Academy » du logo complet, placés côte à côte (sans le slogan) | En-tête, page 404 |
+| `img/logo-badge.png`            | Logo rond, coins rendus transparents                   | Pied de page, étiquette sur la photo, image de partage |
+| `img/fondateur-*.webp` / `.jpg` | Photo du fondateur, recadrée au format 4:5             | Section « À propos » uniquement             |
+| `icons/*`                       | Symbole « X » du logo sur fond blanc                   | Onglet du navigateur, écran d'accueil mobile |
+| `img/og-image.jpg`              | Composition avec le logo rond (1200 × 630 px)          | Aperçu lors d'un partage du lien            |
 
-1. Déposer le fichier dans `assets/img/` (idéalement `logo.svg`, sinon un PNG d'environ 340 × 80 px), ainsi qu'une version claire pour le pied de page (`logo-blanc.svg`).
-2. Dans `index.html`, deux emplacements sont signalés par le commentaire `<!-- LOGO ... -->` (en-tête et pied de page). Remplacer les deux `<span>` qui suivent par la balise indiquée dans le commentaire, par exemple :
-   ```html
-   <img src="assets/img/logo.svg" alt="Xam Xam Academy" width="170" height="40">
-   ```
-   Adapter `width` / `height` aux proportions réelles du logo (la hauteur affichée est limitée à 40 px par le CSS).
+**Pour remplacer une image**, déposer le nouveau fichier en conservant **le même nom** et des proportions proches :
 
-### Photo du fondateur (section « À propos » uniquement)
-
-1. Déposer la photo dans `assets/img/fondateur.jpg` (format portrait, environ 1120 × 1280 px, compressée — idéalement moins de 250 Ko ; un outil comme [Squoosh](https://squoosh.app) permet de l'optimiser).
-2. Dans `index.html`, repérer le commentaire `<!-- PHOTO DU FONDATEUR ... -->` dans la section À propos et suivre l'instruction : remplacer le contenu du bloc `about__visual` par la balise `<img>` fournie (déjà prête, avec chargement différé `loading="lazy"`).
-
-### Favicon (icône de l'onglet)
-
-Le favicon actuel est un **monogramme provisoire « XX »** sur fond bleu marine. Pour utiliser le logo officiel, remplacer les fichiers de `assets/icons/` en conservant les mêmes noms et dimensions :
-
-| Fichier                | Dimensions        |
-| ---------------------- | ----------------- |
-| `favicon.svg`          | vectoriel (carré) |
-| `favicon-32.png`       | 32 × 32 px        |
-| `apple-touch-icon.png` | 180 × 180 px      |
-| `icon-192.png`         | 192 × 192 px      |
-| `icon-512.png`         | 512 × 512 px      |
-
-Le site [realfavicongenerator.net](https://realfavicongenerator.net) génère toutes ces tailles à partir d'une seule image.
-
-### Image de partage (Open Graph)
-
-`assets/img/og-image.jpg` (1200 × 630 px) s'affiche quand le lien du site est partagé sur WhatsApp, Facebook ou LinkedIn. On peut la remplacer par une autre image aux mêmes dimensions (par exemple avec le logo officiel).
+- **Logo de l'en-tête** : image horizontale à fond transparent, environ 540 × 120 px. Si les proportions changent, adapter `width` / `height` de la balise `<img class="brand__logo">` dans `index.html` (et dans `404.html`). La hauteur affichée est fixée par le CSS (40 px sur mobile, 46 px sur ordinateur). Une version **SVG** du logo, si elle existe, donnerait un rendu encore plus net : il suffit alors de remplacer `logo-horizontal.png` par `logo-horizontal.svg` dans les deux fichiers HTML.
+- **Logo rond** : image carrée à fond transparent, environ 256 × 256 px.
+- **Photo du fondateur** : format portrait 4:5 (par exemple 800 × 1000 px). Remplacer les trois fichiers `fondateur-480.webp`, `fondateur-800.webp` et `fondateur-800.jpg` ; un outil comme [Squoosh](https://squoosh.app) permet de redimensionner et de convertir en WebP.
+- **Favicons** : le site [realfavicongenerator.net](https://realfavicongenerator.net) génère toutes les tailles (`favicon.ico`, 32, 180, 192 et 512 px) à partir d'une seule image.
 
 ---
 
-## 6. Activer le bouton « Découvrir nos contenus »
+## 6. Modifier le lien YouTube
 
-Le bouton de la section « Apprendre aussi en dehors des cours » est **désactivé** avec la mention « Bientôt disponible », car aucune adresse YouTube n'a encore été fournie.
+La chaîne **https://www.youtube.com/@XamXamAcademia** est reliée à trois endroits de `index.html` :
 
-Pour l'activer, renseigner l'adresse dans `assets/js/main.js` :
+- le bouton « Découvrir nos contenus » (section Contenus pédagogiques) ;
+- le lien YouTube du pied de page ;
+- les données structurées (`"sameAs"`) lues par Google.
 
-```js
-contentsUrl: 'https://www.youtube.com/@votre-chaine'
-```
-
-Le bouton devient alors cliquable (ouverture dans un nouvel onglet) et la mention « Bientôt disponible » disparaît automatiquement.
+Pour changer d'adresse, faire un « Rechercher / Remplacer tout » de `https://www.youtube.com/@XamXamAcademia` dans `index.html` (penser aussi au texte `@XamXamAcademia` affiché dans le pied de page).
 
 ---
 
@@ -201,13 +186,13 @@ Toutes les couleurs sont définies une seule fois en haut de `assets/css/styles.
 
 | Variable      | Couleur   | Usage                                         |
 | ------------- | --------- | --------------------------------------------- |
-| `--navy-900`  | `#0b1f3a` | Bleu marine profond — couleur principale      |
+| `--navy-900`  | `#021f4d` | Bleu marine du logo — couleur principale      |
 | `--blue-600`  | `#2355d6` | Bleu secondaire — liens, icônes, accents      |
-| `--gold-500`  | `#c8a04a` | Doré — détails décoratifs, avec parcimonie    |
+| `--gold-500`  | `#f9b603` | Doré du logo — détails, avec parcimonie       |
 | `--green-700` | `#15803d` | Boutons WhatsApp (contraste AA garanti)       |
 | `--bg-soft`   | `#f6f8fc` | Fond des sections alternées                   |
 
-Modifier une variable met à jour tout le site. Le doré n'est jamais utilisé pour du texte sur fond blanc (contraste insuffisant).
+Le bleu marine et le doré reprennent exactement les couleurs du logo. Modifier une variable met à jour tout le site. Le doré n'est jamais utilisé pour du texte sur fond blanc (contraste insuffisant).
 
 **Polices** (auto-hébergées dans `assets/fonts/`, aucune requête vers Google) :
 
@@ -259,7 +244,8 @@ Une fois l'adresse définitive connue, dans `index.html` :
 
 1. **Décommenter la balise `canonical`** et y mettre l'adresse du site.
 2. **Rendre l'image de partage absolue** : remplacer `content="assets/img/og-image.jpg"` par `content="https://www.votre-domaine.com/assets/img/og-image.jpg"` (certains réseaux n'acceptent pas les chemins relatifs).
-3. Optionnel : créer un `sitemap.xml` et l'indiquer dans `robots.txt`, puis déclarer le site dans [Google Search Console](https://search.google.com/search-console).
+3. **Compléter les données structurées** (bloc `application/ld+json` en haut de la page) avec `"url": "https://www.votre-domaine.com/"` et `"logo": "https://www.votre-domaine.com/assets/img/logo-badge.png"`.
+4. Optionnel : créer un `sitemap.xml` et l'indiquer dans `robots.txt`, puis déclarer le site dans [Google Search Console](https://search.google.com/search-console).
 
 Tester ensuite l'aperçu de partage avec le [débogueur de partage Facebook](https://developers.facebook.com/tools/debug/) (également utilisé par WhatsApp).
 
@@ -267,9 +253,10 @@ Tester ensuite l'aperçu de partage avec le [débogueur de partage Facebook](htt
 
 ## Éléments restant à personnaliser
 
-- [ ] Logo officiel (en-tête, pied de page, favicon, image de partage)
-- [ ] Photo du fondateur (section À propos) — facultatif
-- [ ] Adresse de la chaîne YouTube (`CONFIG.contentsUrl`)
-- [ ] Adresse définitive du site (`canonical`, `og:image`, sitemap)
+- [x] Logo officiel (en-tête, pied de page, favicon, image de partage)
+- [x] Photo du fondateur (section À propos)
+- [x] Chaîne YouTube
+- [ ] Adresse définitive du site (`canonical`, `og:image`, données structurées, sitemap)
+- [ ] Optionnel : version SVG du logo pour un rendu parfaitement net sur tous les écrans
 
 **Principe éditorial :** le site ne mentionne volontairement ni témoignages, ni statistiques, ni taux de réussite, ni prix, ni diplômes. Toute information de ce type ajoutée plus tard doit être réelle et vérifiable.

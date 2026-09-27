@@ -1,0 +1,73 @@
+---
+/* Pied de page. */
+import { WHATSAPP_AFFICHAGE, YOUTUBE_URL } from '../lib/constantes';
+import { lienWhatsApp } from '../lib/outils';
+
+interface Props {
+  accueil?: boolean;
+}
+const { accueil = false } = Astro.props;
+const ancre = (id: string) => (accueil ? `#${id}` : `/#${id}`);
+const messageContact = 'Bonjour Xam Xam Academy, je souhaite avoir des informations sur vos cours de Physique-Chimie.';
+---
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a class="footer__logo" href={accueil ? '#accueil' : '/'}>
+        <img src="/assets/img/logo-badge.png" alt="Xam Xam Academy — retour à l’accueil" width="256" height="259" loading="lazy" decoding="async">
+      </a>
+      <p class="footer__slogan">Comprendre. Progresser. Réussir.</p>
+      <p class="footer__about">Cours de Physique-Chimie du collège jusqu’à l’enseignement supérieur.</p>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="footer__title">Services</h2>
+      <ul>
+        <li><a href={ancre('cours')}>Cours à domicile</a></li>
+        <li><a href={ancre('cours')}>Cours de renforcement</a></li>
+        <li><a href={ancre('online')}>Cours en ligne</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="footer__title">Ressources</h2>
+      <ul>
+        <li><a href="/ressources/">Cours et exercices</a></li>
+        <li><a href="/videos/">Vidéos</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="footer__title">Zones</h2>
+      <ul>
+        <li>Dakar</li>
+        <li>Thiès</li>
+        <li>En ligne</li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="footer__title">Contact</h2>
+      <ul class="footer__contacts">
+        <li>
+          <a class="footer__contact footer__contact--whatsapp" href={lienWhatsApp(messageContact)} data-wa={messageContact} target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            <span><span class="footer__contact-label">WhatsApp</span><span data-wa-display>{WHATSAPP_AFFICHAGE}</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="footer__contact footer__contact--youtube" href={YOUTUBE_URL} target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg>
+            <span><span class="footer__contact-label">YouTube</span>@XamXamAcademia</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© 2026 Xam Xam Academy – Tous droits réservés.</p>
+    <a href={accueil ? '#accueil' : '#contenu'} class="footer__top">Haut de page <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+  </div>
+</footer>

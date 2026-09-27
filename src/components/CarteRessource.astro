@@ -1,0 +1,25 @@
+---
+/* Carte d'une ressource écrite (cours, exercices corrigés, fiche…). */
+import type { CollectionEntry } from 'astro:content';
+import { dateIso, formaterDate } from '../lib/outils';
+
+interface Props {
+  ressource: CollectionEntry<'ressources'>;
+}
+const { ressource } = Astro.props;
+const { titre, type, niveau, chapitre, description, date, fichier, brouillon } = ressource.data;
+---
+<li class="rcard" data-niveau={niveau} data-type={type}>
+  <a class="rcard__link" href={`/ressources/${ressource.id}/`}>
+    <div class="rcard__badges">
+      <span class="badge badge--type">{type}</span>
+      <span class="badge">{niveau}</span>
+      {fichier && <span class="badge badge--pdf"><svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>PDF</span>}
+      {brouillon && <span class="badge badge--draft">Brouillon</span>}
+    </div>
+    <h3 class="rcard__title">{titre}</h3>
+    {chapitre && <p class="rcard__chapter">{chapitre}</p>}
+    {description && <p class="rcard__text">{description}</p>}
+    <p class="rcard__meta"><time datetime={dateIso(date)}>{formaterDate(date)}</time></p>
+  </a>
+</li>

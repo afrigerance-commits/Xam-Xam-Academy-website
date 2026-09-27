@@ -1,0 +1,61 @@
+---
+/* Liste des cours, exercices corrigés, fiches, méthodes et fascicules. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EnTetePage from '../../components/EnTetePage.astro';
+import Onglets from '../../components/Onglets.astro';
+import Filtres from '../../components/Filtres.astro';
+import CarteRessource from '../../components/CarteRessource.astro';
+import EtatVide from '../../components/EtatVide.astro';
+import BandeauContact from '../../components/BandeauContact.astro';
+import { ressourcesPubliees } from '../../lib/contenus';
+import { NIVEAUX, TYPES_RESSOURCE } from '../../lib/constantes';
+
+const ressources = await ressourcesPubliees();
+const niveaux = NIVEAUX.filter((n) => ressources.some((r) => r.data.niveau === n));
+const types = TYPES_RESSOURCE.filter((t) => ressources.some((r) => r.data.type === t));
+---
+<BaseLayout
+  titre="Cours et exercices corrigés de Physique-Chimie"
+  description="Cours, exercices corrigés, fiches de révision et méthodes de Physique-Chimie, du collège jusqu’à la Licence, par Xam Xam Academy."
+  actif="ressources"
+>
+  <EnTetePage
+    surtitre="Ressources"
+    titre="Cours et exercices corrigés"
+    chapeau="Cours, exercices corrigés, fiches de révision et méthodes de Physique-Chimie, du collège jusqu’à la Licence."
+  >
+    <Onglets actif="ressources" />
+  </EnTetePage>
+
+  <section class="section section--tight">
+    <div class="container">
+      {ressources.length > 0 ? (
+        <>
+          <Filtres
+            unite={['ressource', 'ressources']}
+            groupes={[
+              { cle: 'niveau', libelle: 'Niveau', valeurs: niveaux },
+              { cle: 'type', libelle: 'Type', valeurs: types },
+            ]}
+          />
+          <h2 class="sr-only">Liste des ressources</h2>
+          <ul class="cards-grid" data-items>
+            {ressources.map((r) => <CarteRessource ressource={r} />)}
+          </ul>
+          <p class="filters__none" data-aucun hidden>Aucune ressource ne correspond à ces filtres pour le moment.</p>
+        </>
+      ) : (
+        <EtatVide
+          titre="Les premiers contenus arrivent bientôt"
+          texte="Des contenus de Physique-Chimie seront progressivement proposés du collège jusqu’à la Licence : cours, exercices corrigés, fiches de révision et méthodes."
+        />
+      )}
+    </div>
+  </section>
+
+  <BandeauContact />
+</BaseLayout>
+
+<script>
+  import '../../scripts/filtres';
+</script>

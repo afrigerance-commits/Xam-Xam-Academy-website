@@ -1,0 +1,44 @@
+---
+/* Liste des articles du blog. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EnTetePage from '../../components/EnTetePage.astro';
+import Onglets from '../../components/Onglets.astro';
+import CarteArticle from '../../components/CarteArticle.astro';
+import EtatVide from '../../components/EtatVide.astro';
+import BandeauContact from '../../components/BandeauContact.astro';
+import { articlesPublies } from '../../lib/contenus';
+
+const articles = await articlesPublies();
+---
+<BaseLayout
+  titre="Blog"
+  description="Le blog de Xam Xam Academy : méthodes, explications et conseils pour progresser en Physique-Chimie."
+  actif="ressources"
+>
+  <EnTetePage
+    surtitre="Ressources"
+    titre="Blog"
+    chapeau="Méthodes, explications et conseils pour progresser en Physique-Chimie."
+  >
+    <Onglets actif="blog" />
+  </EnTetePage>
+
+  <section class="section section--tight">
+    <div class="container">
+      {articles.length > 0 ? (
+        <h2 class="sr-only">Liste des articles</h2>
+        <ul class="posts-grid">
+          {articles.map((a) => <CarteArticle article={a} />)}
+        </ul>
+      ) : (
+        <EtatVide
+          icone="i-file"
+          titre="Les premiers articles arrivent bientôt"
+          texte="Méthodes, explications et conseils pour progresser en Physique-Chimie seront publiés ici."
+        />
+      )}
+    </div>
+  </section>
+
+  <BandeauContact />
+</BaseLayout>

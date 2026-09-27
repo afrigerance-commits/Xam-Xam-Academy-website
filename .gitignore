@@ -1,6 +1,14 @@
-.DS_Store
-Thumbs.db
+# Dépendances et fichiers générés
 node_modules/
+dist/
+.astro/
+
+# Hébergeurs
 .netlify/
 .vercel/
 .wrangler/
+
+# Système
+.DS_Store
+Thumbs.db
+npm-debug.log*

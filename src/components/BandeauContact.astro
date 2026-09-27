@@ -1,0 +1,27 @@
+---
+/* Appel à l'action WhatsApp en bas des pages intérieures. */
+import { lienWhatsApp } from '../lib/outils';
+
+interface Props {
+  titre?: string;
+  message?: string;
+}
+const {
+  titre = 'Besoin d’un accompagnement personnalisé ?',
+  message = 'Bonjour Xam Xam Academy, je souhaite avoir des informations sur vos cours de Physique-Chimie.',
+} = Astro.props;
+---
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band__inner">
+      <div>
+        <h2 class="cta-band__title">{titre}</h2>
+        <p class="cta-band__text">Cours à domicile à Dakar et Thiès, cours de renforcement et cours en ligne.</p>
+      </div>
+      <a class="btn btn--whatsapp btn--lg" href={lienWhatsApp(message)} data-wa={message} target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+        Écrire sur WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+/* Carte d'un article du blog. */
+import type { CollectionEntry } from 'astro:content';
+import { dateIso, formaterDate } from '../lib/outils';
+
+interface Props {
+  article: CollectionEntry<'blog'>;
+}
+const { article } = Astro.props;
+const { titre, description, date, categorie, image, image_alt, brouillon } = article.data;
+---
+<li class="pcard">
+  <a class="pcard__link" href={`/blog/${article.id}/`}>
+    <div class="pcard__media">
+      {image ? (
+        <img src={image} alt={image_alt ?? ''} width="800" height="450" loading="lazy" decoding="async">
+      ) : (
+        <span class="pcard__placeholder" aria-hidden="true"><svg class="icon"><use href="#i-atom" /></svg></span>
+      )}
+    </div>
+    <div class="pcard__body">
+      <p class="pcard__meta">
+        {categorie && <span class="badge badge--type">{categorie}</span>}
+        {brouillon && <span class="badge badge--draft">Brouillon</span>}
+        <time datetime={dateIso(date)}>{formaterDate(date)}</time>
+      </p>
+      <h3 class="pcard__title">{titre}</h3>
+      <p class="pcard__text">{description}</p>
+      <span class="link-arrow">Lire l’article <svg class="icon" aria-hidden="true"><use href="#i-arrow-right" /></svg></span>
+    </div>
+  </a>
+</li>

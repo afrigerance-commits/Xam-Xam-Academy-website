@@ -1,0 +1,35 @@
+---
+/* Page d'accueil : les 3 derniers contenus publiés, toutes rubriques confondues.
+   Rien ne s'affiche tant qu'aucun contenu n'est publié. */
+import { articlesPublies, ressourcesPubliees, videosPubliees } from '../lib/contenus';
+import { dateIso, formaterDate } from '../lib/outils';
+
+const [ressources, videos, articles] = await Promise.all([ressourcesPubliees(), videosPubliees(), articlesPublies()]);
+
+const elements = [
+  ...ressources.map((r) => ({ titre: r.data.titre, rubrique: r.data.type, detail: r.data.niveau, date: r.data.date, href: `/ressources/${r.id}/`, icone: 'i-book' })),
+  ...videos.map((v) => ({ titre: v.data.titre, rubrique: 'Vidéo', detail: v.data.niveau, date: v.data.date, href: `/videos/#video-${v.id}`, icone: 'i-play' })),
+  ...articles.map((a) => ({ titre: a.data.titre, rubrique: 'Blog', detail: a.data.categorie, date: a.data.date, href: `/blog/${a.id}/`, icone: 'i-file' })),
+]
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+  .slice(0, 3);
+---
+{elements.length > 0 && (
+  <div class="latest reveal">
+    <h3 class="latest__title">Derniers ajouts</h3>
+    <ul class="latest__list">
+      {elements.map((e) => (
+        <li>
+          <a class="latest__item" href={e.href}>
+            <span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href={`#${e.icone}`} /></svg></span>
+            <span class="latest__body">
+              <span class="latest__meta">{e.rubrique}{e.detail ? ` · ${e.detail}` : ''} · <time datetime={dateIso(e.date)}>{formaterDate(e.date)}</time></span>
+              <span class="latest__name">{e.titre}</span>
+            </span>
+            <svg class="icon latest__arrow" aria-hidden="true"><use href="#i-arrow-right" /></svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}

@@ -74,7 +74,7 @@
     if (!toggle || !nav) return;
 
     // Doit correspondre au point de rupture « ordinateur » du CSS.
-    var desktop = window.matchMedia('(min-width: 1180px)');
+    var desktop = window.matchMedia('(min-width: 1240px)');
 
     function isOpen() {
       return toggle.getAttribute('aria-expanded') === 'true';

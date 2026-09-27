@@ -1,0 +1,80 @@
+---
+/* Page d'un article du blog. */
+import { render } from 'astro:content';
+import 'katex/dist/katex.min.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import CarteArticle from '../../components/CarteArticle.astro';
+import BandeauContact from '../../components/BandeauContact.astro';
+import { articlesPublies } from '../../lib/contenus';
+import { dateIso, formaterDate, tempsDeLecture } from '../../lib/outils';
+
+export async function getStaticPaths() {
+  const articles = await articlesPublies();
+  return articles.map((article) => ({
+    params: { id: article.id },
+    props: { article, autres: articles.filter((a) => a.id !== article.id).slice(0, 3) },
+  }));
+}
+
+const { article, autres } = Astro.props;
+const { titre, description, date, categorie, image, image_alt, auteur, brouillon } = article.data;
+const { Content } = await render(article);
+const minutes = tempsDeLecture(article.body);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: titre,
+  description,
+  datePublished: dateIso(date),
+  author: { '@type': 'Organization', name: auteur },
+  publisher: { '@type': 'EducationalOrganization', name: 'Xam Xam Academy' },
+  ...(image ? { image } : {}),
+};
+---
+<BaseLayout titre={titre} description={description} actif="ressources" typeOg="article" image={image} jsonLd={jsonLd} noindex={brouillon}>
+  <article class="doc">
+    <header class="doc__header">
+      <div class="container container--narrow">
+        <FilAriane etapes={[{ libelle: 'Blog', href: '/blog/' }, { libelle: titre }]} />
+        <div class="rcard__badges">
+          {categorie && <span class="badge badge--type">{categorie}</span>}
+          {brouillon && <span class="badge badge--draft">Brouillon (visible uniquement en local)</span>}
+        </div>
+        <h1 class="doc__title">{titre}</h1>
+        <p class="doc__lead">{description}</p>
+        <p class="doc__meta">
+          <span>{auteur}</span>
+          <span><time datetime={dateIso(date)}>{formaterDate(date)}</time></span>
+          <span><svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>{minutes} min de lecture</span>
+        </p>
+      </div>
+    </header>
+
+    {image && (
+      <div class="container container--narrow">
+        <img class="doc__cover" src={image} alt={image_alt ?? ''} width="1200" height="675" decoding="async">
+      </div>
+    )}
+
+    <div class="container container--narrow">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  {autres.length > 0 && (
+    <section class="section section--soft section--tight">
+      <div class="container">
+        <h2 class="related__title">À lire aussi</h2>
+        <ul class="posts-grid">
+          {autres.map((a) => <CarteArticle article={a} />)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <BandeauContact />
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+/* Filtres (boutons) au-dessus d'une liste de cartes.
+   Fonctionnement : src/scripts/filtres.ts — sans JavaScript, tout reste affiché. */
+interface Groupe {
+  /** Nom du filtre, identique à l'attribut data-… des cartes (ex. « niveau »). */
+  cle: string;
+  libelle: string;
+  valeurs: string[];
+}
+interface Props {
+  groupes: Groupe[];
+  /** Mot au singulier et au pluriel pour le compteur (« ressource », « ressources »). */
+  unite: [string, string];
+}
+const { groupes, unite } = Astro.props;
+const utiles = groupes.filter((g) => g.valeurs.length > 1);
+---
+<div class="filters" data-filters data-unite={unite.join('|')}>
+  {utiles.map((g) => (
+    <div class="filters__group" role="group" aria-label={g.libelle}>
+      <span class="filters__label">{g.libelle}</span>
+      <div class="filters__buttons">
+        <button class="filter is-active" type="button" data-filtre={g.cle} data-valeur="" aria-pressed="true">Tous</button>
+        {g.valeurs.map((v) => (
+          <button class="filter" type="button" data-filtre={g.cle} data-valeur={v} aria-pressed="false">{v}</button>
+        ))}
+      </div>
+    </div>
+  ))}
+  <p class="filters__count" data-compteur aria-live="polite"></p>
+</div>

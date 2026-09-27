@@ -1,0 +1,49 @@
+---
+/* Carte d'une vidéo : lecteur YouTube chargé au clic + lien de téléchargement. */
+import type { CollectionEntry } from 'astro:content';
+import { idYouTube } from '../lib/outils';
+
+interface Props {
+  video: CollectionEntry<'videos'>;
+}
+const { video } = Astro.props;
+const { titre, niveau, chapitre, description, youtube, telechargement, duree, brouillon } = video.data;
+const id = idYouTube(youtube);
+---
+<li class="vcard" id={`video-${video.id}`} data-niveau={niveau}>
+  <div class="vcard__media">
+    {id ? (
+      <button class="vcard__play" type="button" data-youtube={id} data-titre={titre} aria-label={`Lire la vidéo : ${titre}`}>
+        <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" width="480" height="360" loading="lazy" decoding="async">
+        <span class="vcard__play-icon" aria-hidden="true"><svg class="icon"><use href="#i-play" /></svg></span>
+      </button>
+    ) : (
+      <div class="vcard__placeholder" aria-hidden="true"><svg class="icon"><use href="#i-play" /></svg></div>
+    )}
+  </div>
+  <div class="vcard__body">
+    <div class="rcard__badges">
+      <span class="badge">{niveau}</span>
+      {duree && <span class="badge"><svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>{duree}</span>}
+      {brouillon && <span class="badge badge--draft">Brouillon</span>}
+    </div>
+    <h3 class="vcard__title">{titre}</h3>
+    {chapitre && <p class="rcard__chapter">{chapitre}</p>}
+    {description && <p class="rcard__text">{description}</p>}
+    {(id || telechargement) && (
+      <div class="vcard__actions">
+        {id && (
+          <a class="link-arrow" href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noopener">
+            Voir sur YouTube <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+          </a>
+        )}
+        {telechargement && (
+          <a class="btn btn--secondary btn--sm" href={telechargement} target="_blank" rel="noopener" download>
+            <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>
+            Télécharger
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+</li>

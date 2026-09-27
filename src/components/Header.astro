@@ -1,0 +1,67 @@
+---
+/* En-tête fixe : logo, navigation, bouton WhatsApp, menu mobile. */
+import { WHATSAPP_AFFICHAGE } from '../lib/constantes';
+import { lienWhatsApp } from '../lib/outils';
+
+interface Props {
+  /** true sur la page d'accueil (liens d'ancre directs). */
+  accueil?: boolean;
+  /** Rubrique active hors accueil (ex. « ressources »). */
+  actif?: string;
+}
+const { accueil = false, actif } = Astro.props;
+
+// Sur l'accueil : « #cours » ; ailleurs : « /#cours ».
+const ancre = (id: string) => (accueil ? `#${id}` : `/#${id}`);
+
+const liens = [
+  { libelle: 'Accueil', href: accueil ? '#accueil' : '/' },
+  { libelle: 'Cours', href: ancre('cours') },
+  { libelle: 'Notre méthode', href: ancre('methode') },
+  { libelle: 'Xam Xam Online', href: ancre('online') },
+  { libelle: 'Ressources', href: '/ressources/', rubrique: 'ressources' },
+  { libelle: 'À propos', href: ancre('a-propos') },
+  { libelle: 'FAQ', href: ancre('faq') },
+  { libelle: 'Contact', href: ancre('contact') },
+];
+
+const messageContact = 'Bonjour Xam Xam Academy, je souhaite avoir des informations sur vos cours de Physique-Chimie.';
+---
+<header class="site-header" id="header">
+  <div class="container header__inner">
+    <a class="brand" href={accueil ? '#accueil' : '/'}>
+      <!-- LOGO : public/assets/img/logo-horizontal.png (fond transparent, 540 × 120 px) -->
+      <img class="brand__logo" src="/assets/img/logo-horizontal.png" alt="Xam Xam Academy — accueil" width="540" height="120">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <ul class="nav__list">
+        {liens.map((lien) => {
+          const estActif = lien.rubrique !== undefined && lien.rubrique === actif;
+          return (
+            <li>
+              <a class:list={['nav__link', { 'is-active': estActif }]} href={lien.href} aria-current={estActif ? 'page' : undefined}>{lien.libelle}</a>
+            </li>
+          );
+        })}
+      </ul>
+      <div class="nav__mobile-footer">
+        <a class="btn btn--primary btn--block" href={lienWhatsApp(messageContact)} data-wa={messageContact} target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          Nous contacter
+        </a>
+        <p class="nav__mobile-note">WhatsApp : <span data-wa-display>{WHATSAPP_AFFICHAGE}</span></p>
+      </div>
+    </nav>
+
+    <a class="btn btn--primary btn--sm header__cta" href={lienWhatsApp(messageContact)} data-wa={messageContact} target="_blank" rel="noopener">
+      <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+      Nous contacter
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
+      <svg class="icon nav-toggle__open" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="icon nav-toggle__close" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+  </div>
+</header>

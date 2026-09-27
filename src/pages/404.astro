@@ -1,0 +1,17 @@
+---
+/* Page « introuvable » (servie automatiquement par l'hébergeur). */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout titre="Page introuvable" description="Cette page est introuvable." noindex={true}>
+  <section class="notfound">
+    <div class="container notfound__inner">
+      <p class="notfound__code">404</p>
+      <h1 class="notfound__title">Cette page est introuvable.</h1>
+      <p class="notfound__text">Le lien est peut-être incorrect ou la page n’existe plus. Revenez à l’accueil pour découvrir nos cours de Physique-Chimie.</p>
+      <div class="notfound__actions">
+        <a class="btn btn--primary btn--lg" href="/">Retour à l’accueil</a>
+        <a class="btn btn--secondary btn--lg" href="/ressources/">Voir les ressources</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

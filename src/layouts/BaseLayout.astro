@@ -54,6 +54,7 @@ const messageQuestion = "Bonjour Xam Xam Academy, j'ai une question.";
   <meta name="theme-color" content="#021F4D">
   <meta name="robots" content={noindex ? 'noindex' : 'index, follow'}>
   {canonique && <link rel="canonical" href={canonique}>}
+  {Astro.site && <link rel="sitemap" href="/sitemap-index.xml">}
 
   <meta property="og:type" content={typeOg}>
   <meta property="og:site_name" content="Xam Xam Academy">

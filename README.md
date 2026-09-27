@@ -260,7 +260,14 @@ Sur [vercel.com/new](https://vercel.com/new), importer le dépôt : Astro est d�
 - Build output directory : `dist`
 - Variable d'environnement : `NODE_VERSION` = `22`
 
-Le fichier `public/_headers` (en-têtes de sécurité) est pris en compte par Netlify et Cloudflare Pages.
+Le fichier `public/_headers` (en-têtes de sécurité et mise en cache) est pris en compte par Netlify et Cloudflare Pages.
+
+### Adresse du site
+
+L'adresse publique du site sert à l'aperçu de partage (WhatsApp, Facebook…), aux adresses canoniques et au plan du site pour Google :
+
+- **sur Netlify et Vercel**, elle est **détectée automatiquement** : rien à faire ;
+- **sur Cloudflare Pages, ou avec votre propre nom de domaine**, ajoutez dans les réglages de l'hébergeur la variable d'environnement `SITE_URL` avec l'adresse complète (ex. `https://www.xamxamacademy.com`), puis relancez un déploiement.
 
 > **Branche publiée.** L'hébergeur et l'administration utilisent la branche principale du dépôt (`main`). Les modifications préparées sur une autre branche doivent y être fusionnées pour apparaître en ligne.
 
@@ -268,8 +275,8 @@ Le fichier `public/_headers` (en-têtes de sécurité) est pris en compte par Ne
 
 ## 10. Après la mise en ligne
 
-1. Dans `astro.config.mjs`, décommenter la ligne `site:` et indiquer l'adresse définitive (ex. `https://www.xamxamacademy.com`). Le site ajoute alors automatiquement l'adresse canonique de chaque page et une image de partage en adresse complète.
-2. Déclarer le site dans [Google Search Console](https://search.google.com/search-console).
+1. Vérifier que l'adresse du site est connue (voir « Adresse du site » ci-dessus) : la page `https://votre-site/robots.txt` doit afficher une ligne `Sitemap:`.
+2. Déclarer le site dans [Google Search Console](https://search.google.com/search-console) et y soumettre le plan du site : `https://votre-site/sitemap-index.xml`.
 3. Tester l'aperçu de partage avec le [débogueur de partage Facebook](https://developers.facebook.com/tools/debug/) (également utilisé par WhatsApp).
 
 ---
@@ -277,7 +284,7 @@ Le fichier `public/_headers` (en-têtes de sécurité) est pris en compte par Ne
 ## 11. Structure des fichiers
 
 ```
-├── astro.config.mjs          ← configuration (formules, encadrés, adresse du site)
+├── astro.config.mjs          ← configuration (formules, encadrés, adresse du site, plan du site)
 ├── package.json              ← outils et commandes (npm run dev / build)
 ├── netlify.toml              ← réglages Netlify
 ├── public/                   ← fichiers copiés tels quels
@@ -285,14 +292,14 @@ Le fichier `public/_headers` (en-têtes de sécurité) est pris en compte par Ne
 │   ├── assets/               ← CSS, JavaScript, polices, logos, photo, icônes
 │   ├── documents/            ← PDF téléchargeables
 │   ├── images/               ← images des cours et du blog
-│   └── robots.txt, site.webmanifest, _headers
+│   └── site.webmanifest, _headers
 ├── src/
 │   ├── content/              ← LES CONTENUS (un fichier .md par cours, vidéo, article)
 │   │   ├── ressources/
 │   │   ├── videos/
 │   │   └── blog/
 │   ├── content.config.ts     ← champs autorisés pour chaque type de contenu
-│   ├── pages/                ← pages du site (accueil, ressources, vidéos, blog, 404)
+│   ├── pages/                ← pages du site (accueil, ressources, vidéos, blog, 404, robots.txt)
 │   ├── components/           ← éléments réutilisables (en-tête, pied de page, cartes…)
 │   ├── layouts/              ← gabarit commun à toutes les pages
 │   ├── lib/                  ← constantes, outils, traitement des encadrés et formules

@@ -24,6 +24,7 @@ const jsonLd = {
   ],
   knowsAbout: ['Physique', 'Chimie', 'Méthodologie scientifique'],
   sameAs: [YOUTUBE_URL],
+  ...(Astro.site ? { url: Astro.site.href, logo: new URL('/assets/img/logo-badge.png', Astro.site).href } : {}),
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer service',

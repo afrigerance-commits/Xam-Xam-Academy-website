@@ -1,0 +1,61 @@
+---
+/* Liste des vidéos de cours. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EnTetePage from '../../components/EnTetePage.astro';
+import Onglets from '../../components/Onglets.astro';
+import Filtres from '../../components/Filtres.astro';
+import CarteVideo from '../../components/CarteVideo.astro';
+import EtatVide from '../../components/EtatVide.astro';
+import BandeauContact from '../../components/BandeauContact.astro';
+import { videosPubliees } from '../../lib/contenus';
+import { NIVEAUX, YOUTUBE_URL } from '../../lib/constantes';
+
+const videos = await videosPubliees();
+const niveaux = NIVEAUX.filter((n) => videos.some((v) => v.data.niveau === n));
+---
+<BaseLayout
+  titre="Vidéos de cours de Physique-Chimie"
+  description="Vidéos de cours de Physique-Chimie de Xam Xam Academy : des notions expliquées pas à pas, à regarder en ligne ou à télécharger."
+  actif="ressources"
+>
+  <EnTetePage
+    surtitre="Ressources"
+    titre="Vidéos de cours"
+    chapeau="Des notions de Physique-Chimie expliquées pas à pas, à regarder en ligne ou à télécharger lorsque le fichier est proposé."
+  >
+    <Onglets actif="videos" />
+  </EnTetePage>
+
+  <section class="section section--tight">
+    <div class="container">
+      {videos.length > 0 ? (
+        <>
+          <Filtres unite={['vidéo', 'vidéos']} groupes={[{ cle: 'niveau', libelle: 'Niveau', valeurs: niveaux }]} />
+          <h2 class="sr-only">Liste des vidéos</h2>
+          <ul class="cards-grid" data-items>
+            {videos.map((v) => <CarteVideo video={v} />)}
+          </ul>
+          <p class="filters__none" data-aucun hidden>Aucune vidéo pour ce niveau pour le moment.</p>
+          <p class="more-link">
+            <a class="link-arrow" href={YOUTUBE_URL} target="_blank" rel="noopener">
+              Toutes les vidéos sur la chaîne YouTube <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+            </a>
+          </p>
+        </>
+      ) : (
+        <EtatVide
+          icone="i-play"
+          titre="Les vidéos arrivent bientôt ici"
+          texte="Les vidéos de cours seront proposées sur cette page, à regarder en ligne ou à télécharger. En attendant, retrouvez Xam Xam Academy sur YouTube."
+        />
+      )}
+    </div>
+  </section>
+
+  <BandeauContact />
+</BaseLayout>
+
+<script>
+  import '../../scripts/filtres';
+  import '../../scripts/videos';
+</script>

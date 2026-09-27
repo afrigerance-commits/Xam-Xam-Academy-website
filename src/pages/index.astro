@@ -1,0 +1,724 @@
+---
+/* =====================================================================
+   PAGE D'ACCUEIL
+   Les textes se modifient directement dans le HTML ci-dessous.
+   ===================================================================== */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DerniersAjouts from '../components/DerniersAjouts.astro';
+import { YOUTUBE_URL } from '../lib/constantes';
+
+const description =
+  'Cours de Physique-Chimie à domicile et en ligne. Accompagnement scolaire, exercices, méthodologie et préparation BFEM/Bac à Dakar et Thiès.';
+
+// Données structurées (compréhension du site par Google)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: 'Xam Xam Academy',
+  slogan: 'Comprendre. Progresser. Réussir.',
+  description,
+  telephone: '+221711715359',
+  areaServed: [
+    { '@type': 'City', name: 'Dakar' },
+    { '@type': 'City', name: 'Thiès' },
+  ],
+  knowsAbout: ['Physique', 'Chimie', 'Méthodologie scientifique'],
+  sameAs: [YOUTUBE_URL],
+  ...(Astro.site ? { url: Astro.site.href, logo: new URL('/assets/img/logo-badge.png', Astro.site).href } : {}),
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    telephone: '+221711715359',
+    url: 'https://wa.me/221711715359',
+    availableLanguage: 'French',
+  },
+};
+---
+<BaseLayout description={description} accueil={true} jsonLd={jsonLd}>
+
+  <!-- =================================================================
+       HERO
+       ================================================================= -->
+  <section class="hero" id="accueil" aria-labelledby="hero-title">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow rise">Comprendre. Progresser. Réussir.</p>
+        <h1 class="hero__title rise" id="hero-title" data-delay="1">
+          Progressez <span class="highlight">réellement</span> en Physique-Chimie.
+        </h1>
+        <p class="hero__lead rise" data-delay="2">
+          Cours, exercices, méthodologie et suivi personnalisé du collège jusqu’à l’enseignement supérieur.
+        </p>
+
+        <ul class="hero__services rise" data-delay="3">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cours à domicile</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cours de renforcement</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cours en ligne</li>
+        </ul>
+
+        <div class="hero__actions rise" data-delay="4">
+          <a class="btn btn--primary btn--lg" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite réserver un accompagnement en Physique-Chimie." target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Réserver un accompagnement
+          </a>
+          <a class="btn btn--secondary btn--lg" href="#cours">
+            Découvrir nos cours
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"/></svg>
+          </a>
+        </div>
+
+        <p class="hero__zones rise" data-delay="5">
+          <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
+          <span>Dakar</span><span class="dot" aria-hidden="true">•</span><span>Thiès</span><span class="dot" aria-hidden="true">•</span><span>En ligne</span>
+        </p>
+      </div>
+
+      <!-- Illustration éducative (décorative) -->
+      <div class="hero__visual rise" data-delay="2" aria-hidden="true">
+        <svg class="hero-art" viewBox="0 0 560 500" focusable="false">
+          <defs>
+            <linearGradient id="g-board" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0C3674"/>
+              <stop offset="1" stop-color="#021F4D"/>
+            </linearGradient>
+            <pattern id="p-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+              <path d="M22 0H0V22" fill="none" stroke="#FFFFFF" stroke-opacity=".06"/>
+            </pattern>
+            <clipPath id="c-board"><rect x="60" y="30" width="470" height="330" rx="26"/></clipPath>
+            <filter id="f-shadow" x="-25%" y="-25%" width="150%" height="170%">
+              <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#021F4D" flood-opacity=".14"/>
+            </filter>
+          </defs>
+
+          <!-- Orbite décorative -->
+          <ellipse cx="300" cy="210" rx="262" ry="128" transform="rotate(-16 300 210)" fill="none" stroke="#2355D6" stroke-opacity=".16" stroke-dasharray="2 8" stroke-linecap="round"/>
+          <circle cx="36" cy="228" r="5" fill="#F9B603"/>
+
+          <!-- Tableau -->
+          <rect x="60" y="30" width="470" height="330" rx="26" fill="url(#g-board)"/>
+          <rect x="60" y="30" width="470" height="330" fill="url(#p-grid)" clip-path="url(#c-board)"/>
+          <circle cx="92" cy="62" r="4.5" fill="#FFFFFF" fill-opacity=".22"/>
+          <circle cx="108" cy="62" r="4.5" fill="#FFFFFF" fill-opacity=".22"/>
+          <circle cx="124" cy="62" r="4.5" fill="#FFFFFF" fill-opacity=".22"/>
+          <text x="500" y="66" text-anchor="end" class="art-label">Physique-Chimie</text>
+
+          <text x="92" y="136" class="art-formula art-formula--xl">U = R × I</text>
+          <text x="94" y="162" class="art-caption">Loi d’Ohm</text>
+          <text x="92" y="222" class="art-formula">E<tspan class="art-sub" dy="5">c</tspan><tspan dy="-5"> = ½ m v²</tspan></text>
+          <text x="318" y="222" class="art-formula">C = n / V</text>
+
+          <!-- Molécule d'eau -->
+          <line x1="436" y1="118" x2="404" y2="150" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3"/>
+          <line x1="436" y1="118" x2="468" y2="150" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3"/>
+          <circle cx="436" cy="118" r="18" fill="#3A6CF0"/>
+          <circle cx="404" cy="150" r="10" fill="#FFFFFF"/>
+          <circle cx="468" cy="150" r="10" fill="#FFFFFF"/>
+
+          <!-- Onde -->
+          <path d="M92 298H500M92 262v72" stroke="#FFFFFF" stroke-opacity=".16"/>
+          <path d="M92 298c25-30 50-30 75 0s50 30 75 0 50-30 75 0 50 30 75 0 50-30 75 0" fill="none" stroke="#F9B603" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Carte « Méthode » -->
+          <rect x="16" y="300" width="236" height="186" rx="18" fill="#FFFFFF" filter="url(#f-shadow)"/>
+          <text x="38" y="334" class="art-card-title">La méthode Xam Xam</text>
+          <g class="art-steps">
+            <circle cx="49" cy="360" r="11"/><text x="49" y="364.5" class="art-step-num">1</text><text x="70" y="365" class="art-step">Diagnostic</text>
+            <circle cx="49" cy="391" r="11"/><text x="49" y="395.5" class="art-step-num">2</text><text x="70" y="396" class="art-step">Cours personnalisé</text>
+            <circle cx="49" cy="422" r="11"/><text x="49" y="426.5" class="art-step-num">3</text><text x="70" y="427" class="art-step">Entraînement</text>
+            <circle cx="49" cy="453" r="11"/><text x="49" y="457.5" class="art-step-num">4</text><text x="70" y="458" class="art-step">Suivi</text>
+          </g>
+
+          <!-- Carte « Examens » -->
+          <rect x="330" y="330" width="200" height="82" rx="18" fill="#FFFFFF" filter="url(#f-shadow)"/>
+          <circle cx="369" cy="371" r="21" fill="#021F4D"/>
+          <use href="#i-award" x="357" y="359" width="24" height="24" fill="none" stroke="#F9B603" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="402" y="364" class="art-card-label">Préparation</text>
+          <text x="402" y="386" class="art-card-value">BFEM &amp; Bac</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       NOS COURS
+       ================================================================= -->
+  <section class="section section--soft" id="cours" aria-labelledby="cours-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Nos cours</p>
+        <h2 class="section-title" id="cours-title">Un accompagnement adapté à chaque élève</h2>
+        <p class="section-lead">Trois formats complémentaires pour comprendre, s’entraîner et progresser en Physique-Chimie.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <article class="card service reveal">
+          <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg></span>
+          <h3 class="card__title">Cours à domicile</h3>
+          <p class="card__text">Accompagnement personnalisé, reprise du cours, exercices et méthodologie directement avec l’élève.</p>
+          <p class="service__meta"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><span><strong>Disponibilité :</strong> Dakar et Thiès</span></p>
+          <a class="link-arrow" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite avoir plus d'informations sur vos cours à domicile." target="_blank" rel="noopener" aria-label="En savoir plus sur les cours à domicile (WhatsApp)">
+            En savoir plus <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </a>
+        </article>
+
+        <article class="card service reveal" data-delay="1">
+          <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span>
+          <h3 class="card__title">Cours de renforcement</h3>
+          <p class="card__text">Consolider les bases, corriger les lacunes et progresser grâce à des exercices ciblés et une méthode adaptée.</p>
+          <p class="service__meta"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg><span><strong>Niveaux :</strong> du collège au supérieur</span></p>
+          <a class="link-arrow" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite avoir plus d'informations sur vos cours de renforcement." target="_blank" rel="noopener" aria-label="En savoir plus sur les cours de renforcement (WhatsApp)">
+            En savoir plus <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </a>
+        </article>
+
+        <article class="card service reveal" data-delay="2">
+          <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg></span>
+          <h3 class="card__title">Cours en ligne</h3>
+          <p class="card__text">Des séances interactives à distance avec explications, exercices, corrections et suivi de progression.</p>
+          <p class="service__meta"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg><span><strong>Disponibilité :</strong> à distance</span></p>
+          <a class="link-arrow" href="#online" aria-label="En savoir plus sur les cours en ligne Xam Xam Online">
+            En savoir plus <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       NIVEAUX
+       ================================================================= -->
+  <section class="section" id="niveaux" aria-labelledby="niveaux-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Niveaux</p>
+        <h2 class="section-title" id="niveaux-title">Du collège à l’université</h2>
+        <p class="section-lead">Un accompagnement en Physique-Chimie qui suit l’élève à chaque étape de son parcours.</p>
+      </div>
+
+      <div class="grid grid--3 levels">
+        <article class="level reveal">
+          <p class="level__step">01</p>
+          <h3 class="level__title">Collège</h3>
+          <ul class="chips">
+            <li class="chip">4e</li>
+            <li class="chip">3e</li>
+            <li class="chip chip--accent">Préparation BFEM</li>
+          </ul>
+        </article>
+
+        <article class="level reveal" data-delay="1">
+          <p class="level__step">02</p>
+          <h3 class="level__title">Lycée</h3>
+          <ul class="chips">
+            <li class="chip">Seconde</li>
+            <li class="chip">Première</li>
+            <li class="chip">Terminale</li>
+            <li class="chip chip--accent">Préparation au Bac</li>
+          </ul>
+        </article>
+
+        <article class="level reveal" data-delay="2">
+          <p class="level__step">03</p>
+          <h3 class="level__title">Enseignement supérieur</h3>
+          <ul class="chips">
+            <li class="chip">L1</li>
+            <li class="chip">L2</li>
+            <li class="chip">L3</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="focus reveal">
+        <p class="focus__label">Au cœur de l’accompagnement</p>
+        <ul class="focus__list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-atom"/></svg>Physique</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg>Chimie</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>Méthodologie scientifique</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg>Exercices</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg>Préparation aux évaluations</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       MÉTHODE XAM XAM
+       ================================================================= -->
+  <section class="section section--soft" id="methode" aria-labelledby="methode-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Notre méthode</p>
+        <h2 class="section-title" id="methode-title">Plus qu’un simple cours particulier</h2>
+        <p class="section-lead">Une démarche en quatre étapes pour cibler ce qui compte vraiment.</p>
+      </div>
+
+      <ol class="steps">
+        <li class="step reveal">
+          <div class="step__head">
+            <span class="step__num">01</span>
+            <span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+          </div>
+          <h3 class="step__title">Diagnostic</h3>
+          <p class="step__text">Identifier les difficultés&nbsp;:</p>
+          <ul class="tags">
+            <li>compréhension</li><li>calcul</li><li>unités</li><li>méthode</li><li>raisonnement</li>
+          </ul>
+        </li>
+
+        <li class="step reveal" data-delay="1">
+          <div class="step__head">
+            <span class="step__num">02</span>
+            <span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span>
+          </div>
+          <h3 class="step__title">Cours personnalisé</h3>
+          <p class="step__text">Reprendre les notions essentielles avec une explication adaptée au niveau de l’élève.</p>
+        </li>
+
+        <li class="step reveal" data-delay="2">
+          <div class="step__head">
+            <span class="step__num">03</span>
+            <span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg></span>
+          </div>
+          <h3 class="step__title">Entraînement</h3>
+          <p class="step__text">Exercices progressifs&nbsp;:</p>
+          <ul class="tags">
+            <li>application</li><li>consolidation</li><li>devoirs</li><li>examens</li>
+          </ul>
+        </li>
+
+        <li class="step reveal" data-delay="3">
+          <div class="step__head">
+            <span class="step__num">04</span>
+            <span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span>
+          </div>
+          <h3 class="step__title">Suivi</h3>
+          <p class="step__text">Observer les progrès et identifier les prochaines priorités.</p>
+        </li>
+      </ol>
+
+      <blockquote class="quote reveal">
+        <p>«&nbsp;L’objectif n’est pas simplement de faire plus d’heures de cours, mais de comprendre précisément ce qui bloque l’élève.&nbsp;»</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       XAM XAM ONLINE
+       ================================================================= -->
+  <section class="section section--dark online" id="online" aria-labelledby="online-title">
+    <!-- Motif moléculaire décoratif -->
+    <svg class="online__decor" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M80 60 140 95v70l-60 35-60-35V95z"/>
+        <path d="M140 95 200 60l60 35v70l-60 35-60-35"/>
+        <path d="M260 165 320 200v60M200 200v60"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="80" cy="60" r="5"/><circle cx="200" cy="60" r="5"/><circle cx="260" cy="165" r="5"/>
+        <circle cx="320" cy="260" r="7"/><circle cx="200" cy="260" r="7"/><circle cx="20" cy="165" r="5"/>
+      </g>
+    </svg>
+
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Cours en ligne</p>
+        <h2 class="section-title" id="online-title">Xam Xam Online</h2>
+        <p class="section-lead">Apprendre où que vous soyez, sans renoncer au suivi.</p>
+      </div>
+
+      <div class="grid grid--3 plans">
+        <!-- Formule 1 -->
+        <article class="plan reveal">
+          <p class="plan__kicker">Formule 1</p>
+          <h3 class="plan__title">Xam Xam Online <span>Essentiel</span></h3>
+          <p class="plan__desc">Pour les élèves recherchant un accompagnement simple et efficace.</p>
+          <ul class="plan__features">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cours en ligne</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Exercices d’application</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Corrections détaillées</li>
+          </ul>
+          <a class="btn btn--outline-light btn--block" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite avoir plus d'informations sur vos cours en ligne.&#10;Formule : Xam Xam Online Essentiel" target="_blank" rel="noopener">
+            Demander les modalités <span class="sr-only">de la formule Essentiel (WhatsApp)</span>
+          </a>
+        </article>
+
+        <!-- Formule 2 : mise en avant (suivi renforcé) -->
+        <article class="plan plan--featured reveal" data-delay="1">
+          <p class="plan__badge">Suivi renforcé</p>
+          <p class="plan__kicker">Formule 2</p>
+          <h3 class="plan__title">Xam Xam Online <span>Progression</span></h3>
+          <p class="plan__desc">Pour suivre la progression de l’élève de façon structurée, avec un bilan pour les parents.</p>
+          <p class="plan__includes">Inclut Essentiel +</p>
+          <ul class="plan__features">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Diagnostic initial</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Carnet de progression</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Bilan parent</li>
+          </ul>
+          <a class="btn btn--primary btn--block" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite avoir plus d'informations sur vos cours en ligne.&#10;Formule : Xam Xam Online Progression" target="_blank" rel="noopener">
+            Demander les modalités <span class="sr-only">de la formule Progression (WhatsApp)</span>
+          </a>
+        </article>
+
+        <!-- Formule 3 -->
+        <article class="plan reveal" data-delay="2">
+          <p class="plan__kicker">Formule 3</p>
+          <h3 class="plan__title">Xam Xam Online <span>Plus</span></h3>
+          <p class="plan__desc">Pour un accompagnement complet, jusqu’à la préparation des devoirs et des examens.</p>
+          <p class="plan__includes">Inclut Progression +</p>
+          <ul class="plan__features">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>SOS Exercice WhatsApp</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Exercices personnalisés</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Préparation devoirs et examens</li>
+          </ul>
+          <a class="btn btn--outline-light btn--block" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite avoir plus d'informations sur vos cours en ligne.&#10;Formule : Xam Xam Online Plus" target="_blank" rel="noopener">
+            Demander les modalités <span class="sr-only">de la formule Plus (WhatsApp)</span>
+          </a>
+        </article>
+      </div>
+
+      <p class="online__note reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-message"/></svg>
+        Les modalités de chaque formule vous sont communiquées sur simple demande via WhatsApp.
+      </p>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       COMMENT ÇA MARCHE ?
+       ================================================================= -->
+  <section class="section" id="fonctionnement" aria-labelledby="fonctionnement-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Démarrer</p>
+        <h2 class="section-title" id="fonctionnement-title">Comment ça marche&nbsp;?</h2>
+        <p class="section-lead">Cinq étapes simples, du premier message au suivi de la progression.</p>
+      </div>
+
+      <ol class="process">
+        <li class="process__item reveal">
+          <span class="process__icon"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
+          <span class="process__num">Étape 1</span>
+          <h3 class="process__title">Inscription WhatsApp</h3>
+          <p class="process__text">Écrivez-nous en précisant la classe de l’élève et ses besoins.</p>
+        </li>
+        <li class="process__item reveal" data-delay="1">
+          <span class="process__icon"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span>
+          <span class="process__num">Étape 2</span>
+          <h3 class="process__title">Diagnostic / orientation</h3>
+          <p class="process__text">Nous identifions les difficultés et le format le plus adapté.</p>
+        </li>
+        <li class="process__item reveal" data-delay="2">
+          <span class="process__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+          <span class="process__num">Étape 3</span>
+          <h3 class="process__title">Choix&nbsp;: cours individuel ou en groupe</h3>
+          <p class="process__text">L’accompagnement est organisé seul ou en petit groupe, selon les besoins.</p>
+        </li>
+        <li class="process__item reveal" data-delay="3">
+          <span class="process__icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+          <span class="process__num">Étape 4</span>
+          <h3 class="process__title">Début des séances</h3>
+          <p class="process__text">À domicile à Dakar et Thiès, ou en ligne.</p>
+        </li>
+        <li class="process__item reveal" data-delay="4">
+          <span class="process__icon"><svg class="icon" aria-hidden="true"><use href="#i-clipboard"/></svg></span>
+          <span class="process__num">Étape 5</span>
+          <h3 class="process__title">Exercices, corrections et suivi</h3>
+          <p class="process__text">L’élève s’entraîne, ses exercices sont corrigés et sa progression suivie.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       CONTENUS PÉDAGOGIQUES
+       ================================================================= -->
+  <section class="section section--soft" id="contenus" aria-labelledby="contenus-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ressources</p>
+        <h2 class="section-title" id="contenus-title">Apprendre aussi en dehors des cours</h2>
+        <p class="section-lead">Xam Xam Academy développe également des contenus pédagogiques pour réviser et s’entraîner en autonomie.</p>
+      </div>
+
+      <ul class="resources">
+        <li class="resource reveal">
+          <a class="resource__link" href="/videos/">
+            <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></span>
+            <h3 class="resource__title">Vidéos YouTube</h3>
+            <p class="resource__text">Des notions expliquées pas à pas.</p>
+          </a>
+        </li>
+        <li class="resource reveal" data-delay="1">
+          <a class="resource__link" href="/ressources/?type=Exercices+corrig%C3%A9s">
+            <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg></span>
+            <h3 class="resource__title">Exercices corrigés</h3>
+            <p class="resource__text">Pour s’entraîner et vérifier sa démarche.</p>
+          </a>
+        </li>
+        <li class="resource reveal" data-delay="2">
+          <a class="resource__link" href="/ressources/?type=Fiche+de+r%C3%A9vision">
+            <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <h3 class="resource__title">Fiches de révision</h3>
+            <p class="resource__text">L’essentiel du cours, en bref.</p>
+          </a>
+        </li>
+        <li class="resource reveal" data-delay="3">
+          <a class="resource__link" href="/ressources/?type=M%C3%A9thode">
+            <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-bulb"/></svg></span>
+            <h3 class="resource__title">Méthodes</h3>
+            <p class="resource__text">Les bons réflexes face à un exercice.</p>
+          </a>
+        </li>
+        <li class="resource reveal" data-delay="4">
+          <a class="resource__link" href="/ressources/?type=Fascicule">
+            <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></span>
+            <h3 class="resource__title">Fascicules pédagogiques</h3>
+            <p class="resource__text">Des supports structurés pour réviser.</p>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Derniers contenus publiés (affichés automatiquement dès qu'il y en a) -->
+      <DerniersAjouts />
+
+      <div class="resources__footer reveal">
+        <p>Des contenus de Physique-Chimie seront progressivement proposés du collège jusqu’à la Licence.</p>
+        <div class="resources__actions">
+          <a class="btn btn--primary" href="/ressources/">
+            Découvrir nos contenus
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </a>
+          <a class="btn btn--secondary" href={YOUTUBE_URL} target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg>
+            Chaîne YouTube
+            <span class="sr-only">(nouvel onglet)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       À PROPOS
+       ================================================================= -->
+  <section class="section" id="a-propos" aria-labelledby="apropos-title">
+    <div class="container about">
+      <div class="about__visual reveal">
+        <!-- PHOTO DU FONDATEUR (format 4:5) : public/assets/img/fondateur-480.webp, fondateur-800.webp et fondateur-800.jpg -->
+        <figure class="about__figure">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/fondateur-480.webp 480w, /assets/img/fondateur-800.webp 800w" sizes="(min-width: 992px) 504px, (min-width: 600px) 520px, calc(100vw - 40px)">
+            <img class="about__photo" src="/assets/img/fondateur-800.jpg" alt="Portrait du fondateur de Xam Xam Academy" width="800" height="1000" loading="lazy" decoding="async">
+          </picture>
+          <figcaption class="about__caption">
+            <img src="/assets/img/logo-badge.png" alt="" width="256" height="259" loading="lazy" decoding="async">
+            <span><strong>Fondateur</strong>Xam Xam Academy</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="about__content">
+        <p class="eyebrow reveal">À propos</p>
+        <h2 class="section-title reveal" id="apropos-title">L’enseignement autrement</h2>
+        <p class="about__lead reveal">
+          Xam Xam Academy est né d’une conviction simple&nbsp;: beaucoup d’élèves peuvent progresser lorsque les notions sont expliquées autrement, que leurs difficultés sont précisément identifiées et que leur progression est réellement suivie.
+        </p>
+        <p class="about__text reveal">Notre approche associe explication, méthodologie, entraînement et accompagnement.</p>
+
+        <ul class="pillars reveal">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-bulb"/></svg>Explication</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>Méthodologie</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg>Entraînement</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>Accompagnement</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       PARENTS
+       ================================================================= -->
+  <section class="section section--soft" id="parents" aria-labelledby="parents-title">
+    <div class="container parents">
+      <div class="parents__content">
+        <p class="eyebrow reveal">Parents</p>
+        <h2 class="section-title reveal" id="parents-title">Un suivi plus clair pour les parents</h2>
+        <p class="parents__lead reveal">
+          Lorsque l’accompagnement le prévoit, le suivi permet d’identifier les notions travaillées, les difficultés persistantes, les acquis et les prochaines priorités.
+        </p>
+        <ul class="parents__list reveal">
+          <li><span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span>Les notions travaillées</li>
+          <li><span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg></span>Les difficultés persistantes</li>
+          <li><span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg></span>Les acquis</li>
+          <li><span class="icon-badge icon-badge--sm"><svg class="icon" aria-hidden="true"><use href="#i-flag"/></svg></span>Les prochaines priorités</li>
+        </ul>
+      </div>
+
+      <div class="flow-card reveal" data-delay="1">
+        <p class="flow-card__title">Le parcours de suivi</p>
+        <ol class="flow">
+          <li class="flow__item"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Cours</li>
+          <li class="flow__item"><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg>Exercices</li>
+          <li class="flow__item"><svg class="icon" aria-hidden="true"><use href="#i-clipboard"/></svg>Évaluation</li>
+          <li class="flow__item"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Progression</li>
+          <li class="flow__item flow__item--final"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Bilan</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       FAQ
+       ================================================================= -->
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="container faq">
+      <div class="faq__intro">
+        <p class="eyebrow reveal">FAQ</p>
+        <h2 class="section-title reveal" id="faq-title">Questions fréquentes</h2>
+        <p class="section-lead reveal">Vous ne trouvez pas votre réponse&nbsp;? Posez-nous directement votre question.</p>
+        <a class="link-arrow reveal" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, j'ai une question." target="_blank" rel="noopener">
+          Écrire sur WhatsApp <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </div>
+
+      <div class="faq__list reveal">
+        <details class="faq__item" name="faq">
+          <summary>Où sont proposés les cours à domicile&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <div class="faq__answer"><p>Dakar et Thiès.</p></div>
+        </details>
+        <details class="faq__item" name="faq">
+          <summary>Les cours sont-ils disponibles en ligne&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <div class="faq__answer"><p>Oui, <a href="#online">Xam Xam Online</a> permet de suivre les séances à distance.</p></div>
+        </details>
+        <details class="faq__item" name="faq">
+          <summary>Quels niveaux accompagnez-vous&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <div class="faq__answer"><p>Collège, lycée et progressivement enseignement supérieur en Physique-Chimie.</p></div>
+        </details>
+        <details class="faq__item" name="faq">
+          <summary>Faites-vous la préparation au BFEM et au Bac&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <div class="faq__answer"><p>Oui, des séances de renforcement et de préparation aux examens peuvent être organisées.</p></div>
+        </details>
+        <details class="faq__item" name="faq">
+          <summary>Comment s’inscrire&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <div class="faq__answer">
+            <p>Contactez Xam Xam Academy sur <a href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite inscrire un élève." target="_blank" rel="noopener">WhatsApp</a> afin de préciser&nbsp;:</p>
+            <ul>
+              <li>le prénom de l’élève&nbsp;;</li>
+              <li>sa classe&nbsp;;</li>
+              <li>ses difficultés&nbsp;;</li>
+              <li>ses disponibilités&nbsp;;</li>
+              <li>le type d’accompagnement recherché.</li>
+            </ul>
+          </div>
+        </details>
+        <details class="faq__item" name="faq">
+          <summary>Proposez-vous des cours individuels&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <div class="faq__answer"><p>Oui. Les cours peuvent être organisés individuellement ou en petits groupes selon les besoins.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       CONTACT
+       ================================================================= -->
+  <section class="section section--soft contact-section" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact reveal">
+        <svg class="contact__decor" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.2">
+            <ellipse cx="200" cy="200" rx="190" ry="76"/>
+            <ellipse cx="200" cy="200" rx="190" ry="76" transform="rotate(60 200 200)"/>
+            <ellipse cx="200" cy="200" rx="190" ry="76" transform="rotate(120 200 200)"/>
+          </g>
+          <circle cx="200" cy="200" r="10" fill="currentColor"/>
+        </svg>
+
+        <div class="contact__intro">
+          <p class="eyebrow eyebrow--light">Contact</p>
+          <h2 class="contact__title" id="contact-title">Parlons des besoins de l’élève.</h2>
+          <p class="contact__text">Indiquez-nous simplement sa classe et les difficultés rencontrées.</p>
+
+          <a class="btn btn--whatsapp btn--xl" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite parler des besoins de mon enfant en Physique-Chimie." target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Écrire sur WhatsApp
+          </a>
+
+          <ul class="contact__details">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp&nbsp;: <strong data-wa-display>+221 71 171 53 59</strong></span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><span>Dakar • Thiès • En ligne</span></li>
+          </ul>
+        </div>
+
+        <!-- Formulaire sans backend : il génère un message WhatsApp prérempli (voir public/assets/js/main.js) -->
+        <form class="form" id="contact-form" action="#contact" novalidate aria-labelledby="form-title">
+          <p class="form__title" id="form-title">Préparer mon message</p>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-prenom">Prénom de l’élève <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-prenom" name="prenom" type="text" autocomplete="given-name" required aria-describedby="f-prenom-error" placeholder="Ex. Awa">
+              <p class="field__error" id="f-prenom-error"></p>
+            </div>
+            <div class="field">
+              <label for="f-classe">Classe <span class="req" aria-hidden="true">*</span></label>
+              <select id="f-classe" name="classe" required aria-describedby="f-classe-error">
+                <option value="">Choisir…</option>
+                <optgroup label="Collège">
+                  <option>4e</option>
+                  <option>3e</option>
+                </optgroup>
+                <optgroup label="Lycée">
+                  <option>Seconde</option>
+                  <option>Première</option>
+                  <option>Terminale</option>
+                </optgroup>
+                <optgroup label="Enseignement supérieur">
+                  <option>L1</option>
+                  <option>L2</option>
+                  <option>L3</option>
+                </optgroup>
+                <option>Autre</option>
+              </select>
+              <p class="field__error" id="f-classe-error"></p>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-ville">Ville</label>
+              <select id="f-ville" name="ville">
+                <option value="">Choisir…</option>
+                <option>Dakar</option>
+                <option>Thiès</option>
+                <option>Autre ville</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-type">Type de cours</label>
+              <select id="f-type" name="type">
+                <option value="">Choisir…</option>
+                <option>Cours à domicile</option>
+                <option>Cours de renforcement</option>
+                <option>Cours en ligne (Xam Xam Online)</option>
+                <option>Je ne sais pas encore</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-message">Message</label>
+            <textarea id="f-message" name="message" rows="4" placeholder="Difficultés rencontrées, disponibilités…"></textarea>
+          </div>
+
+          <button class="btn btn--primary btn--block btn--lg" type="submit">
+            <svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>
+            Envoyer
+          </button>
+          <p class="form__note">WhatsApp s’ouvre avec votre message prérempli&nbsp;: il ne vous reste plus qu’à l’envoyer. Aucune donnée n’est enregistrée sur ce site.</p>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+/* Fil d'Ariane : Accueil › Rubrique › Page. */
+interface Props {
+  etapes: { libelle: string; href?: string }[];
+}
+const { etapes } = Astro.props;
+---
+<nav class="breadcrumb" aria-label="Fil d’Ariane">
+  <ol>
+    <li><a href="/">Accueil</a></li>
+    {etapes.map((e) => (
+      <li>
+        <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+        {e.href ? <a href={e.href}>{e.libelle}</a> : <span aria-current="page">{e.libelle}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>

@@ -1,0 +1,29 @@
+---
+/* Message affiché lorsqu'une rubrique n'a pas encore de contenu. */
+import { YOUTUBE_URL } from '../lib/constantes';
+import { lienWhatsApp } from '../lib/outils';
+
+interface Props {
+  titre: string;
+  texte: string;
+  icone?: string;
+}
+const { titre, texte, icone = 'i-book' } = Astro.props;
+const message = 'Bonjour Xam Xam Academy, je souhaite avoir des informations sur vos cours de Physique-Chimie.';
+---
+<div class="empty">
+  <span class="empty__icon"><svg class="icon" aria-hidden="true"><use href={`#${icone}`} /></svg></span>
+  <h2 class="empty__title">{titre}</h2>
+  <p class="empty__text">{texte}</p>
+  <div class="empty__actions">
+    <a class="btn btn--primary" href={YOUTUBE_URL} target="_blank" rel="noopener">
+      <svg class="icon" aria-hidden="true"><use href="#i-youtube" /></svg>
+      Voir la chaîne YouTube
+      <span class="sr-only">(nouvel onglet)</span>
+    </a>
+    <a class="btn btn--secondary" href={lienWhatsApp(message)} data-wa={message} target="_blank" rel="noopener">
+      <svg class="icon" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+      Nous écrire
+    </a>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+# En-têtes HTTP — pris en compte par Netlify et Cloudflare Pages (ignoré par Vercel).
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Les polices ne changent jamais : mise en cache longue durée.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fichiers générés par Astro (nom unique à chaque version) : mise en cache longue durée.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

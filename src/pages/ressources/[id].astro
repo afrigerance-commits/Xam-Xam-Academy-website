@@ -1,0 +1,105 @@
+---
+/* Page d'une ressource : cours, exercices corrigés, fiche… */
+import { render } from 'astro:content';
+import 'katex/dist/katex.min.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import CarteRessource from '../../components/CarteRessource.astro';
+import BandeauContact from '../../components/BandeauContact.astro';
+import { ressourcesPubliees } from '../../lib/contenus';
+import { dateIso, formaterDate, lienWhatsApp } from '../../lib/outils';
+
+export async function getStaticPaths() {
+  const ressources = await ressourcesPubliees();
+  return ressources.map((ressource) => ({
+    params: { id: ressource.id },
+    props: { ressource, autres: ressources.filter((r) => r.id !== ressource.id) },
+  }));
+}
+
+const { ressource, autres } = Astro.props;
+const { titre, type, niveau, matiere, chapitre, description, date, fichier, brouillon } = ressource.data;
+const { Content } = await render(ressource);
+const aDuContenu = (ressource.body ?? '').trim().length > 0;
+const pdfExterne = fichier ? /^https?:\/\//.test(fichier) : false;
+
+// Suggestions : même niveau d'abord, puis les plus récentes.
+const suggestions = [...autres.filter((r) => r.data.niveau === niveau), ...autres.filter((r) => r.data.niveau !== niveau)].slice(0, 3);
+const message = `Bonjour Xam Xam Academy, j'ai une question sur la ressource « ${titre} » (${niveau}).`;
+---
+<BaseLayout
+  titre={`${titre} (${niveau})`}
+  description={description ?? `${type} de ${matiere} pour le niveau ${niveau}${chapitre ? ` : ${chapitre}` : ''}.`}
+  actif="ressources"
+  typeOg="article"
+  noindex={brouillon}
+>
+  <article class="doc">
+    <header class="doc__header">
+      <div class="container container--narrow">
+        <FilAriane etapes={[{ libelle: 'Ressources', href: '/ressources/' }, { libelle: titre }]} />
+        <div class="rcard__badges">
+          <span class="badge badge--type">{type}</span>
+          <span class="badge">{niveau}</span>
+          <span class="badge">{matiere}</span>
+          {brouillon && <span class="badge badge--draft">Brouillon (visible uniquement en local)</span>}
+        </div>
+        <h1 class="doc__title">{titre}</h1>
+        {description && <p class="doc__lead">{description}</p>}
+        <p class="doc__meta">
+          {chapitre && <span>{chapitre}</span>}
+          <span>Publié le <time datetime={dateIso(date)}>{formaterDate(date)}</time></span>
+        </p>
+        {fichier && (
+          <div class="doc__actions">
+            <a class="btn btn--primary" href={fichier} download={pdfExterne ? undefined : ''} target={pdfExterne ? '_blank' : undefined} rel={pdfExterne ? 'noopener' : undefined}>
+              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>
+              Télécharger le PDF
+            </a>
+            {!pdfExterne && (
+              <a class="btn btn--secondary" href={fichier} target="_blank" rel="noopener">
+                <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+                Ouvrir dans le navigateur
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </header>
+
+    {aDuContenu && (
+      <div class="container container--narrow">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+    )}
+
+    <div class="container container--narrow">
+      <div class="doc__help">
+        <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-message" /></svg></span>
+        <div>
+          <p class="doc__help-title">Une difficulté sur ce chapitre ?</p>
+          <p class="doc__help-text">Posez votre question : nous vous indiquerons l’accompagnement le plus adapté.</p>
+        </div>
+        <a class="btn btn--whatsapp btn--sm" href={lienWhatsApp(message)} data-wa={message} target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+          Poser une question
+        </a>
+      </div>
+    </div>
+  </article>
+
+  {suggestions.length > 0 && (
+    <section class="section section--soft section--tight">
+      <div class="container">
+        <h2 class="related__title">Autres ressources</h2>
+        <ul class="cards-grid">
+          {suggestions.map((r) => <CarteRessource ressource={r} />)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <BandeauContact />
+</BaseLayout>

@@ -1,0 +1,164 @@
+# =====================================================================
+# Interface d'administration de Xam Xam Academy (Sveltia CMS)
+# Accessible à l'adresse /admin/ du site.
+# Chaque enregistrement crée un « commit » dans le dépôt GitHub ;
+# l'hébergeur republie alors le site automatiquement.
+# =====================================================================
+
+backend:
+  name: github
+  repo: afrigerance-commits/Xam-Xam-Academy-website
+  # Branche publiée : si elle est omise, la branche par défaut du dépôt (main) est utilisée.
+
+app_title: Xam Xam Academy — Administration
+logo_url: /assets/icons/icon-192.png
+
+# Images ajoutées depuis l'éditeur
+media_folder: public/images
+public_folder: /images
+
+collections:
+  # -------------------------------------------------------------------
+  - name: ressources
+    label: Cours et exercices
+    label_singular: Ressource
+    description: Cours, exercices corrigés, fiches de révision, méthodes et fascicules.
+    folder: src/content/ressources
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: titre
+    summary: "{{titre}} · {{type}} · {{niveau}}"
+    sortable_fields: [date, titre, niveau, type]
+    media_folder: /public/images/ressources
+    public_folder: /images/ressources
+    fields:
+      - { name: titre, label: Titre, widget: string }
+      - name: type
+        label: Type
+        widget: select
+        options: [Cours, Exercices corrigés, Fiche de révision, Méthode, Fascicule]
+      - name: niveau
+        label: Niveau
+        widget: select
+        options: [4e, 3e, Seconde, Première, Terminale, L1, L2, L3, Tous niveaux]
+      - name: matiere
+        label: Matière
+        widget: select
+        options: [Physique-Chimie, Physique, Chimie]
+        default: Physique-Chimie
+      - { name: chapitre, label: Chapitre, widget: string, required: false }
+      - name: description
+        label: Description courte
+        widget: text
+        required: false
+        hint: Une ou deux phrases affichées sur la carte de la ressource et dans les résultats Google.
+      - name: date
+        label: Date de publication
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+      - name: fichier
+        label: Document PDF
+        widget: file
+        required: false
+        accept: application/pdf
+        media_folder: /public/documents
+        public_folder: /documents
+        hint: Facultatif. Le PDF que les élèves pourront télécharger.
+      - name: brouillon
+        label: Brouillon (non publié)
+        widget: boolean
+        default: false
+      - name: body
+        label: Contenu
+        widget: markdown
+        required: false
+        modes: [raw, rich_text]
+        hint: >-
+          Formules entre $ (ex. $U = R \times I$), sur une ligne à part entre $$.
+          Équations chimiques : $\ce{CH4 + 2O2 -> CO2 + 2H2O}$.
+          Correction dépliable : une ligne « :::correction », le texte, puis une ligne « ::: ».
+          Encadrés : :::definition, :::retenir, :::attention, :::methode, :::exemple.
+
+  # -------------------------------------------------------------------
+  - name: videos
+    label: Vidéos
+    label_singular: Vidéo
+    description: Vidéos de cours (YouTube) et liens de téléchargement.
+    folder: src/content/videos
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: titre
+    summary: "{{titre}} · {{niveau}}"
+    sortable_fields: [date, titre, niveau]
+    fields:
+      - { name: titre, label: Titre, widget: string }
+      - name: niveau
+        label: Niveau
+        widget: select
+        options: [4e, 3e, Seconde, Première, Terminale, L1, L2, L3, Tous niveaux]
+      - { name: chapitre, label: Chapitre, widget: string, required: false }
+      - { name: description, label: Description courte, widget: text, required: false }
+      - name: date
+        label: Date de publication
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+      - name: youtube
+        label: Lien YouTube
+        widget: string
+        required: false
+        hint: Collez l'adresse de la vidéo, par exemple https://www.youtube.com/watch?v=…
+      - name: telechargement
+        label: Lien de téléchargement
+        widget: string
+        required: false
+        hint: Facultatif. Lien vers le fichier vidéo (Google Drive, etc.), partagé en « Tous les utilisateurs disposant du lien ».
+      - { name: duree, label: Durée (ex. 12 min), widget: string, required: false }
+      - name: brouillon
+        label: Brouillon (non publié)
+        widget: boolean
+        default: false
+
+  # -------------------------------------------------------------------
+  - name: blog
+    label: Blog
+    label_singular: Article
+    description: Articles du blog.
+    folder: src/content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: titre
+    summary: "{{titre}}"
+    sortable_fields: [date, titre]
+    media_folder: /public/images/blog
+    public_folder: /images/blog
+    fields:
+      - { name: titre, label: Titre, widget: string }
+      - name: description
+        label: Résumé
+        widget: text
+        hint: Une ou deux phrases affichées sur la carte de l'article et dans les résultats Google.
+      - name: date
+        label: Date de publication
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+      - { name: categorie, label: Catégorie, widget: string, required: false, hint: "Ex. Méthode, Conseils, Chimie…" }
+      - { name: image, label: Image de couverture, widget: image, required: false }
+      - { name: image_alt, label: Description de l'image, widget: string, required: false, hint: Décrit l'image pour les personnes malvoyantes. }
+      - { name: auteur, label: Auteur, widget: string, default: Xam Xam Academy }
+      - name: brouillon
+        label: Brouillon (non publié)
+        widget: boolean
+        default: false
+      - name: body
+        label: Article
+        widget: markdown
+        modes: [raw, rich_text]

@@ -1,0 +1,20 @@
+---
+/* Onglets de la rubrique Ressources : Cours et exercices · Vidéos · Blog. */
+interface Props {
+  actif: 'ressources' | 'videos' | 'blog';
+}
+const { actif } = Astro.props;
+const onglets = [
+  { id: 'ressources', libelle: 'Cours et exercices', href: '/ressources/', icone: 'i-book' },
+  { id: 'videos', libelle: 'Vidéos', href: '/videos/', icone: 'i-play' },
+  { id: 'blog', libelle: 'Blog', href: '/blog/', icone: 'i-file' },
+];
+---
+<nav class="tabs" aria-label="Rubriques des ressources">
+  {onglets.map((o) => (
+    <a class:list={['tabs__link', { 'is-active': o.id === actif }]} href={o.href} aria-current={o.id === actif ? 'page' : undefined}>
+      <svg class="icon" aria-hidden="true"><use href={`#${o.icone}`} /></svg>
+      {o.libelle}
+    </a>
+  ))}
+</nav>

@@ -1,0 +1,103 @@
+---
+/* =====================================================================
+   Gabarit commun à toutes les pages : <head>, en-tête, pied de page,
+   bouton WhatsApp flottant.
+   ===================================================================== */
+import Sprite from '../components/Sprite.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { lienWhatsApp } from '../lib/outils';
+
+interface Props {
+  /** Titre de la page (sans le nom du site). Vide = titre complet de l'accueil. */
+  titre?: string;
+  description: string;
+  accueil?: boolean;
+  /** Rubrique active dans le menu (« ressources »). */
+  actif?: string;
+  typeOg?: 'website' | 'article';
+  image?: string;
+  /** Données structurées schema.org. */
+  jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
+}
+
+const {
+  titre,
+  description,
+  accueil = false,
+  actif,
+  typeOg = 'website',
+  image = '/assets/img/og-image.jpg',
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+
+const titreComplet = titre
+  ? `${titre} | Xam Xam Academy`
+  : 'Xam Xam Academy | Cours de Physique-Chimie à Dakar, Thiès et en ligne';
+
+// URL absolue si l'adresse du site est renseignée dans astro.config.mjs (option « site »).
+const absolue = (chemin: string) => (Astro.site ? new URL(chemin, Astro.site).href : chemin);
+const canonique = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const messageQuestion = "Bonjour Xam Xam Academy, j'ai une question.";
+---
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script is:inline>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <title>{titreComplet}</title>
+  <meta name="description" content={description}>
+  <meta name="theme-color" content="#021F4D">
+  <meta name="robots" content={noindex ? 'noindex' : 'index, follow'}>
+  {canonique && <link rel="canonical" href={canonique}>}
+  {Astro.site && <link rel="sitemap" href="/sitemap-index.xml">}
+
+  <meta property="og:type" content={typeOg}>
+  <meta property="og:site_name" content="Xam Xam Academy">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content={titreComplet}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={absolue(image)}>
+  {image === '/assets/img/og-image.jpg' && <meta property="og:image:width" content="1200">}
+  {image === '/assets/img/og-image.jpg' && <meta property="og:image:height" content="630">}
+  {image === '/assets/img/og-image.jpg' && <meta property="og:image:alt" content="Xam Xam Academy — Comprendre. Progresser. Réussir.">}
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/icons/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script is:inline src="/assets/js/main.js" defer></script>
+
+  {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  <slot name="head" />
+</head>
+
+<body>
+  <Sprite />
+  <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+
+  <Header accueil={accueil} actif={actif} />
+
+  <main id="contenu" tabindex="-1">
+    <slot />
+  </main>
+
+  <Footer accueil={accueil} />
+
+  <!-- Bouton WhatsApp flottant -->
+  <a class="wa-float" href={lienWhatsApp(messageQuestion)} data-wa={messageQuestion} target="_blank" rel="noopener" aria-label="Une question ? Écrivez-nous sur WhatsApp">
+    <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    <span class="wa-float__tip" aria-hidden="true">Une question&nbsp;?</span>
+  </a>
+</body>
+</html>

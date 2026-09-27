@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Après la mise en ligne, ajouter l'adresse du plan du site, par exemple :
+# Sitemap: https://www.votre-domaine.com/sitemap.xml

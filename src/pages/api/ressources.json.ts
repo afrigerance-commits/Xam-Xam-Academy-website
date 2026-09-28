@@ -7,7 +7,7 @@ export const GET: APIRoute = async () => {
   const ressources = await ressourcesPubliees();
 
   const payload = {
-    version: 1,
+    version: 2,
     generatedAt: new Date().toISOString(),
     count: ressources.length,
     resources: ressources.map((ressource) => ({
@@ -18,6 +18,7 @@ export const GET: APIRoute = async () => {
       chapter: ressource.data.chapitre ?? '',
       type: ressource.data.type,
       description: ressource.data.description ?? '',
+      content: ressource.body ?? '',
       date: ressource.data.date.toISOString(),
       pdfUrl: ressource.data.fichier || null,
       url: `/ressources/${ressource.id}/`,

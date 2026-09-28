@@ -28,6 +28,7 @@ export type Resource = {
   duration?: string;
   url: string;
   pdfUrl?: string | null;
+  content?: string;
   highlights?: string[];
 };
 

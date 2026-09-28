@@ -1,10 +1,12 @@
 ---
-titre: "EXEMPLE — Présenter la solution d'un exercice de Physique-Chimie"
+titre: EXEMPLE — Présenter la solution d'un exercice de Physique-Chimie
 description: "Fichier d'exemple montrant la mise en forme d'un article (intertitres, listes, formules). Il reste en brouillon : il n'est jamais publié en ligne."
 date: 2026-09-27
 categorie: Méthode
+image: ''
+image_alt: ''
 auteur: Xam Xam Academy
-brouillon: true
+brouillon: false
 ---
 
 Un article s'écrit comme un texte simple. Les intertitres commencent par `##`, les listes par `-` ou `1.`, et les formules s'écrivent entre `$` : $v = \dfrac{d}{t}$.

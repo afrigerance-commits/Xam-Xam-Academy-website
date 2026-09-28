@@ -51,7 +51,8 @@ export function ResourceCard({ item }: { item: Resource }) {
 
 const styles = StyleSheet.create({
   brandWrap: {
-    height: 62,
+    height: 82,
+    paddingTop: 16,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },

@@ -1,12 +1,13 @@
 ---
-titre: "EXEMPLE — Fiche de révision : écrire une équation de combustion"
+titre: 'EXEMPLE — Fiche de révision : écrire une équation de combustion'
 type: Fiche de révision
 niveau: 4e
 matiere: Chimie
 chapitre: Les combustions
 description: "Fichier d'exemple montrant l'écriture des équations chimiques et des encadrés. Il reste en brouillon : il n'est jamais publié en ligne."
 date: 2026-09-26
-brouillon: true
+fichier: ''
+brouillon: false
 ---
 
 :::definition

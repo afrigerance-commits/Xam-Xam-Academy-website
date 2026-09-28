@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFavorites } from '../../src/favorites';
 import { useResources } from '../../src/resources';
 import { COLORS } from '../../src/theme';
+import { NativeCourseContent } from '../../src/NativeCourseContent';
 
 export default function ResourceScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
@@ -86,9 +87,28 @@ export default function ResourceScreen() {
           </View>
         ) : null}
 
-        <Pressable onPress={() => WebBrowser.openBrowserAsync(item.url)} style={styles.primary}>
-          <Text style={styles.primaryText}>Lire le cours complet</Text>
-          <Ionicons name="open-outline" size={19} color={COLORS.navy} />
+        {item.content ? (
+          <View style={styles.course}>
+            <View style={styles.courseHeader}>
+              <Ionicons name="book-outline" size={21} color={COLORS.navy} />
+              <Text style={styles.courseTitle}>Cours complet</Text>
+            </View>
+            <NativeCourseContent markdown={item.content} />
+          </View>
+        ) : null}
+
+        <Pressable
+          onPress={() => WebBrowser.openBrowserAsync(item.url)}
+          style={item.content ? styles.secondary : styles.primary}
+        >
+          <Ionicons
+            name="open-outline"
+            size={19}
+            color={item.content ? COLORS.navy : COLORS.navy}
+          />
+          <Text style={item.content ? styles.secondaryText : styles.primaryText}>
+            {item.content ? 'Ouvrir aussi sur le site' : 'Lire le cours complet'}
+          </Text>
         </Pressable>
 
         {item.pdfUrl ? (
@@ -176,6 +196,23 @@ const styles = StyleSheet.create({
   },
   numberText: { color: COLORS.blue, fontWeight: '900' },
   pointText: { color: COLORS.text, flex: 1 },
+  course: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: COLORS.line,
+    borderRadius: 18,
+    padding: 17,
+    gap: 16,
+  },
+  courseHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingBottom: 13,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.line,
+  },
+  courseTitle: { color: COLORS.navy, fontSize: 17, fontWeight: '900' },
   primary: {
     flexDirection: 'row',
     alignItems: 'center',

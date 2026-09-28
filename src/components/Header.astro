@@ -17,9 +17,9 @@ const ancre = (id: string) => (accueil ? `#${id}` : `/#${id}`);
 const liens = [
   { libelle: 'Accueil', href: accueil ? '#accueil' : '/' },
   { libelle: 'Cours', href: ancre('cours') },
-  { libelle: 'Notre méthode', href: ancre('methode') },
-  { libelle: 'Xam Xam Online', href: ancre('online') },
-  { libelle: 'Cours & exercices', href: '/ressources/', rubrique: 'ressources' },
+  { libelle: 'Méthode', href: ancre('methode') },
+  { libelle: 'Online', href: ancre('online') },
+  { libelle: 'Réviser', href: '/ressources/', rubrique: 'ressources' },
   { libelle: 'À propos', href: ancre('a-propos') },
   { libelle: 'FAQ', href: ancre('faq') },
   { libelle: 'Contact', href: ancre('contact') },

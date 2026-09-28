@@ -1,6 +1,6 @@
 import type { Resource, Video } from './types';
 
-export const resources: Resource[] = [
+export const fallbackResources: Resource[] = [
   {
     slug: 'exemple-exercices-loi-d-ohm',
     title: 'Loi d’Ohm 4e : cours et exercices corrigés',
@@ -8,7 +8,8 @@ export const resources: Resource[] = [
     subject: 'Physique',
     chapter: 'Électricité — Loi d’Ohm',
     type: 'Exercices corrigés',
-    description: 'Comprendre et appliquer la loi d’Ohm avec un rappel de cours, des exercices progressifs et des corrections détaillées.',
+    description:
+      'Comprendre et appliquer la loi d’Ohm avec un rappel de cours, des exercices progressifs et des corrections détaillées.',
     duration: '15 min',
     url: 'https://xamxamacademy.com/ressources/exemple-exercices-loi-d-ohm/',
     highlights: [
@@ -30,4 +31,14 @@ export const videos: Video[] = [
   },
 ];
 
-export const levels = ['4e', '3e', 'Seconde', 'Première', 'Terminale', 'L1', 'L2', 'L3'] as const;
+export const levels = [
+  '4e',
+  '3e',
+  'Seconde',
+  'Première',
+  'Terminale',
+  'L1',
+  'L2',
+  'L3',
+  'Tous niveaux',
+] as const;

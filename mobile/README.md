@@ -1,23 +1,44 @@
 # Xam Xam Academy — application mobile MVP
 
-Prototype mobile Android/iOS construit avec **Expo SDK 57 + React Native + Expo Router + TypeScript**.
+Application Android/iOS construite avec Expo + React Native + Expo Router + TypeScript.
 
-Cette branche est volontairement séparée de `main` : elle ne modifie pas le site public actuel.
+La branche `mobile/expo-mvp` reste séparée de `main` tant que la version mobile n'a pas été validée.
 
-## Ce qui fonctionne déjà dans le MVP
+## Fonctionnalités actuelles
 
-- accueil mobile avec l'identité Xam Xam ;
-- navigation native par onglets ;
-- rubrique **Réviser** avec recherche et filtre par niveau ;
-- première vraie fiche : **Loi d'Ohm 4e** ;
-- ajout/suppression de favoris avec stockage local ;
-- espace vidéos ;
-- page profil avec site, WhatsApp et YouTube ;
-- ouverture du cours complet sur `xamxamacademy.com`.
+- accueil mobile aux couleurs Xam Xam ;
+- vrai logo Xam Xam embarqué dans l'application ;
+- zones sûres Android/iOS respectées (barre d'état) ;
+- navigation Accueil / Réviser / Vidéos / Favoris / Profil ;
+- recherche et filtre par niveau ;
+- favoris persistants sur le téléphone ;
+- synchronisation automatique des ressources publiées depuis Sveltia CMS ;
+- cache local : les derniers cours restent visibles si le réseau est momentanément indisponible ;
+- accès au cours complet, aux PDF, à WhatsApp et à YouTube.
+
+## Synchronisation CMS → application
+
+Le site génère à chaque déploiement :
+
+```text
+https://xamxamacademy.com/api/ressources.json
+```
+
+Le flux contient uniquement les ressources publiées (`brouillon: false`).
+
+```text
+Sveltia CMS
+    ↓
+Markdown Astro
+    ↓
+/api/ressources.json
+   ↙             ↘
+site web       application mobile
+```
+
+Tu saisis donc un cours une seule fois dans Sveltia. Après publication et déploiement du site, l'application récupère automatiquement la nouvelle liste.
 
 ## Lancer sur Android
-
-Depuis la racine du dépôt :
 
 ```bash
 cd mobile
@@ -26,60 +47,17 @@ npx expo install --fix
 npx expo start
 ```
 
-Installe **Expo Go** sur le téléphone Android, connecte-toi au même compte Expo que sur l'ordinateur, puis scanne le QR code.
+Pour forcer une nouvelle synchronisation, ouvre l'onglet **Réviser** et tire la page vers le bas.
 
-> Expo SDK 57 est utilisé volontairement : SDK 58 est encore en bêta au 28 septembre 2026.
+## Prochaines étapes
 
-## Architecture
-
-```text
-mobile/
-├── app/
-│   ├── _layout.tsx
-│   ├── (tabs)/
-│   │   ├── _layout.tsx
-│   │   ├── index.tsx
-│   │   ├── reviser.tsx
-│   │   ├── videos.tsx
-│   │   ├── favoris.tsx
-│   │   └── profil.tsx
-│   └── ressource/
-│       └── [slug].tsx
-└── src/
-    ├── components.tsx
-    ├── content.ts
-    ├── favorites.tsx
-    ├── theme.ts
-    └── types.ts
-```
-
-## Étape suivante : synchronisation site + application
-
-Pour le prototype, la liste de contenus vit dans `src/content.ts` et les pages détaillées ouvrent le site.
-
-La V2 prévue est :
-
-```text
-Sveltia CMS
-    ↓
-contenus Astro
-    ↓
-flux JSON statique Xam Xam
-   ↙             ↘
-site web       application
-```
-
-Ainsi un cours sera saisi **une seule fois dans Sveltia** puis apparaîtra automatiquement sur le site et dans l'application.
-
-## Roadmap
-
-1. Flux JSON synchronisé avec le CMS.
-2. Affichage natif des cours et exercices.
-3. Diagnostic Xam Xam (5 questions).
+1. Affichage natif complet du contenu Markdown dans l'application.
+2. Synchronisation des vidéos.
+3. Diagnostic Xam Xam.
 4. Quiz avec correction immédiate.
 5. Progression par niveau et chapitre.
-6. Téléchargement PDF / lecture hors ligne.
+6. Lecture hors ligne / téléchargements.
 7. Notifications.
 8. Comptes élèves.
-9. Build Android EAS et test interne Google Play.
-10. iOS/TestFlight ensuite.
+9. Build Android EAS et test Google Play.
+10. iOS/TestFlight.

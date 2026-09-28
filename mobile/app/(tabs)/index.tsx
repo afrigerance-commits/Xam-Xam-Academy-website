@@ -1,13 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { BrandHeader, ResourceCard, SectionTitle } from '../../src/components';
-import { resources } from '../../src/content';
+import { useResources } from '../../src/resources';
 import { COLORS } from '../../src/theme';
 
 export default function HomeScreen() {
+  const { resources, loading, error } = useResources();
+  const featured = resources[0];
+
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView contentContainerStyle={styles.page}>
         <BrandHeader />
 
@@ -23,20 +27,45 @@ export default function HomeScreen() {
           </Link>
 
           <View style={styles.heroStats}>
-            <View style={styles.stat}><Ionicons name="book-outline" size={20} color={COLORS.gold} /><Text style={styles.statText}>Cours & exercices</Text></View>
-            <View style={styles.stat}><Ionicons name="play-outline" size={20} color={COLORS.gold} /><Text style={styles.statText}>Vidéos</Text></View>
-            <View style={styles.stat}><Ionicons name="heart-outline" size={20} color={COLORS.gold} /><Text style={styles.statText}>Favoris</Text></View>
+            <View style={styles.stat}>
+              <Ionicons name="book-outline" size={20} color={COLORS.gold} />
+              <Text style={styles.statText}>Cours & exercices</Text>
+            </View>
+            <View style={styles.stat}>
+              <Ionicons name="play-outline" size={20} color={COLORS.gold} />
+              <Text style={styles.statText}>Vidéos</Text>
+            </View>
+            <View style={styles.stat}>
+              <Ionicons name="heart-outline" size={20} color={COLORS.gold} />
+              <Text style={styles.statText}>Favoris</Text>
+            </View>
           </View>
         </View>
 
-        <SectionTitle eyebrow="À découvrir" title="Commence par une fiche" />
-        <ResourceCard item={resources[0]} />
+        <View style={styles.sectionHeading}>
+          <SectionTitle eyebrow="À découvrir" title="Commence par une fiche" />
+          {loading ? <Text style={styles.sync}>Synchronisation…</Text> : null}
+        </View>
+
+        {featured ? (
+          <ResourceCard item={featured} />
+        ) : (
+          <View style={styles.emptyCard}>
+            <Text style={styles.emptyTitle}>Les premiers cours arrivent bientôt.</Text>
+          </View>
+        )}
+
+        {error ? <Text style={styles.offline}>{error}</Text> : null}
 
         <View style={styles.smartCard}>
-          <View style={styles.smartIcon}><Ionicons name="sparkles" size={22} color={COLORS.gold} /></View>
+          <View style={styles.smartIcon}>
+            <Ionicons name="sparkles" size={22} color={COLORS.gold} />
+          </View>
           <View style={{ flex: 1, gap: 3 }}>
             <Text style={styles.smartTitle}>Bientôt : Diagnostic Xam Xam</Text>
-            <Text style={styles.smartText}>5 questions pour identifier les notions à revoir et proposer un parcours personnalisé.</Text>
+            <Text style={styles.smartText}>
+              5 questions pour identifier les notions à revoir et proposer un parcours personnalisé.
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -46,17 +75,61 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: COLORS.background },
-  page: { padding: 18, paddingBottom: 40, gap: 22 },
+  page: { paddingHorizontal: 18, paddingBottom: 40, gap: 22 },
   hero: { backgroundColor: COLORS.navy, borderRadius: 26, padding: 22, gap: 14 },
   kicker: { color: COLORS.gold, fontSize: 12, fontWeight: '800', letterSpacing: 1 },
   heroTitle: { color: '#FFFFFF', fontSize: 31, lineHeight: 37, fontWeight: '900' },
   heroText: { color: '#D9E4F5', fontSize: 15, lineHeight: 23 },
-  primaryButton: { backgroundColor: COLORS.gold, color: COLORS.navy, fontWeight: '900', paddingVertical: 14, paddingHorizontal: 18, borderRadius: 14, textAlign: 'center', overflow: 'hidden' },
+  primaryButton: {
+    backgroundColor: COLORS.gold,
+    color: COLORS.navy,
+    fontWeight: '900',
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    borderRadius: 14,
+    textAlign: 'center',
+    overflow: 'hidden',
+  },
   heroStats: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 2 },
-  stat: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: 'rgba(255,255,255,.08)', borderRadius: 999, paddingHorizontal: 10, paddingVertical: 7 },
+  stat: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: 'rgba(255,255,255,.08)',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+  },
   statText: { color: '#FFFFFF', fontSize: 11, fontWeight: '700' },
-  smartCard: { flexDirection: 'row', gap: 12, alignItems: 'flex-start', backgroundColor: '#FFF9E8', borderRadius: 18, padding: 16, borderWidth: 1, borderColor: '#FFE5A0' },
-  smartIcon: { width: 42, height: 42, borderRadius: 14, backgroundColor: COLORS.navy, alignItems: 'center', justifyContent: 'center' },
+  sectionHeading: { gap: 4 },
+  sync: { color: COLORS.muted, fontSize: 12 },
+  offline: { color: COLORS.muted, fontSize: 12, textAlign: 'center' },
+  emptyCard: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: COLORS.line,
+    borderRadius: 18,
+    padding: 20,
+  },
+  emptyTitle: { color: COLORS.navy, fontWeight: '800' },
+  smartCard: {
+    flexDirection: 'row',
+    gap: 12,
+    alignItems: 'flex-start',
+    backgroundColor: '#FFF9E8',
+    borderRadius: 18,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#FFE5A0',
+  },
+  smartIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 14,
+    backgroundColor: COLORS.navy,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   smartTitle: { color: COLORS.navy, fontWeight: '800', fontSize: 15 },
   smartText: { color: COLORS.text, lineHeight: 19, fontSize: 13 },
 });

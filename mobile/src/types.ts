@@ -1,4 +1,20 @@
-export type Level = '4e' | '3e' | 'Seconde' | 'Première' | 'Terminale' | 'L1' | 'L2' | 'L3';
+export type Level =
+  | '4e'
+  | '3e'
+  | 'Seconde'
+  | 'Première'
+  | 'Terminale'
+  | 'L1'
+  | 'L2'
+  | 'L3'
+  | 'Tous niveaux';
+
+export type ResourceType =
+  | 'Cours'
+  | 'Exercices corrigés'
+  | 'Fiche de révision'
+  | 'Méthode'
+  | 'Fascicule';
 
 export type Resource = {
   slug: string;
@@ -6,11 +22,13 @@ export type Resource = {
   level: Level;
   subject: 'Physique' | 'Chimie' | 'Physique-Chimie';
   chapter: string;
-  type: 'Cours' | 'Exercices corrigés' | 'Fiche de révision' | 'Méthode';
+  type: ResourceType;
   description: string;
-  duration: string;
+  date?: string;
+  duration?: string;
   url: string;
-  highlights: string[];
+  pdfUrl?: string | null;
+  highlights?: string[];
 };
 
 export type Video = {

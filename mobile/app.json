@@ -6,7 +6,10 @@
     "orientation": "portrait",
     "scheme": "xamxam",
     "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
     "splash": {
+      "image": "./assets/logo-horizontal.png",
+      "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
     "ios": {
@@ -16,6 +19,7 @@
     "android": {
       "package": "com.xamxamacademy.app",
       "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },

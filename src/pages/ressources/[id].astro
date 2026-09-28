@@ -37,7 +37,7 @@ const message = `Bonjour Xam Xam Academy, j'ai une question sur la ressource « 
   <article class="doc">
     <header class="doc__header">
       <div class="container container--narrow">
-        <FilAriane etapes={[{ libelle: 'Ressources', href: '/ressources/' }, { libelle: titre }]} />
+        <FilAriane etapes={[{ libelle: 'Cours & exercices', href: '/ressources/' }, { libelle: titre }]} />
         <div class="rcard__badges">
           <span class="badge badge--type">{type}</span>
           <span class="badge">{niveau}</span>
@@ -93,7 +93,7 @@ const message = `Bonjour Xam Xam Academy, j'ai une question sur la ressource « 
   {suggestions.length > 0 && (
     <section class="section section--soft section--tight">
       <div class="container">
-        <h2 class="related__title">Autres ressources</h2>
+        <h2 class="related__title">À découvrir aussi</h2>
         <ul class="cards-grid">
           {suggestions.map((r) => <CarteRessource ressource={r} />)}
         </ul>

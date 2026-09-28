@@ -1,5 +1,5 @@
 ---
-/* Onglets de la rubrique Ressources : Cours et exercices · Vidéos · Blog. */
+/* Onglets d'apprentissage : Cours et exercices · Vidéos · Blog. */
 interface Props {
   actif: 'ressources' | 'videos' | 'blog';
 }
@@ -10,7 +10,7 @@ const onglets = [
   { id: 'blog', libelle: 'Blog', href: '/blog/', icone: 'i-file' },
 ];
 ---
-<nav class="tabs" aria-label="Rubriques des ressources">
+<nav class="tabs" aria-label="Cours, vidéos et blog">
   {onglets.map((o) => (
     <a class:list={['tabs__link', { 'is-active': o.id === actif }]} href={o.href} aria-current={o.id === actif ? 'page' : undefined}>
       <svg class="icon" aria-hidden="true"><use href={`#${o.icone}`} /></svg>

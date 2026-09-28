@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Xam Xam Academy",
+    "slug": "xam-xam-academy",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "xamxam",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#FFFFFF"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.xamxamacademy.app"
+    },
+    "android": {
+      "package": "com.xamxamacademy.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

@@ -57,7 +57,13 @@ npm run preview    # affiche la version générée sur http://localhost:4321
 
 Une fois le site en ligne, l'administration est accessible à l'adresse **`https://votre-site/admin/`**. Elle permet de créer et de modifier les cours, exercices, vidéos et articles avec des formulaires, en français.
 
-**À chaque enregistrement**, le contenu est ajouté au dépôt GitHub ; l'hébergeur republie alors automatiquement le site (en une à deux minutes environ).
+Les modifications sont enregistrées dans GitHub **sans republier automatiquement le site**. Cela permet de corriger un cours autant de fois que nécessaire sans déclencher un déploiement Netlify à chaque sauvegarde.
+
+Dans l'éditeur :
+- **Enregistrer** : sauvegarde les modifications avec `[skip ci]` et ne déclenche pas de déploiement ;
+- **Enregistrer et publier** : sauvegarde puis déclenche un nouveau déploiement du site quand le contenu est prêt.
+
+Ainsi, plusieurs petites corrections peuvent être regroupées avant une seule publication.
 
 ### Première connexion
 

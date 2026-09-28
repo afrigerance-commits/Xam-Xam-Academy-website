@@ -1,0 +1,400 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const APK_URL = 'https://expo.dev/accounts/xamxamacademy/projects/xam-xam-academy/builds/8001bc72-a0ef-4997-8180-373f91f8f41e';
+
+const description =
+  "Téléchargez l'application Android officielle Xam Xam Academy : cours, révisions, vidéos et favoris de Physique-Chimie sur votre téléphone.";
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Xam Xam Academy',
+  applicationCategory: 'EducationalApplication',
+  operatingSystem: 'Android',
+  softwareVersion: '1.0.0',
+  description,
+  url: 'https://xamxamacademy.com/application/',
+  downloadUrl: APK_URL,
+};
+---
+
+<BaseLayout
+  titre="Application Android"
+  description={description}
+  jsonLd={jsonLd}
+>
+  <section class="app-hero">
+    <div class="container app-hero__grid">
+      <div class="app-hero__content">
+        <p class="eyebrow">Application officielle</p>
+        <h1 class="app-hero__title">Xam Xam Academy<br><span>dans votre poche.</span></h1>
+        <p class="app-hero__lead">
+          Retrouvez vos ressources de Physique-Chimie, vos révisions, vos vidéos et vos favoris dans une application Android simple et rapide.
+        </p>
+
+        <div class="app-meta" aria-label="Informations sur l'application">
+          <span><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg> Version 1.0.0</span>
+          <span><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg> Android</span>
+          <span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> APK officiel</span>
+        </div>
+
+        <div class="app-actions">
+          <a class="btn btn--primary btn--xl" href={APK_URL} target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+            Télécharger l’APK
+          </a>
+          <a class="btn btn--secondary btn--lg" href="/ressources/">
+            Découvrir les ressources
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </a>
+        </div>
+
+        <p class="app-hero__note">
+          Le téléchargement s’ouvre sur la page officielle de distribution Expo de Xam Xam Academy.
+        </p>
+      </div>
+
+      <div class="app-phone" aria-hidden="true">
+        <div class="app-phone__frame">
+          <div class="app-phone__speaker"></div>
+          <div class="app-phone__screen">
+            <img src="/assets/img/logo-badge.png" alt="" width="256" height="259">
+            <p>Xam Xam Academy</p>
+            <span>Comprendre. Progresser. Réussir.</span>
+            <div class="app-phone__tiles">
+              <div><svg class="icon"><use href="#i-book"/></svg><small>Réviser</small></div>
+              <div><svg class="icon"><use href="#i-play"/></svg><small>Vidéos</small></div>
+              <div><svg class="icon"><use href="#i-file"/></svg><small>Ressources</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" aria-labelledby="install-title">
+    <div class="container">
+      <div class="section-heading app-section-heading">
+        <p class="eyebrow">Installation</p>
+        <h2 class="section-title" id="install-title">Installer l’application en 3 étapes</h2>
+        <p class="section-lead">Quelques secondes suffisent pour commencer à utiliser Xam Xam Academy sur Android.</p>
+      </div>
+
+      <div class="install-grid">
+        <article class="install-card">
+          <span class="install-card__number">1</span>
+          <h3>Télécharger</h3>
+          <p>Appuyez sur le bouton « Télécharger l’APK » puis récupérez le fichier Android.</p>
+        </article>
+        <article class="install-card">
+          <span class="install-card__number">2</span>
+          <h3>Autoriser l’installation</h3>
+          <p>Si Android le demande, autorisez temporairement votre navigateur ou votre gestionnaire de fichiers à installer l’application.</p>
+        </article>
+        <article class="install-card">
+          <span class="install-card__number">3</span>
+          <h3>Ouvrir Xam Xam</h3>
+          <p>Terminez l’installation puis lancez Xam Xam Academy directement depuis votre écran d’accueil.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="why-app-title">
+    <div class="container app-benefits">
+      <div>
+        <p class="eyebrow">Pourquoi l’application ?</p>
+        <h2 class="section-title" id="why-app-title">Apprendre plus facilement, où que vous soyez.</h2>
+      </div>
+      <ul class="benefits-list">
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span><strong>Révisions centralisées</strong> — retrouvez les ressources publiées par Xam Xam Academy.</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span><strong>Favoris</strong> — gardez rapidement les contenus que vous voulez revoir.</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span><strong>Vidéos</strong> — accédez aux contenus pédagogiques de la chaîne.</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span><strong>Synchronisation</strong> — les nouvelles ressources publiées sur le site peuvent apparaître dans l’application.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="app-final">
+    <div class="container app-final__inner">
+      <div>
+        <p class="eyebrow eyebrow--light">Xam Xam Academy</p>
+        <h2>Prêt à réviser sur votre téléphone ?</h2>
+        <p>Téléchargez gratuitement l’application Android officielle.</p>
+      </div>
+      <a class="btn btn--outline-light btn--lg" href={APK_URL} target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+        Télécharger l’application
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .app-hero {
+    padding: clamp(3rem, 7vw, 6.5rem) 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(249, 182, 3, .15), transparent 32rem),
+      linear-gradient(135deg, #f8fbff 0%, #fff 58%, #fff8e7 100%);
+    overflow: hidden;
+  }
+
+  .app-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .app-hero__title {
+    margin: .55rem 0 1rem;
+    max-width: 760px;
+    font-size: clamp(2.6rem, 6vw, 5.25rem);
+    line-height: .98;
+    letter-spacing: -.055em;
+    color: var(--navy, #021F4D);
+  }
+
+  .app-hero__title span { color: #b77f00; }
+
+  .app-hero__lead {
+    max-width: 720px;
+    margin: 0;
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    line-height: 1.75;
+    color: #435168;
+  }
+
+  .app-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+    margin: 1.65rem 0;
+  }
+
+  .app-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .58rem .8rem;
+    border: 1px solid #dfe7f0;
+    border-radius: 999px;
+    background: #fff;
+    color: #233854;
+    font-weight: 700;
+    font-size: .9rem;
+  }
+
+  .app-meta .icon { width: 1rem; height: 1rem; }
+
+  .app-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .85rem;
+    align-items: center;
+  }
+
+  .app-hero__note {
+    margin: 1rem 0 0;
+    color: #66758a;
+    font-size: .88rem;
+  }
+
+  .app-phone {
+    display: flex;
+    justify-content: center;
+  }
+
+  .app-phone__frame {
+    width: min(310px, 78vw);
+    aspect-ratio: 9 / 18.6;
+    padding: 12px;
+    border-radius: 42px;
+    background: #071a34;
+    box-shadow: 0 32px 70px rgba(2, 31, 77, .22);
+    transform: rotate(2deg);
+  }
+
+  .app-phone__screen {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 31px;
+    background: linear-gradient(180deg, #fff 0%, #f3f7fb 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 72px 22px 28px;
+    text-align: center;
+  }
+
+  .app-phone__speaker {
+    position: absolute;
+    z-index: 2;
+    width: 74px;
+    height: 6px;
+    margin: 18px 0 0 106px;
+    border-radius: 999px;
+    background: #33445b;
+  }
+
+  .app-phone__screen img {
+    width: 112px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .app-phone__screen > p {
+    margin: 0;
+    color: #021F4D;
+    font-size: 1.38rem;
+    font-weight: 800;
+  }
+
+  .app-phone__screen > span {
+    margin-top: .35rem;
+    color: #6c7888;
+    font-size: .78rem;
+  }
+
+  .app-phone__tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .55rem;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .app-phone__tiles div {
+    min-height: 72px;
+    padding: .75rem .35rem;
+    border: 1px solid #e4eaf1;
+    border-radius: 14px;
+    background: #fff;
+    color: #021F4D;
+  }
+
+  .app-phone__tiles .icon { width: 1.25rem; height: 1.25rem; }
+  .app-phone__tiles small { display: block; margin-top: .35rem; font-weight: 700; }
+
+  .app-section-heading {
+    max-width: 760px;
+    margin-bottom: 2rem;
+  }
+
+  .install-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .install-card {
+    position: relative;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(2, 31, 77, .05);
+  }
+
+  .install-card__number {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 1.1rem;
+    border-radius: 50%;
+    background: #021F4D;
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .install-card h3 {
+    margin: 0 0 .55rem;
+    color: #021F4D;
+    font-size: 1.15rem;
+  }
+
+  .install-card p {
+    margin: 0;
+    color: #617087;
+    line-height: 1.65;
+  }
+
+  .app-benefits {
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .benefits-list {
+    display: grid;
+    gap: .9rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .benefits-list li {
+    display: flex;
+    gap: .8rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid #e3e9f0;
+    border-radius: 16px;
+    background: #fff;
+    color: #435168;
+    line-height: 1.55;
+  }
+
+  .benefits-list .icon {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: .12rem;
+    color: #b77f00;
+  }
+
+  .app-final {
+    padding: 3rem 0;
+    background: #021F4D;
+    color: #fff;
+  }
+
+  .app-final__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .app-final h2 {
+    margin: .35rem 0;
+    color: #fff;
+    font-size: clamp(1.75rem, 4vw, 2.6rem);
+  }
+
+  .app-final p:last-child { margin: 0; color: #d2dceb; }
+
+  @media (max-width: 820px) {
+    .app-hero__grid,
+    .app-benefits {
+      grid-template-columns: 1fr;
+    }
+
+    .app-phone { margin-top: 1rem; }
+
+    .install-grid { grid-template-columns: 1fr; }
+
+    .app-final__inner {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .app-actions .btn { width: 100%; justify-content: center; }
+    .app-phone__frame { width: min(285px, 82vw); }
+  }
+</style>

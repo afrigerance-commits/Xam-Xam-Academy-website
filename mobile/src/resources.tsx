@@ -22,6 +22,7 @@ type ApiResource = {
   chapter?: string;
   type: Resource['type'];
   description?: string;
+  content?: string;
   date?: string;
   pdfUrl?: string | null;
   url: string;
@@ -49,6 +50,8 @@ function absoluteUrl(value?: string | null) {
 }
 
 function normalizeResource(item: ApiResource): Resource {
+  const fallback = fallbackResources.find((resource) => resource.slug === item.slug);
+
   return {
     slug: item.slug,
     title: item.title,
@@ -57,6 +60,7 @@ function normalizeResource(item: ApiResource): Resource {
     chapter: item.chapter ?? '',
     type: item.type,
     description: item.description ?? '',
+    content: item.content ?? fallback?.content ?? '',
     date: item.date,
     url: absoluteUrl(item.url) ?? SITE_URL,
     pdfUrl: absoluteUrl(item.pdfUrl),

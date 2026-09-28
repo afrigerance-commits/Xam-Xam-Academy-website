@@ -12,7 +12,7 @@ import type { Resource } from './types';
 
 const SITE_URL = 'https://xamxamacademy.com';
 const API_URL = `${SITE_URL}/api/ressources.json`;
-const CACHE_KEY = 'xamxam:resources:v1';
+const CACHE_KEY = 'xamxam:resources:v2';
 
 type ApiResource = {
   slug: string;

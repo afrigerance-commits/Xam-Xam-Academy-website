@@ -1,14 +1,18 @@
 # =====================================================================
 # Interface d'administration de Xam Xam Academy (Sveltia CMS)
 # Accessible à l'adresse /admin/ du site.
-# Chaque enregistrement crée un « commit » dans le dépôt GitHub ;
-# l'hébergeur republie alors le site automatiquement.
+# Chaque enregistrement crée un « commit » dans le dépôt GitHub.
+# Les enregistrements simples n'enclenchent PAS de déploiement Netlify ;
+# utilisez « Enregistrer et publier » quand le contenu est prêt.
 # =====================================================================
 
 backend:
   name: github
   repo: afrigerance-commits/Xam-Xam-Academy-website
-  # Branche publiée : si elle est omise, la branche par défaut du dépôt (main) est utilisée.
+  branch: main
+  # Évite un déploiement Netlify à chaque petite correction.
+  # « Enregistrer » = sauvegarde sans déployer ; « Enregistrer et publier » = déploiement.
+  skip_ci: true
 
 app_title: Xam Xam Academy — Administration
 logo_url: /assets/icons/icon-192.png

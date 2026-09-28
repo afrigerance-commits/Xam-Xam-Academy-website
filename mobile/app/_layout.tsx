@@ -9,7 +9,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <ResourcesProvider>
         <FavoritesProvider>
-          <StatusBar style="dark" backgroundColor="#F7F9FC" />
+          <StatusBar style="dark" />
           <Stack
             screenOptions={{
               headerStyle: { backgroundColor: '#FFFFFF' },

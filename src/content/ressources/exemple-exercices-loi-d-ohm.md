@@ -1,10 +1,10 @@
 ---
-titre: "EXEMPLE — Exercices corrigés : la loi d'Ohm"
+titre: "Loi d’Ohm 4e : cours et exercices corrigés"
 type: Exercices corrigés
 niveau: 4e
 matiere: Physique
 chapitre: Électricité — loi d'Ohm
-description: "Fichier d'exemple montrant comment écrire un exercice corrigé (formules, correction dépliable). Il reste en brouillon : il n'est jamais publié en ligne."
+description: "Comprendre et appliquer la loi d’Ohm en 4e grâce à un rappel de cours, des exercices progressifs et des corrections détaillées."
 date: 2026-09-27
 fichier: ''
 brouillon: false

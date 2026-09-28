@@ -34,6 +34,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "owner": "xamxamacademy",
+    "extra": {
+      "eas": {
+        "projectId": "4706c6f9-7d5c-4b90-b7fb-b14f37c2742e"
+      }
     }
   }
 }

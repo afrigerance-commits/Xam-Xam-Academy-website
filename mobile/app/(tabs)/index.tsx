@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BrandHeader, ResourceCard, SectionTitle } from '../../src/components';
 import { useResources } from '../../src/resources';
@@ -41,6 +41,20 @@ export default function HomeScreen() {
             </View>
           </View>
         </View>
+
+        <Link href="/(tabs)/ia" asChild>
+          <Pressable style={styles.aiCard}>
+            <View style={styles.aiCardIcon}>
+              <Ionicons name="sparkles" size={22} color={COLORS.gold} />
+            </View>
+            <View style={{ flex: 1, gap: 3 }}>
+              <Text style={styles.aiCardKicker}>NOUVEAU · XAM XAM IA</Text>
+              <Text style={styles.aiCardTitle}>Une notion te bloque ? Demande à ton tuteur IA.</Text>
+              <Text style={styles.aiCardText}>5 questions offertes par jour dans la version découverte.</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={20} color={COLORS.navy} />
+          </Pressable>
+        </Link>
 
         <View style={styles.sectionHeading}>
           <SectionTitle eyebrow="À découvrir" title="Commence par une fiche" />
@@ -101,6 +115,27 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
   },
   statText: { color: '#FFFFFF', fontSize: 11, fontWeight: '700' },
+  aiCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#D8E5FF',
+    borderRadius: 18,
+    padding: 15,
+  },
+  aiCardIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 14,
+    backgroundColor: COLORS.navy,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  aiCardKicker: { color: COLORS.blue, fontSize: 10, fontWeight: '900', letterSpacing: 0.8 },
+  aiCardTitle: { color: COLORS.navy, fontSize: 14, lineHeight: 18, fontWeight: '900' },
+  aiCardText: { color: COLORS.muted, fontSize: 11, lineHeight: 16 },
   sectionHeading: { gap: 4 },
   sync: { color: COLORS.muted, fontSize: 12 },
   offline: { color: COLORS.muted, fontSize: 12, textAlign: 'center' },

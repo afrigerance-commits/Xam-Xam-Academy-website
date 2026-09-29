@@ -126,6 +126,7 @@ ${question}`;
         input,
         max_output_tokens: 650,
         store: false,
+        moderation: { model: "omni-moderation-latest" },
       }),
     });
   } catch {
@@ -150,6 +151,28 @@ ${question}`;
     return reply(
       { error: "Impossible d'obtenir une réponse pour le moment." },
       502,
+    );
+  }
+
+  if (data?.moderation?.input?.flagged === true) {
+    return reply(
+      {
+        error:
+          "Je ne peux pas traiter cette demande ici. Xam Xam IA est réservé à un usage pédagogique sûr en Physique-Chimie.",
+        code: "INPUT_BLOCKED",
+      },
+      400,
+    );
+  }
+
+  if (data?.moderation?.output?.flagged === true) {
+    return reply(
+      {
+        error:
+          "Je préfère ne pas afficher cette réponse. Reformule ta question comme une demande de cours ou d'explication scientifique.",
+        code: "OUTPUT_BLOCKED",
+      },
+      400,
     );
   }
 

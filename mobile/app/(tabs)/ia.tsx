@@ -50,6 +50,7 @@ export default function AiScreen() {
   }, [loadUsage]);
 
   const remaining = Math.max(0, FREE_DAILY_LIMIT - used);
+  const progressWidth = `${Math.round((remaining / FREE_DAILY_LIMIT) * 100)}%` as `${number}%`;
   const canAsk = question.trim().length >= 3 && !loading && remaining > 0;
 
   const submit = async () => {
@@ -111,7 +112,7 @@ export default function AiScreen() {
               <View
                 style={[
                   styles.progressFill,
-                  { width: `${(remaining / FREE_DAILY_LIMIT) * 100}%` },
+                  { width: progressWidth },
                 ]}
               />
             </View>

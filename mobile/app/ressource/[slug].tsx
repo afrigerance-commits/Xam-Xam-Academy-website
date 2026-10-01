@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFavorites } from '../../src/favorites';
 import { useResources } from '../../src/resources';
 import { COLORS } from '../../src/theme';
+import { CourseReader } from '../../src/CourseReader';
 
 export default function ResourceScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
@@ -65,9 +66,13 @@ export default function ResourceScreen() {
         <View style={styles.syncCard}>
           <Ionicons name="cloud-done-outline" size={25} color={COLORS.blue} />
           <View style={{ flex: 1, gap: 3 }}>
-            <Text style={styles.syncTitle}>Cours synchronisé</Text>
+            <Text style={styles.syncTitle}>{item.content ? 'Lecture disponible hors connexion' : 'Aperçu du cours'}</Text>
             <Text style={styles.syncText}>
-              Cette fiche provient directement des contenus publiés depuis Sveltia CMS.
+              {item.content
+                ? item.contentSource === 'bundled'
+                  ? 'Version embarquée dans l’application. Texte, formules et corrections accessibles sans Internet.'
+                  : 'Version synchronisée. Texte, formules et corrections enregistrés sur ce téléphone.'
+                : 'Le contenu complet de cette ressource n’est pas encore disponible dans l’application.'}
             </Text>
           </View>
         </View>
@@ -86,8 +91,10 @@ export default function ResourceScreen() {
           </View>
         ) : null}
 
+        {item.content ? <CourseReader key={item.slug} content={item.content} baseUrl={item.url} /> : null}
+
         <Pressable onPress={() => WebBrowser.openBrowserAsync(item.url)} style={styles.primary}>
-          <Text style={styles.primaryText}>Lire le cours complet</Text>
+          <Text style={styles.primaryText}>Ouvrir sur le site (Internet)</Text>
           <Ionicons name="open-outline" size={19} color={COLORS.navy} />
         </Pressable>
 
@@ -97,7 +104,7 @@ export default function ResourceScreen() {
             style={styles.secondary}
           >
             <Ionicons name="document-outline" size={19} color={COLORS.navy} />
-            <Text style={styles.secondaryText}>Ouvrir le PDF</Text>
+            <Text style={styles.secondaryText}>Ouvrir le PDF (Internet)</Text>
           </Pressable>
         ) : null}
       </ScrollView>

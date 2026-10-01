@@ -1,63 +1,92 @@
-# Xam Xam Academy — application mobile MVP
+# Xam Xam Academy — application mobile
 
-Application Android/iOS construite avec Expo + React Native + Expo Router + TypeScript.
+Branche `mobile/expo-mvp`. Aucun déploiement Netlify n'est nécessaire pour tester l'app.
 
-La branche `mobile/expo-mvp` reste séparée de `main` tant que la version mobile n'a pas été validée.
+## Tester dans Expo Go
 
-## Fonctionnalités actuelles
-
-- accueil mobile aux couleurs Xam Xam ;
-- vrai logo Xam Xam embarqué dans l'application ;
-- zones sûres Android/iOS respectées (barre d'état) ;
-- navigation Accueil / Réviser / Vidéos / Favoris / Profil ;
-- recherche et filtre par niveau ;
-- favoris persistants sur le téléphone ;
-- synchronisation automatique des ressources publiées depuis Sveltia CMS ;
-- cache local : les derniers cours restent visibles si le réseau est momentanément indisponible ;
-- accès au cours complet, aux PDF, à WhatsApp et à YouTube.
-
-## Synchronisation CMS → application
-
-Le site génère à chaque déploiement :
-
-```text
-https://xamxamacademy.com/api/ressources.json
-```
-
-Le flux contient uniquement les ressources publiées (`brouillon: false`).
-
-```text
-Sveltia CMS
-    ↓
-Markdown Astro
-    ↓
-/api/ressources.json
-   ↙             ↘
-site web       application mobile
-```
-
-Tu saisis donc un cours une seule fois dans Sveltia. Après publication et déploiement du site, l'application récupère automatiquement la nouvelle liste.
-
-## Lancer sur Android
+Dans le terminal VS Code, à la racine du dépôt, une commande à la fois :
 
 ```bash
+git switch mobile/expo-mvp
+git pull --ff-only
 cd mobile
-npm install
-npx expo install --fix
-npx expo start
+npm ci
+npx expo start --clear
 ```
 
-Pour forcer une nouvelle synchronisation, ouvre l'onglet **Réviser** et tire la page vers le bas.
+Le PC et le téléphone doivent être sur le même Wi-Fi. Scanner le QR code dans Expo Go.
+Ouvrir **Réviser → Loi d’Ohm** : le cours s'affiche directement dans l'application.
+Les corrections s'ouvrent en appuyant sur **Voir la correction**.
 
-## Prochaines étapes
+## Vérifier la lecture hors connexion
 
-1. Affichage natif complet du contenu Markdown dans l'application.
-2. Synchronisation des vidéos.
-3. Diagnostic Xam Xam.
-4. Quiz avec correction immédiate.
-5. Progression par niveau et chapitre.
-6. Lecture hors ligne / téléchargements.
-7. Notifications.
-8. Comptes élèves.
-9. Build Android EAS et test Google Play.
-10. iOS/TestFlight.
+1. Charger l'application dans Expo Go et ouvrir un cours.
+2. Activer le mode avion sur le téléphone, sans fermer Expo Go.
+3. Revenir à Réviser, rouvrir le cours et déplier les corrections.
+4. Vérifier que les formules restent affichées ; remettre ensuite le réseau.
+
+Expo Go a besoin de Metro pour charger le code lors d'un démarrage à froid. Pour vérifier
+un redémarrage entièrement hors ligne, il faudra tester l'APK installé.
+
+## Ce qui est enregistré
+
+- Les deux cours publiés présents dans cette branche sont embarqués avec l'app.
+- Texte, tableaux, encadrés, corrections et formules SVG se lisent sans réseau.
+- L'API v2 transmet les cours complets ; les mises à jour sont enregistrées via AsyncStorage.
+- Si le site sert encore l'ancienne API, l'app conserve la version complète embarquée.
+- Les illustrations distantes sont mises en cache sur disque après chargement, avec un message si elles sont indisponibles.
+- Les PDF et liens externes nécessitent Internet ; ils ne sont pas téléchargés par cette version.
+- Les brouillons sont exclus de l'API mobile, même en développement.
+
+## Tester la synchronisation avec le site local
+
+À la racine du dépôt, dans un premier terminal :
+
+```bash
+npm ci
+npm run dev -- --host 0.0.0.0
+```
+
+Relever l'IPv4 du PC avec `ipconfig` sous Windows, par exemple `192.168.1.10`.
+Créer `mobile/.env.local` avec cette ligne (remplacer l'IP par celle du PC) :
+
+```dotenv
+EXPO_PUBLIC_SITE_URL=http://192.168.1.10:4321
+```
+
+Ce fichier ne contient aucun secret. Relancer Expo avec `npx expo start --clear`.
+Dans Réviser, tirer la liste vers le bas. L'app récupère l'API locale v2.
+Ne pas mettre `localhost` : sur le téléphone, il désigne le téléphone lui-même.
+Avant un build APK public, retirer cette variable pour revenir au domaine public.
+
+## Actualiser les cours embarqués sans déployer
+
+À la racine du dépôt :
+
+```bash
+npm run build
+npm run mobile:snapshot
+npm run test:mobile-content
+```
+
+Le dernier test utilise Node 24 ou plus récent. Relancer ensuite Expo.
+Le snapshot provient du même flux que l'API ; il ne contient que les cours publiés.
+Les nouvelles publications Sveltia atteindront automatiquement les apps via l'API v2
+une fois cette version du site déployée, plus tard.
+
+## Vérifications techniques
+
+Dans `mobile` :
+
+```bash
+npm run typecheck
+npx expo export --platform android
+```
+
+L'export valide le bundle Android mais ne produit pas d'APK.
+Les profils EAS `apk` et `production` restent configurés pour APK et AAB.
+
+## Suite du projet
+
+Diagnostic, quiz, progression, Xam Xam+, synchronisation des vidéos et test APK.
+L'IA est préparée dans l'app ; l'activation serveur attend la configuration prévue.

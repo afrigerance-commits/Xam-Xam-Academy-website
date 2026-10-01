@@ -1,3 +1,5 @@
+import type { CourseContent } from '../../shared/course';
+
 export type Level =
   | '4e'
   | '3e'
@@ -29,6 +31,8 @@ export type Resource = {
   url: string;
   pdfUrl?: string | null;
   highlights?: string[];
+  content?: CourseContent;
+  contentSource?: 'bundled' | 'synced';
 };
 
 export type Video = {

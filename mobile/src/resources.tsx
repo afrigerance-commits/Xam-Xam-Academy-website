@@ -1,37 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { fallbackResources } from './content';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import snapshot from './data/resources.json';
 import type { Resource } from './types';
+import { isResourceList, mergeResources } from './resource-data';
 
-const SITE_URL = 'https://xamxamacademy.com';
+// Sur téléphone : utiliser l'adresse IP du PC, jamais localhost.
+const SITE_URL = (process.env.EXPO_PUBLIC_SITE_URL || 'https://xamxamacademy.com').replace(/\/$/, '');
 const API_URL = `${SITE_URL}/api/ressources.json`;
-const CACHE_KEY = 'xamxam:resources:v1';
-
-type ApiResource = {
-  slug: string;
-  title: string;
-  level: Resource['level'];
-  subject: Resource['subject'];
-  chapter?: string;
-  type: Resource['type'];
-  description?: string;
-  date?: string;
-  pdfUrl?: string | null;
-  url: string;
-};
-
-type ApiResponse = {
-  version: number;
-  count: number;
-  resources: ApiResource[];
-};
+const CACHE_KEY = 'xamxam:resources:v2';
+const bundled = mergeResources(snapshot.resources as Resource[], [], SITE_URL, 'bundled');
 
 type ResourcesContextValue = {
   resources: Resource[];
@@ -39,106 +16,73 @@ type ResourcesContextValue = {
   error: string | null;
   refresh: () => Promise<void>;
 };
-
 const ResourcesContext = createContext<ResourcesContextValue | null>(null);
 
-function absoluteUrl(value?: string | null) {
-  if (!value) return null;
-  if (/^https?:\/\//i.test(value)) return value;
-  return `${SITE_URL}${value.startsWith('/') ? '' : '/'}${value}`;
-}
-
-function normalizeResource(item: ApiResource): Resource {
-  return {
-    slug: item.slug,
-    title: item.title,
-    level: item.level,
-    subject: item.subject,
-    chapter: item.chapter ?? '',
-    type: item.type,
-    description: item.description ?? '',
-    date: item.date,
-    url: absoluteUrl(item.url) ?? SITE_URL,
-    pdfUrl: absoluteUrl(item.pdfUrl),
-  };
-}
-
-async function fetchResources() {
-  const response = await fetch(API_URL, {
-    headers: { Accept: 'application/json' },
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  const data = (await response.json()) as ApiResponse;
-  return data.resources.map(normalizeResource);
+async function fetchResources(previous: Resource[], signal: AbortSignal) {
+  const response = await fetch(API_URL, { headers: { Accept: 'application/json' }, signal });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const data = await response.json();
+  if (!isResourceList(data?.resources)) throw new Error('Flux de cours invalide');
+  return mergeResources(data.resources, previous, SITE_URL, 'synced');
 }
 
 export function ResourcesProvider({ children }: { children: React.ReactNode }) {
-  const [resources, setResources] = useState<Resource[]>(fallbackResources);
+  const [resources, setResources] = useState<Resource[]>(bundled);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const current = useRef(bundled);
+  const active = useRef(true);
+  const request = useRef<AbortController | null>(null);
 
   const refresh = useCallback(async () => {
+    if (request.current) return;
+    const controller = new AbortController();
+    request.current = controller;
+    const timer = setTimeout(() => controller.abort(), 10000);
     setLoading(true);
     setError(null);
-
     try {
-      const remote = await fetchResources();
+      const remote = await fetchResources(current.current, controller.signal);
+      if (!active.current || request.current !== controller) return;
+      current.current = remote;
       setResources(remote);
-      await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(remote));
+      try {
+        await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(remote));
+      } catch {
+        if (active.current) setError('Cours actualisés, mais le téléphone n’a pas pu enregistrer le cache.');
+      }
     } catch {
-      setError('Impossible de synchroniser les cours pour le moment.');
+      if (active.current && request.current === controller) setError('Synchronisation indisponible. Les cours enregistrés restent accessibles.');
     } finally {
-      setLoading(false);
+      clearTimeout(timer);
+      if (request.current === controller) {
+        request.current = null;
+        if (active.current) setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    let active = true;
-
+    active.current = true;
     const boot = async () => {
       try {
-        const cached = await AsyncStorage.getItem(CACHE_KEY);
-        if (active && cached) {
-          setResources(JSON.parse(cached) as Resource[]);
+        const raw = await AsyncStorage.getItem(CACHE_KEY);
+        const cached: unknown = raw ? JSON.parse(raw) : null;
+        if (active.current && isResourceList(cached)) {
+          const restored = mergeResources(cached, bundled, SITE_URL);
+          current.current = restored;
+          setResources(restored);
         }
-      } catch {
-        // Le cache est facultatif : on continue avec le contenu de secours.
-      }
-
-      try {
-        const remote = await fetchResources();
-        if (active) {
-          setResources(remote);
-          setError(null);
-        }
-        await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(remote));
-      } catch {
-        if (active) {
-          setError('Mode hors connexion : dernière version disponible affichée.');
-        }
-      } finally {
-        if (active) setLoading(false);
-      }
+      } catch { /* Cache endommagé : les cours embarqués restent disponibles. */ }
+      if (active.current) await refresh();
     };
+    void boot();
+    return () => { active.current = false; request.current?.abort(); request.current = null; };
+  }, [refresh]);
 
-    boot();
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  const value = useMemo(
-    () => ({ resources, loading, error, refresh }),
-    [resources, loading, error, refresh],
-  );
-
+  const value = useMemo(() => ({ resources, loading, error, refresh }), [resources, loading, error, refresh]);
   return <ResourcesContext.Provider value={value}>{children}</ResourcesContext.Provider>;
 }
-
 export function useResources() {
   const value = useContext(ResourcesContext);
   if (!value) throw new Error('useResources doit être utilisé dans ResourcesProvider');

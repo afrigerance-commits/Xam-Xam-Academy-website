@@ -1,0 +1,105 @@
+[
+  {
+    "name": "desktop",
+    "overflow": false,
+    "brokenImages": [],
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "title": "92.16px",
+    "scene": {
+      "x": 708.15625,
+      "y": 145.9283905029297,
+      "width": 687.84375,
+      "height": 546.015625,
+      "top": 145.9283905029297,
+      "right": 1396,
+      "bottom": 691.9440155029297,
+      "left": 708.15625
+    }
+  },
+  {
+    "name": "reference",
+    "overflow": false,
+    "brokenImages": [],
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "title": "107.008px",
+    "scene": {
+      "x": 795.109375,
+      "y": 114.27371215820312,
+      "width": 845.890625,
+      "height": 671.484375,
+      "top": 114.27371215820312,
+      "right": 1641,
+      "bottom": 785.7580871582031,
+      "left": 795.109375
+    }
+  },
+  {
+    "name": "tablet",
+    "overflow": false,
+    "brokenImages": [],
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "title": "48px",
+    "scene": {
+      "x": 417.40625,
+      "y": 206.98167419433594,
+      "width": 390.59375,
+      "height": 310.0625,
+      "top": 206.98167419433594,
+      "right": 808,
+      "bottom": 517.0441741943359,
+      "left": 417.40625
+    }
+  },
+  {
+    "name": "mobile",
+    "overflow": false,
+    "brokenImages": [],
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "title": "43.29px",
+    "scene": {
+      "x": 20,
+      "y": 569.302734375,
+      "width": 350,
+      "height": 277.828125,
+      "top": 569.302734375,
+      "right": 370,
+      "bottom": 847.130859375,
+      "left": 20
+    }
+  },
+  {
+    "name": "small-mobile",
+    "overflow": false,
+    "brokenImages": [],
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "title": "43.2px",
+    "scene": {
+      "x": 20,
+      "y": 594.668212890625,
+      "width": 280,
+      "height": 222.265625,
+      "top": 594.668212890625,
+      "right": 300,
+      "bottom": 816.933837890625,
+      "left": 20
+    }
+  },
+  {
+    "reducedMotion": "none"
+  }
+]

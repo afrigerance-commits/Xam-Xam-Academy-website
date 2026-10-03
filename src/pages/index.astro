@@ -4,6 +4,7 @@
    Les textes se modifient directement dans le HTML ci-dessous.
    ===================================================================== */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Illustration from '../components/Illustration.astro';
 import DerniersAjouts from '../components/DerniersAjouts.astro';
 import { YOUTUBE_URL } from '../lib/constantes';
 
@@ -40,28 +41,21 @@ const jsonLd = {
     <div class="container premium-hero__grid">
       <div class="premium-hero__content">
         <p class="premium-label rise"><span></span> PHYSIQUE · CHIMIE · CONFIANCE</p>
-        <h1 class="premium-title rise" id="hero-title" data-delay="1">Les sciences,<br>enfin <em>à votre<br>portée.</em></h1>
-        <p class="premium-lead rise" data-delay="2">Comprendre une notion. Trouver sa méthode.<br>Et prendre plaisir à progresser.</p>
-        <p class="premium-description rise" data-delay="2">Des cours, des exercices corrigés et un accompagnement humain, du collège à la Licence.</p>
+        <h1 class="premium-title rise" id="hero-title" data-delay="1">Les sciences,<br>enfin à votre<br><em>portée.</em></h1>
+        <p class="premium-lead rise" data-delay="2">Comprendre. Progresser. Réussir.</p>
+        <p class="premium-description rise" data-delay="2">Des cours clairs, des exercices corrigés et un accompagnement pour progresser en Physique-Chimie.</p>
         <div class="premium-actions rise" data-delay="3">
           <a class="btn btn--primary btn--lg" href="/ressources/">Commencer à réviser <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           <a class="premium-text-link" href="#cours">Trouver mon accompagnement <svg class="icon premium-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
-        <div class="premium-location rise" data-delay="4"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Dakar &amp; Thiès <span>·</span> Partout en ligne</div>
+        <div class="premium-location rise" data-delay="4"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Dakar · Thiès · En ligne</div>
       </div>
       <div class="premium-visual rise" data-delay="2">
-        <div class="premium-orbit" aria-hidden="true"></div>
-        <figure class="premium-photo">
-          <picture><source type="image/webp" srcset="/assets/img/premium-study-640.webp 640w, /assets/img/premium-study-1200.webp 1200w" sizes="(min-width: 1000px) 50vw, 100vw"><img src="/assets/img/premium-study-1200.webp" alt="Illustration de deux élèves travaillant ensemble sur un exercice de sciences" width="1200" height="800" fetchpriority="high" decoding="async"></picture>
-          <figcaption>Le déclic commence par une bonne explication.</figcaption>
-        </figure>
-        <div class="premium-note premium-note--top"><span class="premium-note__icon"><svg class="icon" aria-hidden="true"><use href="#i-bulb"/></svg></span><span><strong>Comprendre, avant tout.</strong><small>Une méthode. Un vrai déclic.</small></span></div>
-        <a class="premium-note premium-note--bottom" href="/ressources/exemple-exercices-loi-d-ohm/"><span class="premium-note__number">U = R × I</span><span><small>À explorer · Physique 4e</small><strong>La loi d’Ohm, pas à pas <svg class="icon premium-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg></strong></span></a>
-        <span class="premium-visual__caption">COMPRENDRE. PROGRESSER. RÉUSSIR.</span>
+        <div class="hero-science"><Illustration name="physics" alt="Prisme décomposant la lumière, aimant et pendule doré" priority /></div>
       </div>
     </div>
   </section>
-  <div class="premium-band"><div class="container"><p>Chaque étape compte.</p><span>Des bases solides</span><i aria-hidden="true"></i><span>Des explications claires</span><i aria-hidden="true"></i><span>La confiance pour avancer</span></div></div>
+  <div class="premium-band"><div class="container"><span><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Cours &amp; exercices</span><span><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg>Du collège à la Licence</span><span><svg class="icon" aria-hidden="true"><use href="#i-bulb"/></svg>Accompagnement personnalisé</span></div></div>
 
   <!-- =================================================================
        NOS COURS
@@ -95,7 +89,7 @@ const jsonLd = {
           </a>
         </article>
 
-        <article class="card service reveal" data-delay="2"><div class="service-photo service-photo--online"><div aria-hidden="true"><span class="online-window"><i></i><i></i><i></i></span><strong>Le savoir,<br>sans distance.</strong><svg class="icon"><use href="#i-monitor"/></svg></div><span>03 / EN LIGNE</span></div>
+        <article class="card service reveal" data-delay="2"><div class="service-photo service-photo--illustrated"><Illustration name="online" /><span>03 / EN LIGNE</span></div>
           <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg></span>
           <h3 class="card__title">Cours en ligne</h3>
           <p class="card__text">Des séances interactives à distance avec explications, exercices, corrections et suivi de progression.</p>
@@ -110,7 +104,7 @@ const jsonLd = {
 
   <section class="premium-discovery section" aria-labelledby="discovery-title">
     <div class="container premium-discovery__grid">
-      <div class="premium-discovery__image reveal"><img src="/assets/img/premium-lab-1200.webp" alt="Composition illustrative de verrerie de laboratoire" width="1200" height="800" loading="lazy" decoding="async"><span>LA CURIOSITÉ EST UN BON DÉPART.</span></div>
+      <div class="premium-discovery__image reveal"><Illustration name="chemistry" alt="Verrerie de chimie et modèle moléculaire bleu et doré" /></div>
       <div class="premium-discovery__content reveal"><p class="eyebrow">Apprendre par soi-même</p><h2 class="section-title" id="discovery-title">Moins de blocages.<br>Plus de <em>« j’ai compris ».</em></h2><p>Une formule prend tout son sens quand on sait d’où elle vient. Retrouvez des explications, des exemples et des corrections pour avancer à votre rythme.</p><a class="link-arrow" href="/ressources/">Explorer les ressources <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a class="premium-video-link" href={YOUTUBE_URL} target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg> Apprendre aussi en vidéo <svg class="icon premium-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
     </div>
   </section>
@@ -158,8 +152,8 @@ const jsonLd = {
         </article>
       </div>
 
-      <div class="focus reveal">
-        <p class="focus__label">Au cœur de l’accompagnement</p>
+      <div class="focus focus--revision reveal"><Illustration name="revision" /><div>
+        <p class="focus__label">Préparer le BFEM et le Bac, réviser avec méthode</p>
         <ul class="focus__list">
           <li><svg class="icon" aria-hidden="true"><use href="#i-atom"/></svg>Physique</li>
           <li><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg>Chimie</li>
@@ -167,6 +161,7 @@ const jsonLd = {
           <li><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg>Exercices</li>
           <li><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg>Préparation aux évaluations</li>
         </ul>
+        <a class="link-arrow" href="/ressources/">Commencer les révisions <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
       </div>
     </div>
   </section>
@@ -176,11 +171,11 @@ const jsonLd = {
        ================================================================= -->
   <section class="section section--soft" id="methode" aria-labelledby="methode-title">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="method-intro"><div class="section-head reveal">
         <p class="eyebrow">Notre méthode</p>
         <h2 class="section-title" id="methode-title">Le déclic ne doit rien au hasard.</h2>
         <p class="section-lead">Une démarche en quatre étapes pour cibler ce qui compte vraiment.</p>
-      </div>
+      </div><div class="method-illustration reveal"><Illustration name="method" /></div></div>
 
       <ol class="steps">
         <li class="step reveal">

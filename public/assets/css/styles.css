@@ -2392,7 +2392,7 @@ main:focus {
 
 /* Entrée du hero : animation CSS pure (ne dépend pas du JavaScript) */
 .rise {
-  animation: rise 0.8s var(--ease) both;
+  animation: rise 0.6s var(--ease) both;
   animation-delay: calc(var(--d, 0) * 90ms);
 }
 
@@ -2404,18 +2404,18 @@ main:focus {
 }
 
 /* Apparition au défilement : activée uniquement si le JavaScript est chargé */
-.js .reveal {
+.motion-ready .reveal {
   opacity: 0;
   translate: 0 18px;
   transition:
-    opacity 0.8s var(--ease) calc(var(--d, 0) * 90ms),
-    translate 0.8s var(--ease) calc(var(--d, 0) * 90ms),
+    opacity 0.6s var(--ease) calc(var(--d, 0) * 90ms),
+    translate 0.6s var(--ease) calc(var(--d, 0) * 90ms),
     transform 0.3s var(--ease),
     box-shadow 0.3s var(--ease),
     border-color 0.3s;
 }
 
-.js .reveal.is-visible {
+.motion-ready .reveal.is-visible {
   opacity: 1;
   translate: 0 0;
 }
@@ -2434,14 +2434,14 @@ main:focus {
     transition-delay: 0s !important;
   }
 
-  .js .reveal {
+  .motion-ready .reveal {
     opacity: 1;
     translate: none;
   }
 }
 
 @media print {
-  .js .reveal {
+  .motion-ready .reveal {
     opacity: 1;
     translate: none;
   }

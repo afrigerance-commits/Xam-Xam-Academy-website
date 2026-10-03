@@ -1,0 +1,80 @@
+[
+  {
+    "name": "desktop",
+    "overflow": false,
+    "brokenImages": [],
+    "hidden": 0,
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "serviceHeights": [
+      200,
+      200,
+      200
+    ],
+    "brokenLinks": []
+  },
+  {
+    "name": "tablet",
+    "overflow": false,
+    "brokenImages": [],
+    "hidden": 0,
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "serviceHeights": [
+      200,
+      200,
+      200
+    ],
+    "brokenLinks": [],
+    "mobileMenu": "true"
+  },
+  {
+    "name": "mobile",
+    "overflow": false,
+    "brokenImages": [],
+    "hidden": 0,
+    "heroLinks": [
+      "/ressources/",
+      "#cours"
+    ],
+    "serviceHeights": [
+      210,
+      210,
+      210
+    ],
+    "brokenLinks": [],
+    "mobileMenu": "true"
+  },
+  {
+    "mode": "no-js",
+    "hidden": 0,
+    "float": "science-float"
+  },
+  {
+    "mode": "reduced-motion",
+    "hidden": 0,
+    "float": "none"
+  },
+  {
+    "mode": "no-observer",
+    "hidden": 0,
+    "float": "science-float"
+  },
+  {
+    "mode": "script-failed",
+    "hidden": 0,
+    "float": "science-float"
+  },
+  {
+    "resources": {
+      "brokenImages": [],
+      "overflow": false,
+      "cardDestination": "/ressources/exemple-exercices-loi-d-ohm/"
+    },
+    "build": "npm run build: passed (9 pages)"
+  }
+]

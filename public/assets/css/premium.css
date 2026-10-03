@@ -832,3 +832,234 @@
     height: 5px;
   }
 }
+
+/* Scientific illustrations and accessible, restrained motion. */
+.science-illustration {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 250ms var(--ease);
+}
+.premium-hero__grid {
+  grid-template-columns: 1fr 1.1fr;
+  gap: 32px;
+}
+.premium-title {
+  font-size: clamp(3rem, 5.3vw, 5rem);
+  line-height: 1.06;
+}
+.premium-title em {
+  color: #f9b603;
+  font-weight: 800;
+}
+.premium-lead {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.premium-description {
+  max-width: 440px;
+}
+.premium-visual {
+  margin: 0;
+  padding: 0;
+}
+.hero-science {
+  aspect-ratio: 3 / 2;
+  animation: science-float 8s ease-in-out infinite;
+}
+.premium-band {
+  background: #fcfbf8;
+  padding: 24px 0;
+}
+.premium-band .container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.premium-band span {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+}
+.premium-band span + span {
+  border-left: 1px solid var(--line);
+}
+.premium-band .icon {
+  color: #a67b00;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+.service-photo--illustrated {
+  background: #f6f3ec;
+  padding: 24px 20px 4px;
+}
+.service-photo--illustrated img {
+  object-fit: contain;
+}
+.service-photo img {
+  transition-duration: 250ms;
+}
+.service:hover .service-photo--illustrated img {
+  transform: translateY(-3px);
+}
+.premium-discovery__image {
+  aspect-ratio: 3 / 2;
+  background: #f6f3ec;
+}
+.premium-discovery__image img {
+  object-fit: contain;
+}
+.focus--revision {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 28px 40px;
+}
+.focus--revision .science-illustration {
+  max-height: 190px;
+}
+.focus--revision .focus__list {
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+.focus--revision .focus__label {
+  text-align: left;
+}
+.method-intro {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+.method-intro .section-head {
+  margin-bottom: 0;
+}
+.method-illustration {
+  max-height: 260px;
+}
+.method-illustration img {
+  max-height: 260px;
+}
+.resource-cover--illustrated {
+  background: #f6f3ec;
+  padding: 8px;
+}
+.card,
+.level,
+.step,
+.rcard,
+.plan {
+  transition:
+    transform 250ms var(--ease),
+    box-shadow 250ms var(--ease),
+    border-color 250ms;
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .level:hover,
+  .step:hover,
+  .rcard:hover,
+  .plan:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -26px #021f4d55;
+  }
+  .premium-visual:hover .science-illustration,
+  .premium-discovery__image:hover .science-illustration,
+  .method-illustration:hover .science-illustration,
+  .focus--revision:hover .science-illustration,
+  .rcard:hover .science-illustration {
+    transform: translateY(-3px);
+  }
+}
+.btn .icon,
+.link-arrow .icon,
+.premium-text-link .icon {
+  transition: transform 250ms var(--ease);
+}
+.btn:hover .icon,
+.link-arrow:hover .icon {
+  transform: translateX(3px);
+}
+.premium-text-link:hover .icon {
+  transform: translateX(3px) rotate(-40deg);
+}
+@keyframes science-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@media (max-width: 767px) {
+  .premium-hero__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .premium-title {
+    font-size: clamp(2.65rem, 10.8vw, 4rem);
+  }
+  .premium-title br {
+    display: block !important;
+  }
+  .premium-visual {
+    margin: 0;
+    padding: 0;
+  }
+  .premium-band .container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .premium-band span + span {
+    border-left: 0;
+  }
+  .premium-band span {
+    font-size: 0.8rem;
+  }
+  .focus--revision {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px;
+  }
+  .focus--revision .science-illustration {
+    max-height: 210px;
+  }
+  .method-intro {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .method-illustration img {
+    max-height: 220px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-science {
+    animation: none;
+  }
+  .science-illustration,
+  .btn .icon,
+  .link-arrow .icon,
+  .premium-text-link .icon {
+    transition: none;
+  }
+  .science-illustration,
+  .card:hover,
+  .level:hover,
+  .step:hover,
+  .rcard:hover,
+  .plan:hover,
+  .btn:hover {
+    transform: none !important;
+  }
+  .btn:hover .icon,
+  .link-arrow:hover .icon {
+    transform: none;
+  }
+}

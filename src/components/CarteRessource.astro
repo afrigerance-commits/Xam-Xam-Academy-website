@@ -11,6 +11,7 @@ const { titre, type, niveau, chapitre, description, date, fichier, brouillon } =
 ---
 <li class="rcard" data-niveau={niveau} data-type={type}>
   <a class="rcard__link" href={`/ressources/${ressource.id}/`}>
+    <div class:list={['resource-cover', { 'resource-cover--chemistry': ressource.data.matiere === 'Chimie' }]} aria-hidden="true"><span>{ressource.data.matiere}</span><svg class="icon"><use href={ressource.data.matiere === 'Chimie' ? '#i-flask' : '#i-atom'}/></svg><small>XAM XAM / {niveau}</small></div>
     <div class="rcard__badges">
       <span class="badge badge--type">{type}</span>
       <span class="badge">{niveau}</span>

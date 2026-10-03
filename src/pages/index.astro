@@ -4,6 +4,7 @@
    Les textes se modifient directement dans le HTML ci-dessous.
    ===================================================================== */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ScienceHero from '../components/ScienceHero.astro';
 import Illustration from '../components/Illustration.astro';
 import DerniersAjouts from '../components/DerniersAjouts.astro';
 import { YOUTUBE_URL } from '../lib/constantes';
@@ -40,9 +41,8 @@ const jsonLd = {
   <section class="premium-hero" id="accueil" aria-labelledby="hero-title">
     <div class="container premium-hero__grid">
       <div class="premium-hero__content">
-        <p class="premium-label rise"><span></span> PHYSIQUE · CHIMIE · CONFIANCE</p>
+        <p class="premium-label rise"><span></span> Comprendre. Progresser. Réussir.</p>
         <h1 class="premium-title rise" id="hero-title" data-delay="1">Les sciences,<br>enfin à votre<br><em>portée.</em></h1>
-        <p class="premium-lead rise" data-delay="2">Comprendre. Progresser. Réussir.</p>
         <p class="premium-description rise" data-delay="2">Des cours clairs, des exercices corrigés et un accompagnement pour progresser en Physique-Chimie.</p>
         <div class="premium-actions rise" data-delay="3">
           <a class="btn btn--primary btn--lg" href="/ressources/">Commencer à réviser <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
@@ -51,11 +51,11 @@ const jsonLd = {
         <div class="premium-location rise" data-delay="4"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Dakar · Thiès · En ligne</div>
       </div>
       <div class="premium-visual rise" data-delay="2">
-        <div class="hero-science"><Illustration name="physics" alt="Prisme décomposant la lumière, aimant et pendule doré" priority /></div>
+        <div class="hero-science"><ScienceHero /></div>
       </div>
     </div>
   </section>
-  <div class="premium-band"><div class="container"><span><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Cours &amp; exercices</span><span><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg>Du collège à la Licence</span><span><svg class="icon" aria-hidden="true"><use href="#i-bulb"/></svg>Accompagnement personnalisé</span></div></div>
+  <div class="premium-band"><div class="container"><span><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Cours &amp; exercices</span><span><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg>Du collège à la Licence</span><span><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>Accompagnement personnalisé</span></div></div>
 
   <!-- =================================================================
        NOS COURS
@@ -69,7 +69,7 @@ const jsonLd = {
       </div>
 
       <div class="grid grid--3">
-        <article class="card service reveal"><div class="service-photo"><img src="/assets/img/premium-study-640.webp" alt="" width="640" height="427" loading="lazy" decoding="async"><span>01 / À DOMICILE</span></div>
+        <article class="card service reveal"><div class="service-photo service-photo--illustrated"><Illustration name="physics" /><span>01 / À DOMICILE</span></div>
           <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg></span>
           <h3 class="card__title">Cours à domicile</h3>
           <p class="card__text">Accompagnement personnalisé, reprise du cours, exercices et méthodologie directement avec l’élève.</p>

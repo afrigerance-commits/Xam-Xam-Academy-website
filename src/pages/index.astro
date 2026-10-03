@@ -4,6 +4,7 @@
    Les textes se modifient directement dans le HTML ci-dessous.
    ===================================================================== */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Illustration from '../components/Illustration.astro';
 import DerniersAjouts from '../components/DerniersAjouts.astro';
 import { YOUTUBE_URL } from '../lib/constantes';
 
@@ -36,108 +37,25 @@ const jsonLd = {
 ---
 <BaseLayout description={description} accueil={true} jsonLd={jsonLd}>
 
-  <!-- =================================================================
-       HERO
-       ================================================================= -->
-  <section class="hero" id="accueil" aria-labelledby="hero-title">
-    <div class="container hero__grid">
-      <div class="hero__content">
-        <p class="eyebrow rise">Comprendre. Progresser. Réussir.</p>
-        <h1 class="hero__title rise" id="hero-title" data-delay="1">
-          Progressez <span class="highlight">réellement</span> en Physique-Chimie.
-        </h1>
-        <p class="hero__lead rise" data-delay="2">
-          Cours, exercices, méthodologie et suivi personnalisé du collège jusqu’à l’enseignement supérieur.
-        </p>
-
-        <ul class="hero__services rise" data-delay="3">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cours à domicile</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cours de renforcement</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cours en ligne</li>
-        </ul>
-
-        <div class="hero__actions rise" data-delay="4">
-          <a class="btn btn--primary btn--lg" href="https://wa.me/221711715359" data-wa="Bonjour Xam Xam Academy, je souhaite réserver un accompagnement en Physique-Chimie." target="_blank" rel="noopener">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-            Réserver un accompagnement
-          </a>
-          <a class="btn btn--secondary btn--lg" href="#cours">
-            Découvrir nos cours
-            <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"/></svg>
-          </a>
+  <section class="premium-hero" id="accueil" aria-labelledby="hero-title">
+    <div class="container premium-hero__grid">
+      <div class="premium-hero__content">
+        <p class="premium-label rise"><span></span> PHYSIQUE · CHIMIE · CONFIANCE</p>
+        <h1 class="premium-title rise" id="hero-title" data-delay="1">Les sciences,<br>enfin à votre<br><em>portée.</em></h1>
+        <p class="premium-lead rise" data-delay="2">Comprendre. Progresser. Réussir.</p>
+        <p class="premium-description rise" data-delay="2">Des cours clairs, des exercices corrigés et un accompagnement pour progresser en Physique-Chimie.</p>
+        <div class="premium-actions rise" data-delay="3">
+          <a class="btn btn--primary btn--lg" href="/ressources/">Commencer à réviser <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="premium-text-link" href="#cours">Trouver mon accompagnement <svg class="icon premium-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
-
-        <p class="hero__zones rise" data-delay="5">
-          <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
-          <span>Dakar</span><span class="dot" aria-hidden="true">•</span><span>Thiès</span><span class="dot" aria-hidden="true">•</span><span>En ligne</span>
-        </p>
+        <div class="premium-location rise" data-delay="4"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Dakar · Thiès · En ligne</div>
       </div>
-
-      <!-- Illustration éducative (décorative) -->
-      <div class="hero__visual rise" data-delay="2" aria-hidden="true">
-        <svg class="hero-art" viewBox="0 0 560 500" focusable="false">
-          <defs>
-            <linearGradient id="g-board" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#0C3674"/>
-              <stop offset="1" stop-color="#021F4D"/>
-            </linearGradient>
-            <pattern id="p-grid" width="22" height="22" patternUnits="userSpaceOnUse">
-              <path d="M22 0H0V22" fill="none" stroke="#FFFFFF" stroke-opacity=".06"/>
-            </pattern>
-            <clipPath id="c-board"><rect x="60" y="30" width="470" height="330" rx="26"/></clipPath>
-            <filter id="f-shadow" x="-25%" y="-25%" width="150%" height="170%">
-              <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#021F4D" flood-opacity=".14"/>
-            </filter>
-          </defs>
-
-          <!-- Orbite décorative -->
-          <ellipse cx="300" cy="210" rx="262" ry="128" transform="rotate(-16 300 210)" fill="none" stroke="#2355D6" stroke-opacity=".16" stroke-dasharray="2 8" stroke-linecap="round"/>
-          <circle cx="36" cy="228" r="5" fill="#F9B603"/>
-
-          <!-- Tableau -->
-          <rect x="60" y="30" width="470" height="330" rx="26" fill="url(#g-board)"/>
-          <rect x="60" y="30" width="470" height="330" fill="url(#p-grid)" clip-path="url(#c-board)"/>
-          <circle cx="92" cy="62" r="4.5" fill="#FFFFFF" fill-opacity=".22"/>
-          <circle cx="108" cy="62" r="4.5" fill="#FFFFFF" fill-opacity=".22"/>
-          <circle cx="124" cy="62" r="4.5" fill="#FFFFFF" fill-opacity=".22"/>
-          <text x="500" y="66" text-anchor="end" class="art-label">Physique-Chimie</text>
-
-          <text x="92" y="136" class="art-formula art-formula--xl">U = R × I</text>
-          <text x="94" y="162" class="art-caption">Loi d’Ohm</text>
-          <text x="92" y="222" class="art-formula">E<tspan class="art-sub" dy="5">c</tspan><tspan dy="-5"> = ½ m v²</tspan></text>
-          <text x="318" y="222" class="art-formula">C = n / V</text>
-
-          <!-- Molécule d'eau -->
-          <line x1="436" y1="118" x2="404" y2="150" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3"/>
-          <line x1="436" y1="118" x2="468" y2="150" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3"/>
-          <circle cx="436" cy="118" r="18" fill="#3A6CF0"/>
-          <circle cx="404" cy="150" r="10" fill="#FFFFFF"/>
-          <circle cx="468" cy="150" r="10" fill="#FFFFFF"/>
-
-          <!-- Onde -->
-          <path d="M92 298H500M92 262v72" stroke="#FFFFFF" stroke-opacity=".16"/>
-          <path d="M92 298c25-30 50-30 75 0s50 30 75 0 50-30 75 0 50 30 75 0 50-30 75 0" fill="none" stroke="#F9B603" stroke-width="2.5" stroke-linecap="round"/>
-
-          <!-- Carte « Méthode » -->
-          <rect x="16" y="300" width="236" height="186" rx="18" fill="#FFFFFF" filter="url(#f-shadow)"/>
-          <text x="38" y="334" class="art-card-title">La méthode Xam Xam</text>
-          <g class="art-steps">
-            <circle cx="49" cy="360" r="11"/><text x="49" y="364.5" class="art-step-num">1</text><text x="70" y="365" class="art-step">Diagnostic</text>
-            <circle cx="49" cy="391" r="11"/><text x="49" y="395.5" class="art-step-num">2</text><text x="70" y="396" class="art-step">Cours personnalisé</text>
-            <circle cx="49" cy="422" r="11"/><text x="49" y="426.5" class="art-step-num">3</text><text x="70" y="427" class="art-step">Entraînement</text>
-            <circle cx="49" cy="453" r="11"/><text x="49" y="457.5" class="art-step-num">4</text><text x="70" y="458" class="art-step">Suivi</text>
-          </g>
-
-          <!-- Carte « Examens » -->
-          <rect x="330" y="330" width="200" height="82" rx="18" fill="#FFFFFF" filter="url(#f-shadow)"/>
-          <circle cx="369" cy="371" r="21" fill="#021F4D"/>
-          <use href="#i-award" x="357" y="359" width="24" height="24" fill="none" stroke="#F9B603" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          <text x="402" y="364" class="art-card-label">Préparation</text>
-          <text x="402" y="386" class="art-card-value">BFEM &amp; Bac</text>
-        </svg>
+      <div class="premium-visual rise" data-delay="2">
+        <div class="hero-science"><Illustration name="physics" alt="Prisme décomposant la lumière, aimant et pendule doré" priority /></div>
       </div>
     </div>
   </section>
+  <div class="premium-band"><div class="container"><span><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Cours &amp; exercices</span><span><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg>Du collège à la Licence</span><span><svg class="icon" aria-hidden="true"><use href="#i-bulb"/></svg>Accompagnement personnalisé</span></div></div>
 
   <!-- =================================================================
        NOS COURS
@@ -146,12 +64,12 @@ const jsonLd = {
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow">Nos cours</p>
-        <h2 class="section-title" id="cours-title">Un accompagnement adapté à chaque élève</h2>
+        <h2 class="section-title" id="cours-title">À chaque élève,<br>sa façon de progresser.</h2>
         <p class="section-lead">Trois formats complémentaires pour comprendre, s’entraîner et progresser en Physique-Chimie.</p>
       </div>
 
       <div class="grid grid--3">
-        <article class="card service reveal">
+        <article class="card service reveal"><div class="service-photo"><img src="/assets/img/premium-study-640.webp" alt="" width="640" height="427" loading="lazy" decoding="async"><span>01 / À DOMICILE</span></div>
           <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg></span>
           <h3 class="card__title">Cours à domicile</h3>
           <p class="card__text">Accompagnement personnalisé, reprise du cours, exercices et méthodologie directement avec l’élève.</p>
@@ -161,7 +79,7 @@ const jsonLd = {
           </a>
         </article>
 
-        <article class="card service reveal" data-delay="1">
+        <article class="card service reveal" data-delay="1"><div class="service-photo service-photo--lab"><img src="/assets/img/premium-lab-640.webp" alt="" width="640" height="427" loading="lazy" decoding="async"><span>02 / RENFORCEMENT</span></div>
           <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span>
           <h3 class="card__title">Cours de renforcement</h3>
           <p class="card__text">Consolider les bases, corriger les lacunes et progresser grâce à des exercices ciblés et une méthode adaptée.</p>
@@ -171,7 +89,7 @@ const jsonLd = {
           </a>
         </article>
 
-        <article class="card service reveal" data-delay="2">
+        <article class="card service reveal" data-delay="2"><div class="service-photo service-photo--illustrated"><Illustration name="online" /><span>03 / EN LIGNE</span></div>
           <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg></span>
           <h3 class="card__title">Cours en ligne</h3>
           <p class="card__text">Des séances interactives à distance avec explications, exercices, corrections et suivi de progression.</p>
@@ -184,6 +102,12 @@ const jsonLd = {
     </div>
   </section>
 
+  <section class="premium-discovery section" aria-labelledby="discovery-title">
+    <div class="container premium-discovery__grid">
+      <div class="premium-discovery__image reveal"><Illustration name="chemistry" alt="Verrerie de chimie et modèle moléculaire bleu et doré" /></div>
+      <div class="premium-discovery__content reveal"><p class="eyebrow">Apprendre par soi-même</p><h2 class="section-title" id="discovery-title">Moins de blocages.<br>Plus de <em>« j’ai compris ».</em></h2><p>Une formule prend tout son sens quand on sait d’où elle vient. Retrouvez des explications, des exemples et des corrections pour avancer à votre rythme.</p><a class="link-arrow" href="/ressources/">Explorer les ressources <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a class="premium-video-link" href={YOUTUBE_URL} target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg> Apprendre aussi en vidéo <svg class="icon premium-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+    </div>
+  </section>
   <!-- =================================================================
        NIVEAUX
        ================================================================= -->
@@ -228,8 +152,8 @@ const jsonLd = {
         </article>
       </div>
 
-      <div class="focus reveal">
-        <p class="focus__label">Au cœur de l’accompagnement</p>
+      <div class="focus focus--revision reveal"><Illustration name="revision" /><div>
+        <p class="focus__label">Préparer le BFEM et le Bac, réviser avec méthode</p>
         <ul class="focus__list">
           <li><svg class="icon" aria-hidden="true"><use href="#i-atom"/></svg>Physique</li>
           <li><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg>Chimie</li>
@@ -237,6 +161,7 @@ const jsonLd = {
           <li><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg>Exercices</li>
           <li><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg>Préparation aux évaluations</li>
         </ul>
+        <a class="link-arrow" href="/ressources/">Commencer les révisions <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
       </div>
     </div>
   </section>
@@ -246,11 +171,11 @@ const jsonLd = {
        ================================================================= -->
   <section class="section section--soft" id="methode" aria-labelledby="methode-title">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="method-intro"><div class="section-head reveal">
         <p class="eyebrow">Notre méthode</p>
-        <h2 class="section-title" id="methode-title">Plus qu’un simple cours particulier</h2>
+        <h2 class="section-title" id="methode-title">Le déclic ne doit rien au hasard.</h2>
         <p class="section-lead">Une démarche en quatre étapes pour cibler ce qui compte vraiment.</p>
-      </div>
+      </div><div class="method-illustration reveal"><Illustration name="method" /></div></div>
 
       <ol class="steps">
         <li class="step reveal">

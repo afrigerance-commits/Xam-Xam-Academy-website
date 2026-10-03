@@ -199,6 +199,13 @@
     items.forEach(function (el) {
       observer.observe(el);
     });
+    document.documentElement.classList.add('motion-ready');
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function (event) {
+      if (event.matches) {
+        observer.disconnect();
+        document.documentElement.classList.remove('motion-ready');
+      }
+    });
   }
 
   /* ===================================================================

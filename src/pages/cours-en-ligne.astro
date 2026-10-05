@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const titre = 'Cours de Maths et Physique-Chimie en ligne au Sénégal';
+const description = 'Renforcement en Maths et Physique-Chimie en ligne pour le collège et le lycée au Sénégal. 5 000 FCFA par mois et par matière, cours et exercices corrigés.';
+const inscription = 'https://wa.me/221711715359?text=' + encodeURIComponent('Bonjour, je souhaite rejoindre les cours en ligne Xam Xam Academy.\nClasse : \nMatière(s) : \nDisponibilités : ');
+---
+<BaseLayout titre={titre} description={description}>
+  <article class="course-page container">
+    <nav aria-label="Fil d’Ariane"><a href="/">Accueil</a> / Cours en ligne</nav>
+    <p class="eyebrow">Xam Xam Academy · Collège et lycée</p>
+    <h1>Cours de Maths et Physique-Chimie en ligne au Sénégal</h1>
+    <p class="section-lead">Comprendre le cours, s’entraîner et apprendre à expliquer son raisonnement : un accompagnement à distance, organisé selon la classe de l’élève.</p>
+    <div class="course-offer">
+      <h2>5 000 FCFA par mois et par matière</h2>
+      <p>Maths ou Physique-Chimie : 5 000 FCFA. Les deux matières : 10 000 FCFA par mois.</p>
+      <p>Deux séances de 2 heures par semaine et par matière, avec cours, exercices et corrigés. Les horaires et le groupe sont confirmés avant l’inscription définitive.</p>
+      <a class="btn btn--primary" href={inscription} target="_blank" rel="noopener">Demander mon inscription sur WhatsApp<span class="sr-only"> (nouvel onglet)</span></a>
+    </div>
+    <h2>Un groupe adapté à votre classe</h2>
+    <p>Au collège, l’accompagnement en Mathématiques permet de travailler les bases et les méthodes de résolution. La Physique-Chimie est proposée selon le programme de la classe. Au lycée, indiquez également votre série : les notions et les exigences varient selon le parcours.</p>
+    <p>Les élèves de 3e et de Terminale peuvent préciser leur objectif de préparation au BFEM ou au Bac. Nous confirmons les possibilités de groupe et les créneaux en fonction des demandes reçues.</p>
+    <h2>Comment se déroule l’accompagnement ?</h2>
+    <ol>
+      <li>Vous indiquez votre classe, la matière et vos disponibilités.</li>
+      <li>Nous échangeons sur les difficultés et confirmons les horaires ainsi que les modalités de connexion.</li>
+      <li>Les séances associent explication des notions, exercices d’application et correction du raisonnement.</li>
+    </ol>
+    <h2>Préparer votre première séance</h2>
+    <p>Prévoyez une connexion Internet, un téléphone ou un ordinateur, un cahier et votre matériel habituel. La plateforme utilisée et les instructions de connexion sont communiquées avant la séance.</p>
+    <h2>Réviser entre les séances</h2>
+    <p>Explorez les <a href="/ressources/">cours et exercices corrigés disponibles</a> et les <a href="/videos/">vidéos pédagogiques</a>. Ces ressources permettent de reprendre une notion à votre rythme ; leur disponibilité dépend des contenus déjà publiés.</p>
+    <h2>Questions fréquentes</h2>
+    <details><summary>Peut-on choisir une seule matière ?</summary><p>Oui. Chaque matière coûte 5 000 FCFA par mois. Vous pouvez demander uniquement les Maths ou uniquement la Physique-Chimie.</p></details>
+    <details><summary>Les horaires sont-ils identiques pour toutes les classes ?</summary><p>Non. Les horaires sont confirmés selon la classe, la série et le groupe. Envoyez vos disponibilités pour connaître les possibilités.</p></details>
+    <details><summary>Comment contacter l’enseignant ?</summary><p>Contactez Xam Xam Academy au <a href="tel:+221711715359">71 171 53 59</a> ou utilisez le bouton WhatsApp. Indiquez la classe et les matières souhaitées.</p></details>
+  </article>
+</BaseLayout>
+<style>
+.course-page{padding-top:calc(var(--header-h) + 3rem);padding-bottom:4rem;max-width:920px;color:#021f4d}.course-page nav{font-size:.85rem;margin-bottom:2rem}.course-page h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.15;margin-bottom:1.5rem}.course-page h2{font-size:1.5rem;margin:2rem 0 .8rem}.course-page p,.course-page li{line-height:1.8}.course-offer{background:#fff7e3;border:1px solid #e8d4a1;border-radius:16px;padding:1.5rem;margin:2rem 0}.course-offer h2{margin-top:0}.course-page details{padding:1rem 0;border-bottom:1px solid #e6e3db}.course-page summary{cursor:pointer;font-weight:700}.course-page a:not(.btn){text-decoration:underline;text-underline-offset:3px}
+</style>

@@ -10,7 +10,7 @@ import DerniersAjouts from '../components/DerniersAjouts.astro';
 import { YOUTUBE_URL } from '../lib/constantes';
 
 const description =
-  'Cours de Physique-Chimie à domicile et en ligne. Accompagnement scolaire, exercices, méthodologie et préparation BFEM/Bac à Dakar et Thiès.';
+  'Cours de Maths et Physique-Chimie en ligne au Sénégal : collège, lycée, exercices corrigés et préparation BFEM/Bac. Dès 5 000 FCFA/mois/matière.';
 
 // Données structurées (compréhension du site par Google)
 const jsonLd = {
@@ -24,7 +24,7 @@ const jsonLd = {
     { '@type': 'City', name: 'Dakar' },
     { '@type': 'City', name: 'Thiès' },
   ],
-  knowsAbout: ['Physique', 'Chimie', 'Méthodologie scientifique'],
+  knowsAbout: ['Mathématiques', 'Physique', 'Chimie', 'Méthodologie scientifique'],
   sameAs: [YOUTUBE_URL],
   ...(Astro.site ? { url: Astro.site.href, logo: new URL('/assets/img/logo-badge.png', Astro.site).href } : {}),
   contactPoint: {
@@ -52,7 +52,7 @@ const jsonLd = {
         <a class="online-launch__phone" href="tel:+221711715359">71 171 53 59</a>
       </div>
     </div>
-    <div class="container"><details class="online-launch__details"><summary>Le programme en bref</summary><p>Cours, exercices et corrigés · Deux séances de 2 heures par semaine et par matière. Horaires confirmés selon la classe.</p></details></div>
+    <div class="container"><details class="online-launch__details"><summary>Le programme en bref</summary><p>Cours, exercices et corrigés · Deux séances de 2 heures par semaine et par matière. Horaires confirmés selon la classe. <a href="/cours-en-ligne/">Découvrir les cours de Maths et Physique-Chimie en ligne</a>.</p></details></div>
   </section>
 
   <section class="premium-hero" id="accueil" aria-labelledby="hero-title">
@@ -60,7 +60,7 @@ const jsonLd = {
       <div class="premium-hero__content">
         <p class="premium-label rise"><span></span> Comprendre. Progresser. Réussir.</p>
         <h1 class="premium-title rise" id="hero-title" data-delay="1">Les sciences,<br>enfin à votre<br><em>portée.</em></h1>
-        <p class="premium-description rise" data-delay="2">Des cours clairs, des exercices corrigés et un accompagnement pour progresser en Physique-Chimie.</p>
+        <p class="premium-description rise" data-delay="2">Des cours de Maths et Physique-Chimie au Sénégal, des exercices corrigés et un accompagnement pour progresser au collège et au lycée.</p>
         <div class="premium-actions rise" data-delay="3">
           <a class="btn btn--primary btn--lg" href="/ressources/">Commencer à réviser <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           <a class="premium-text-link" href="#cours">Trouver mon accompagnement <svg class="icon premium-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>

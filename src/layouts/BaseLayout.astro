@@ -30,12 +30,13 @@ const {
   typeOg = 'website',
   image = '/assets/img/og-image.jpg',
   jsonLd,
-  noindex = false,
+  noindex: pageNoindex = false,
 } = Astro.props;
+const noindex = pageNoindex || ['deploy-preview', 'branch-deploy'].includes(import.meta.env.CONTEXT || '');
 
 const titreComplet = titre
   ? `${titre} | Xam Xam Academy`
-  : 'Xam Xam Academy | Cours de Physique-Chimie à Dakar, Thiès et en ligne';
+  : 'Cours de Maths et Physique-Chimie au Sénégal | Xam Xam Academy';
 
 // URL absolue si l'adresse du site est renseignée dans astro.config.mjs (option « site »).
 const absolue = (chemin: string) => (Astro.site ? new URL(chemin, Astro.site).href : chemin);

@@ -19,9 +19,7 @@ import rehypePonctuation from './src/lib/rehype-ponctuation.mjs';
 function adresseDuSite() {
   const env = process.env;
   if (env.SITE_URL) return env.SITE_URL;
-  if (env.NETLIFY === 'true' && env.URL) return env.URL;
-  if (env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  return undefined;
+  return 'https://xamxamacademy.com';
 }
 const site = adresseDuSite();
 

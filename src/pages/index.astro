@@ -41,19 +41,18 @@ const jsonLd = {
 
   <section class="online-launch" aria-labelledby="online-launch-title">
     <div class="container online-launch__inner">
-      <div>
-        <p class="online-launch__label">Inscriptions ouvertes · Cours en ligne</p>
-        <h2 id="online-launch-title">Maths &amp; Physique-Chimie</h2>
-        <p>Collège &amp; lycée · Cours, exercices et corrigés</p>
-        <p><strong>Début : <time datetime="2026-10-07">7 octobre 2026</time></strong> · Horaires confirmés selon la classe.</p>
-        <p>Deux séances de 2 heures par semaine et par matière.</p>
+      <div class="online-launch__copy">
+        <p class="online-launch__label"><span aria-hidden="true"></span> Inscriptions ouvertes <span class="online-launch__date">Dès le 7 octobre 2026</span></p>
+        <h2 id="online-launch-title">Votre prochain déclic <em>commence en ligne.</em></h2>
+        <p class="online-launch__subjects">Maths &amp; Physique-Chimie <span>Collège · Lycée</span></p>
       </div>
+      <div class="online-launch__price"><strong>5 000</strong><div>FCFA<span>/ mois / matière</span></div></div>
       <div class="online-launch__action">
-        <p class="online-launch__price">5 000 FCFA <span>/ mois / matière</span></p>
-        <a class="btn btn--primary" href="https://wa.me/221711715359?text=Bonjour%20Xam%20Xam%20Academy%2C%20je%20souhaite%20m%E2%80%99inscrire%20aux%20cours%20en%20ligne%20%C3%A0%205%20000%20FCFA%20par%20mois%20et%20par%20mati%C3%A8re.%0AClasse%20%3A%20%0AMati%C3%A8re(s)%20%3A%20%0ADisponibilit%C3%A9s%20%3A%20" target="_blank" rel="noopener">M’inscrire sur WhatsApp<span class="sr-only"> (nouvel onglet)</span></a>
+        <a class="online-launch__cta" href="https://wa.me/221711715359?text=Bonjour%20Xam%20Xam%20Academy%2C%20je%20souhaite%20m%E2%80%99inscrire%20aux%20cours%20en%20ligne.%0AClasse%20%3A%20%0AMati%C3%A8re(s)%20%3A%20%0ADisponibilit%C3%A9s%20%3A%20" target="_blank" rel="noopener">Je m’inscris <span aria-hidden="true">↗</span><span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
         <a class="online-launch__phone" href="tel:+221711715359">71 171 53 59</a>
       </div>
     </div>
+    <div class="container"><details class="online-launch__details"><summary>Le programme en bref</summary><p>Cours, exercices et corrigés · Deux séances de 2 heures par semaine et par matière. Horaires confirmés selon la classe.</p></details></div>
   </section>
 
   <section class="premium-hero" id="accueil" aria-labelledby="hero-title">
@@ -667,15 +666,36 @@ const jsonLd = {
 </BaseLayout>
 
 <style>
-  .online-launch { margin-top:max(var(--header-h), 86px); background:#fff9ec; color:#021f4d; border-bottom:1px solid #eadbb8; padding:2rem 0; }
-  .online-launch + .premium-hero { padding-top:clamp(2rem, 5vw, 4rem); }
-  .online-launch__inner { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
-  .online-launch__label { font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin:0 0 .65rem; }
-  .online-launch h2 { font-size:clamp(1.5rem,3vw,2.3rem); line-height:1.15; margin:0 0 .6rem; }
-  .online-launch p { margin-bottom:.5rem; }
-  .online-launch__action { flex-shrink:0; }
-  .online-launch__price { font-size:2rem; font-weight:800; line-height:1.2; }
-  .online-launch__price span { display:block; font-size:.9rem; font-weight:500; margin:.3rem 0 1rem; }
-  .online-launch__phone { display:block; margin-top:.65rem; font-weight:700; color:#021f4d; text-decoration:underline; text-underline-offset:3px; }
-  @media(max-width:767px) { .online-launch__inner { flex-direction:column; align-items:flex-start; gap:1rem; } .online-launch__action { width:100%; } }
+.online-launch{position:relative;isolation:isolate;overflow:hidden;margin-top:max(var(--header-h),86px);padding:1.4rem 0 .65rem;background:linear-gradient(110deg,#fffdf7,#f6edda 65%,#fffaf0);color:#021f4d;border-bottom:1px solid #dfceaa}
+.online-launch::before{content:"";position:absolute;inset:-100% -40%;z-index:-1;background:linear-gradient(110deg,transparent 42%,#fff9 48%,#f9b60318 51%,transparent 57%);transform:translateX(-35%);animation:launch-light 3.8s ease-out both;pointer-events:none}
+.online-launch::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#f9b603,transparent);transform-origin:left;animation:launch-line 1.1s ease-out both}
+.online-launch__inner{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:2.5rem;align-items:center;animation:launch-enter .7s ease-out both}
+.online-launch__label{display:flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .6rem}
+.online-launch__label>span:first-child{width:6px;height:6px;background:#ad7900;border-radius:50%;box-shadow:0 0 0 4px #f9b60320}
+.online-launch__date{border-left:1px solid #d4c6ac;padding-left:.65rem;letter-spacing:.04em}
+.online-launch h2{font-size:clamp(1.25rem,2.1vw,1.85rem);line-height:1.2;letter-spacing:-.035em;margin:0 0 .45rem}
+.online-launch h2 em{font-style:normal;color:#926500}
+.online-launch__subjects{margin:0;font-size:.85rem;font-weight:650}
+.online-launch__subjects span{font-weight:400;margin-left:.7rem;color:#526078}
+.online-launch__price{display:flex;align-items:center;gap:.6rem;border-left:1px solid #dcccae;padding-left:2rem;white-space:nowrap}
+.online-launch__price strong{font-size:clamp(2rem,3vw,2.8rem);letter-spacing:-.055em;line-height:1}
+.online-launch__price div{font-weight:800;font-size:.8rem}
+.online-launch__price span{display:block;font-weight:400;font-size:.7rem;margin-top:.25rem}
+.online-launch__action{text-align:center}
+.online-launch__cta{display:flex;align-items:center;justify-content:center;gap:1.2rem;padding:.85rem 1.3rem;border-radius:8px;background:#021f4d;color:#fff;font-weight:750;text-decoration:none;box-shadow:0 5px 14px #021f4d14;transition:transform .2s,box-shadow .2s}
+.online-launch__cta span[aria-hidden]{color:#f9b603;transition:transform .2s}
+.online-launch__cta:hover{transform:translateY(-2px);box-shadow:0 8px 18px #021f4d25}
+.online-launch__cta:hover span[aria-hidden]{transform:translate(2px,-2px)}
+.online-launch__cta:focus-visible,.online-launch__phone:focus-visible,.online-launch summary:focus-visible{outline:3px solid #926500;outline-offset:4px}
+.online-launch__phone{display:inline-block;color:#021f4d;font-size:.7rem;margin-top:.45rem;text-decoration:none}
+.online-launch__details{font-size:.7rem;margin-top:.6rem;color:#526078}
+.online-launch__details summary{cursor:pointer;width:fit-content;text-underline-offset:3px}
+.online-launch__details p{margin:.5rem 0;line-height:1.6}
+.online-launch + .premium-hero{padding-top:clamp(2rem,5vw,4rem)}
+@keyframes launch-light{from{transform:translateX(-35%)}to{transform:translateX(35%)}}
+@keyframes launch-line{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes launch-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:999px){.online-launch__inner{gap:1.2rem}.online-launch__price{padding-left:1rem}.online-launch__date{display:none}}
+@media(max-width:767px){.online-launch{padding:1.1rem 0 .7rem}.online-launch__inner{grid-template-columns:1fr auto;gap:1rem}.online-launch__copy{grid-column:1/-1}.online-launch__price{border:0;padding:0}.online-launch__subjects span{display:block;margin:.2rem 0 0}.online-launch__date{display:inline}.online-launch__cta{padding:.75rem 1rem}.online-launch__label{font-size:.6rem;letter-spacing:.03em}}
+@media(prefers-reduced-motion:reduce){.online-launch::before,.online-launch::after,.online-launch__inner{animation:none}.online-launch__cta,.online-launch__cta span[aria-hidden]{transition:none}.online-launch__cta:hover,.online-launch__cta:hover span[aria-hidden]{transform:none}}
 </style>

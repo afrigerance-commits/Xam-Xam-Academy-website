@@ -38,6 +38,24 @@ const jsonLd = {
 ---
 <BaseLayout description={description} accueil={true} jsonLd={jsonLd}>
 
+
+  <section class="online-launch" aria-labelledby="online-launch-title">
+    <div class="container online-launch__inner">
+      <div>
+        <p class="online-launch__label">Inscriptions ouvertes · Cours en ligne</p>
+        <h2 id="online-launch-title">Maths &amp; Physique-Chimie</h2>
+        <p>Collège &amp; lycée · Cours, exercices et corrigés</p>
+        <p><strong>Début : <time datetime="2026-10-07">7 octobre 2026</time></strong> · Horaires confirmés selon la classe.</p>
+        <p>Deux séances de 2 heures par semaine et par matière.</p>
+      </div>
+      <div class="online-launch__action">
+        <p class="online-launch__price">5 000 FCFA <span>/ mois / matière</span></p>
+        <a class="btn btn--primary" href="https://wa.me/221711715359?text=Bonjour%20Xam%20Xam%20Academy%2C%20je%20souhaite%20m%E2%80%99inscrire%20aux%20cours%20en%20ligne%20%C3%A0%205%20000%20FCFA%20par%20mois%20et%20par%20mati%C3%A8re.%0AClasse%20%3A%20%0AMati%C3%A8re(s)%20%3A%20%0ADisponibilit%C3%A9s%20%3A%20" target="_blank" rel="noopener">M’inscrire sur WhatsApp<span class="sr-only"> (nouvel onglet)</span></a>
+        <a class="online-launch__phone" href="tel:+221711715359">71 171 53 59</a>
+      </div>
+    </div>
+  </section>
+
   <section class="premium-hero" id="accueil" aria-labelledby="hero-title">
     <div class="container premium-hero__grid">
       <div class="premium-hero__content">
@@ -647,3 +665,16 @@ const jsonLd = {
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .online-launch { background:#fff9ec; color:#021f4d; border-bottom:1px solid #eadbb8; padding:2rem 0; }
+  .online-launch__inner { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
+  .online-launch__label { font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin:0 0 .65rem; }
+  .online-launch h2 { font-size:clamp(1.5rem,3vw,2.3rem); line-height:1.15; margin:0 0 .6rem; }
+  .online-launch p { margin-bottom:.5rem; }
+  .online-launch__action { flex-shrink:0; }
+  .online-launch__price { font-size:2rem; font-weight:800; line-height:1.2; }
+  .online-launch__price span { display:block; font-size:.9rem; font-weight:500; margin:.3rem 0 1rem; }
+  .online-launch__phone { display:block; margin-top:.65rem; font-weight:700; color:#021f4d; text-decoration:underline; text-underline-offset:3px; }
+  @media(max-width:767px) { .online-launch__inner { flex-direction:column; align-items:flex-start; gap:1rem; } .online-launch__action { width:100%; } }
+</style>

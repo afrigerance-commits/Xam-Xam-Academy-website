@@ -12,3 +12,8 @@ dist/
 .DS_Store
 Thumbs.db
 npm-debug.log*
+
+# Expo et configuration locale
+.expo/
+mobile/.env
+mobile/.env.local

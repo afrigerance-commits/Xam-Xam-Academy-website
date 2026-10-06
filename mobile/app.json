@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Xam Xam Academy",
+    "slug": "xam-xam-academy",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "xamxam",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.xamxamacademy.app",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.xamxamacademy.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "versionCode": 1
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/logo-horizontal.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#FFFFFF"
+        }
+      ],
+      "expo-image"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "owner": "xamxamacademy",
+    "extra": {
+      "eas": {
+        "projectId": "4706c6f9-7d5c-4b90-b7fb-b14f37c2742e"
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import catalog from '../../lib/quizzes/catalog.json';
+import { skills } from '../../lib/quizzes/revision.mjs';
+import { unified } from '@astrojs/markdown-remark';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+export function getStaticPaths() {
+  return catalog.filter(q=>q.kind==='written').map(quiz=>({params:{id:quiz.id},props:{quiz}}));
+}
+const { quiz } = Astro.props;
+const processor = await unified({remarkPlugins:[remarkMath],rehypePlugins:[[rehypeKatex,{strict:false}]]}).createRenderer({});
+const questions = await Promise.all(quiz.questions.map(async q=>({...q,
+  promptHtml:(await processor.render(q.prompt)).code,
+  answerHtml:(await processor.render(q.answer)).code,
+  hintHtml:(await processor.render(q.hint)).code,
+})));
+const duration=quiz.count*2;
+const course=`/ressources/${quiz.id}/`;
+---
+<BaseLayout titre={`Révision interactive : ${quiz.title} — ${quiz.level}`} description={`${quiz.count} questions de révision avec réponses rédigées, corrigés et bilan d’auto-évaluation : ${quiz.title}, ${quiz.level}.`} actif="quiz">
+  <link rel="stylesheet" href="/assets/css/quiz.css" />
+  <section class="quiz-page container">
+    <FilAriane etapes={[{libelle:'Quiz & révisions',href:'/quiz/'},{libelle:quiz.title}]} />
+    <div class="revision-intro"><p class="eyebrow">Comprendre · Justifier · Retenir</p><h1>{quiz.title}</h1><p class="revision-lead">Écrivez votre raisonnement, comparez-le au corrigé et choisissez ce qu’il faut revoir.</p><div class="quiz-tags"><span>{quiz.level}{quiz.series ? ` ${quiz.series}` : ''} · {quiz.subject}</span><span>{quiz.count} questions</span><span>Réponses rédigées</span></div></div>
+    <div class="quiz-app revision-app" data-revision data-course={quiz.id} data-duration={duration}>
+      <section class="quiz-panel" data-setup><p class="quiz-skill">Votre temps, votre progression</p><h2 data-focus>Deux façons de travailler.</h2>
+        <div class="quiz-modes"><div class="quiz-mode"><span class="quiz-mode-icon" aria-hidden="true">↗</span><h3>Entraînement guidé</h3><p>Un indice si besoin, votre réponse, puis le corrigé. À vous d’indiquer si votre raisonnement est acquis ou reste à travailler.</p><button class="quiz-btn quiz-btn--primary" data-start="training" type="button">Commencer l’entraînement</button></div><div class="quiz-mode"><span class="quiz-mode-icon" aria-hidden="true">◷</span><h3>Session chronométrée</h3><p>{duration} minutes sans consulter les corrigés. Comparez ensuite vos réponses et construisez votre bilan d’auto-évaluation.</p><button class="quiz-btn quiz-btn--quiet" data-start="exam" type="button">Lancer la session chronométrée</button></div></div>
+        <p class="quiz-note">Le bilan repose sur les acquis que vous déclarez après comparaison. Il ne s’agit pas d’une correction automatique ni d’une note scolaire. Les réponses vides restent à revoir. Rechargez la page et la session en cours sera perdue.</p>
+      </section>
+      <section class="quiz-panel" data-arena hidden aria-label="Questions de révision">
+        <div class="quiz-meta"><span data-counter aria-live="polite"></span><span class="quiz-clock" data-clock hidden></span></div><progress data-progress aria-label="Progression de la session" value="0" max={quiz.count}></progress>
+        {questions.map((q,i)=><article data-question data-id={q.id} data-skill={q.skill} hidden><p class="quiz-skill">{skills[q.skill].label}</p><div class="quiz-question" role="heading" aria-level="2" tabindex="-1" data-question-heading><Fragment set:html={q.promptHtml} /></div><label class="revision-label" for={`answer-${i}`}>Mon raisonnement</label><textarea id={`answer-${i}`} data-answer rows="5" placeholder="Votre réponse, les étapes et la justification…" spellcheck="true" maxlength="8000"></textarea><details class="quiz-hint" data-hint><summary>Besoin d’un indice ?</summary><div class="prose" set:html={q.hintHtml}></div></details><div class="quiz-feedback quiz-feedback--review" data-correction hidden tabindex="-1"><h3>Corrigé de référence</h3><div class="prose" set:html={q.answerHtml}></div><p>Comparez les idées, la démarche et la justification, pas seulement les mots employés.</p><div class="revision-rating"><button class="quiz-btn quiz-btn--quiet" data-rating="review" type="button" aria-pressed="false">À revoir</button><button class="quiz-btn quiz-btn--primary" data-rating="acquired" type="button" aria-pressed="false">J’ai compris et réussi</button></div><p data-empty-note hidden>Cette question n’a pas reçu de réponse : elle reste à revoir.</p></div></article>)}
+        <p class="quiz-error" role="alert" data-error></p><div class="quiz-actions"><button class="quiz-btn quiz-btn--quiet" data-prev type="button">← Précédente</button><button class="quiz-btn quiz-btn--quiet" data-skip type="button">Passer cette question</button><button class="quiz-btn quiz-btn--primary" data-compare type="button">Comparer au corrigé</button><button class="quiz-btn quiz-btn--primary" data-next type="button" hidden>Suivante →</button></div>
+      </section>
+      <section class="quiz-panel" data-submit hidden><h2 data-focus>Prêt à comparer vos réponses ?</h2><p data-submit-note></p><div class="quiz-actions"><button class="quiz-btn quiz-btn--quiet" data-return type="button">Revenir à mes réponses</button><button class="quiz-btn quiz-btn--primary" data-finish type="button">Terminer et ouvrir les corrigés</button></div></section>
+      <section class="quiz-panel" data-results hidden aria-label="Bilan d’auto-évaluation"><p class="quiz-skill">Des repères pour progresser</p><h2 data-focus>Mon bilan d’auto-évaluation.</h2><div class="quiz-score"><strong data-score></strong><span>acquis déclarés</span></div><p data-bilan-note></p><div class="quiz-skills" data-skills></div><div class="quiz-actions"><button class="quiz-btn quiz-btn--primary" data-retry type="button">Reprendre les questions à revoir</button><button class="quiz-btn quiz-btn--quiet" data-restart type="button">Nouvelle session</button></div><h3>Mes réponses et les corrigés</h3><div class="quiz-corrections" data-review-list></div></section>
+      <aside class="quiz-history" data-history aria-label="Historique personnel"><h2>Mon historique sur ce chapitre</h2><ul data-history-list></ul><p class="quiz-note" data-storage-note>Les cinq derniers bilans sont conservés sur cet appareil. Vos réponses rédigées ne sont pas enregistrées.</p><button type="button" data-clear class="quiz-btn quiz-btn--quiet">Effacer mon historique</button></aside>
+      <noscript><p class="quiz-panel">Le parcours interactif nécessite JavaScript. Les applications et les corrigés restent accessibles dans le <a href={course}>cours du chapitre</a>.</p></noscript>
+    </div>
+    <section class="quiz-bottom"><div><h2>Revenir à la bonne explication.</h2><p>Le cours réunit les notions, la méthode, les pièges et les applications corrigées de ce chapitre.</p><a class="quiz-btn quiz-btn--quiet" href={course}>Ouvrir le cours →</a></div><div><h3>Une révision qui dure</h3><p>Reprenez les questions hésitantes demain, puis quelques jours plus tard. En cas de doute sur un raisonnement, demandez l’avis de votre professeur.</p></div></section>
+  </section>
+</BaseLayout>
+<script>import '../../scripts/quiz-revision.mjs';</script>

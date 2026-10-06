@@ -4,7 +4,7 @@ type: "Cours"
 niveau: "3e"
 matiere: "Mathématiques"
 chapitre: "Algèbre — équations"
-description: "Une méthode accessible et trois problèmes corrigés, dont une situation en FCFA."
+description: "Notions, méthode, 4 applications corrigées et 7 questions de révision interactive : Équations : passer d’un problème à sa solution."
 date: "2026-10-06"
 brouillon: false
 ---
@@ -45,3 +45,51 @@ Avec $x$ la largeur, la longueur est $x+3$. $2[x+(x+3)]=30$, soit $4x+6=30$. Don
 :::attention
 Le signe d’un terme ne change pas « par magie » : le passage d’un membre à l’autre correspond à une opération sur les deux membres. Vérifier aussi qu’une longueur trouvée est positive.
 :::
+
+<!-- xam-revision:start -->
+## Mon objectif de révision
+À la fin de ce chapitre, vous devez pouvoir **expliquer les notions**, **choisir une démarche justifiée** et **résoudre les applications sans consulter les corrigés**. Un résultat seul ne suffit pas : indiquez la propriété utilisée et ses conditions d’application.
+
+## Révision active — comprendre avant de calculer
+Fermez vos notes pendant quelques minutes. Répondez aux trois questions suivantes sur une feuille, puis ouvrez les corrections. Une explication reproduite sans être comprise est un point à retravailler.
+
+### 1. Quelles sont les notions essentielles ?
+Expliquez les idées du chapitre avec vos mots et distinguez les grandeurs ou les objets étudiés.
+
+:::correction
+Résoudre une équation signifie trouver les valeurs qui rendent une égalité vraie. On peut ajouter ou soustraire la même quantité des deux côtés. On peut multiplier ou diviser les deux côtés par un même nombre **non nul**.
+:::
+
+### 2. Quelle démarche utiliser ?
+Écrivez les étapes de résolution dans un ordre logique. Pour chaque étape, expliquez pourquoi elle est nécessaire.
+
+:::correction
+1. Choisir l’inconnue et préciser ce qu’elle représente.
+2. Exprimer les autres quantités à l’aide de cette inconnue.
+3. Écrire la relation donnée par l’énoncé.
+4. Résoudre puis vérifier dans la situation réelle.
+:::
+
+### 3. Quel piège faut-il éviter ?
+Donnez une erreur fréquente et la précaution qui empêche de la commettre.
+
+:::correction
+Le signe d’un terme ne change pas « par magie » : le passage d’un membre à l’autre correspond à une opération sur les deux membres. Vérifier aussi qu’une longueur trouvée est positive.
+:::
+
+## Exercice 4 — Transfert et justification
+Résoudre 5x−6 = 2x+9 et vérifier la réponse.
+
+:::correction
+On soustrait 2x puis on ajoute 6 aux deux membres : 3x = 15, donc x = 5. Vérification : 5×5−6 = 19 et 2×5+9 = 19. Les transformations doivent préserver l’égalité à chaque étape.
+:::
+
+## Mon parcours de consolidation
+- **Aujourd’hui :** refaites les applications sans les corrections. Notez la première étape qui vous a bloqué.
+- **Demain :** expliquez la notion et la méthode sans relire la fiche, puis vérifiez votre explication.
+- **Dans quelques jours :** reprenez les questions non acquises avec les données, les conditions et une justification complète.
+
+[Commencer ma révision interactive — 7 questions](/quiz/3e-equations-problemes/)
+
+Les réponses rédigées sont comparées au corrigé par l’élève : le bilan est une **auto-évaluation**, pas une note attribuée automatiquement. En cas de doute sur une justification, faites-la vérifier par votre professeur.
+<!-- xam-revision:end -->

@@ -4,7 +4,7 @@ type: "Cours"
 niveau: "Terminale"
 matiere: "Physique"
 chapitre: "S — Réactions nucléaires"
-description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : S — Réactions nucléaires."
+description: "Notions, méthode, 3 applications corrigées et 6 questions de révision interactive : S — Réactions nucléaires."
 date: "2026-10-06"
 brouillon: false
 ---
@@ -39,3 +39,48 @@ Conservation : A fils=238−4=234 et Z fils=92−2=90.
 Refaites les deux exercices sans lire les solutions. Pour chaque réponse, expliquez la règle utilisée et contrôlez les unités ou les conditions d’application.
 
 [Retrouver les chapitres de ma classe](/parcours/) · [Cours en ligne avec accompagnement](/cours-en-ligne/)
+
+<!-- xam-revision:start -->
+## Mon objectif de révision
+À la fin de ce chapitre, vous devez pouvoir **expliquer les notions**, **choisir une démarche justifiée** et **résoudre les applications sans consulter les corrigés**. Un résultat seul ne suffit pas : indiquez la propriété utilisée et ses conditions d’application.
+
+## Révision active — comprendre avant de calculer
+Fermez vos notes pendant quelques minutes. Répondez aux trois questions suivantes sur une feuille, puis ouvrez les corrections. Une explication reproduite sans être comprise est un point à retravailler.
+
+### 1. Quelles sont les notions essentielles ?
+Expliquez les idées du chapitre avec vos mots et distinguez les grandeurs ou les objets étudiés.
+
+:::correction
+Un noyau se note $^{A}_{Z}X$ : A est le nombre de nucléons et Z le nombre de protons. Les réactions nucléaires conservent le nombre total de nucléons et la charge. La radioactivité transforme spontanément un noyau instable. La loi de décroissance est $N=N_0e^{-\lambda t}$ et la demi-vie $t_{1/2}=\ln2/\lambda$. Un défaut de masse peut libérer une énergie $E=\Delta mc^2$. Fission et fusion sont des transformations différentes.
+:::
+
+### 2. Quelle démarche utiliser ?
+Écrivez les étapes de résolution dans un ordre logique. Pour chaque étape, expliquez pourquoi elle est nécessaire.
+
+:::correction
+Conserver A et Z dans l’équation, distinguer noyaux restants et noyaux désintégrés, puis choisir la loi de décroissance ou le bilan énergétique.
+:::
+
+### 3. Quel piège faut-il éviter ?
+Donnez une erreur fréquente et la précaution qui empêche de la commettre.
+
+:::correction
+Après deux demi-vies, il reste un quart des noyaux initiaux, pas zéro.
+:::
+
+## Exercice 3 — Transfert et justification
+Lors d’une désintégration alpha, comment évoluent A et Z du noyau père ?
+
+:::correction
+Une particule alpha est un noyau d’hélium de nombres A=4 et Z=2. Le noyau fils a donc A_f=A_p−4 et Z_f=Z_p−2. On vérifie la conservation du nombre de nucléons et de la charge dans l’équation nucléaire.
+:::
+
+## Mon parcours de consolidation
+- **Aujourd’hui :** refaites les applications sans les corrections. Notez la première étape qui vous a bloqué.
+- **Demain :** expliquez la notion et la méthode sans relire la fiche, puis vérifiez votre explication.
+- **Dans quelques jours :** reprenez les questions non acquises avec les données, les conditions et une justification complète.
+
+[Commencer ma révision interactive — 6 questions](/quiz/terminale-reactions-nucleaires/)
+
+Les réponses rédigées sont comparées au corrigé par l’élève : le bilan est une **auto-évaluation**, pas une note attribuée automatiquement. En cas de doute sur une justification, faites-la vérifier par votre professeur.
+<!-- xam-revision:end -->

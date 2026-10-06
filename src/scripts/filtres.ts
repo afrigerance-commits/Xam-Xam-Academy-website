@@ -11,6 +11,8 @@ if (zone && liste) {
   const cartes = Array.from(liste.children) as HTMLElement[];
   const compteur = zone.querySelector<HTMLElement>('[data-compteur]');
   const aucun = document.querySelector<HTMLElement>('[data-aucun]');
+  const recherche = document.querySelector<HTMLInputElement>('[data-search]');
+  const normaliser = (valeur: string) => valeur.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const [singulier, pluriel] = (zone.dataset.unite ?? 'élément|éléments').split('|');
   const cles = Array.from(new Set(boutons.map((b) => b.dataset.filtre as string)));
   const etat: Record<string, string> = {};
@@ -23,10 +25,14 @@ if (zone && liste) {
     etat[cle] = existe ? valeur : '';
   });
 
+  if (recherche) recherche.value = params.get('q') ?? '';
+
   const appliquer = () => {
     let visibles = 0;
     cartes.forEach((carte) => {
-      const ok = cles.every((cle) => !etat[cle] || carte.dataset[cle] === etat[cle]);
+      const mots = normaliser(recherche?.value ?? '').trim().split(/\s+/).filter(Boolean);
+      const texte = normaliser(carte.dataset.searchtext ?? carte.textContent ?? '');
+      const ok = cles.every((cle) => !etat[cle] || carte.dataset[cle] === etat[cle]) && mots.every(mot => texte.includes(mot));
       carte.hidden = !ok;
       if (ok) visibles += 1;
     });
@@ -42,6 +48,7 @@ if (zone && liste) {
 
     const url = new URL(window.location.href);
     cles.forEach((cle) => (etat[cle] ? url.searchParams.set(cle, etat[cle]) : url.searchParams.delete(cle)));
+    if (recherche) recherche.value.trim() ? url.searchParams.set('q', recherche.value.trim()) : url.searchParams.delete('q');
     window.history.replaceState(null, '', url);
   };
 
@@ -52,6 +59,7 @@ if (zone && liste) {
     }),
   );
 
+  recherche?.addEventListener('input', appliquer);
   zone.classList.add('is-ready');
   appliquer();
 }

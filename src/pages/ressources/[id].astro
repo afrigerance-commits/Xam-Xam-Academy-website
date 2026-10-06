@@ -1,6 +1,7 @@
 ---
 /* Page d'une ressource : cours, exercices corrigés, fiche… */
 import { render } from 'astro:content';
+import quizCatalog from '../../lib/quizzes/catalog.json';
 import 'katex/dist/katex.min.css';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FilAriane from '../../components/FilAriane.astro';
@@ -18,6 +19,7 @@ export async function getStaticPaths() {
 }
 
 const { ressource, autres } = Astro.props;
+const quiz = quizCatalog.find(q => q.id === ressource.id);
 const { titre, type, niveau, matiere, chapitre, description, date, fichier, brouillon } = ressource.data;
 const { Content, headings } = await render(ressource);
 const sommaire = headings.filter((heading) => heading.depth === 2);
@@ -51,7 +53,7 @@ const message = `Bonjour Xam Xam Academy, j'ai une question sur la ressource « 
           {chapitre && <span>{chapitre}</span>}
           <span>Publié le <time datetime={dateIso(date)}>{formaterDate(date)}</time></span>
         </p>
-        {ressource.id === "3e-lentilles-minces" && <div class="doc__actions"><a class="btn btn--primary" href="/quiz/lentilles-3e/">Tester mes acquis · 20 questions →</a></div>}
+        {quiz && <div class="doc__actions"><a class="btn btn--primary" href={quiz.href}>{quiz.kind === "automatic" ? "Tester mes acquis" : "Réviser ce chapitre"} · {quiz.count} questions →</a></div>}
         {fichier && (
           <div class="doc__actions">
             <a class="btn btn--primary" href={fichier} download={pdfExterne ? undefined : ''} target={pdfExterne ? '_blank' : undefined} rel={pdfExterne ? 'noopener' : undefined}>

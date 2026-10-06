@@ -6,7 +6,7 @@ serie: "S2"
 matiere: "Physique"
 chapitre: "P8 — Condensateurs : capacité et énergie"
 ordre: 8
-description: "Cours de révision, méthode et deux exercices corrigés sur condensateurs : capacité et énergie."
+description: "Notions, méthode, 3 applications corrigées et 6 questions de révision interactive : Première S2 — Condensateurs : capacité et énergie."
 date: "2026-10-06"
 brouillon: false
 ---
@@ -41,3 +41,48 @@ Parallèle : 40 μF. Série : C=(10 × 30)/(10+30)=7,5 μF.
 Refaites les exercices sans consulter les solutions. Justifiez les conditions du modèle, les signes et les unités. Cette fiche traite les bases du chapitre ; complétez-la avec le cours et les travaux pratiques encadrés de votre professeur.
 
 [Retrouver mon parcours](/parcours/) · [Rejoindre les cours en ligne](/cours-en-ligne/)
+
+<!-- xam-revision:start -->
+## Mon objectif de révision
+À la fin de ce chapitre, vous devez pouvoir **expliquer les notions**, **choisir une démarche justifiée** et **résoudre les applications sans consulter les corrigés**. Un résultat seul ne suffit pas : indiquez la propriété utilisée et ses conditions d’application.
+
+## Révision active — comprendre avant de calculer
+Fermez vos notes pendant quelques minutes. Répondez aux trois questions suivantes sur une feuille, puis ouvrez les corrections. Une explication reproduite sans être comprise est un point à retravailler.
+
+### 1. Quelles sont les notions essentielles ?
+Expliquez les idées du chapitre avec vos mots et distinguez les grandeurs ou les objets étudiés.
+
+:::correction
+La capacité C relie charge et tension : q=CU. Un condensateur idéal stocke E=CU²/2. En parallèle, les capacités s’additionnent. En série, leurs inverses s’additionnent ; les charges ont même valeur absolue dans le montage série idéal initialement neutre. Les condensateurs polarisés et leurs tensions nominales imposent des précautions de montage.
+:::
+
+### 2. Quelle démarche utiliser ?
+Écrivez les étapes de résolution dans un ordre logique. Pour chaque étape, expliquez pourquoi elle est nécessaire.
+
+:::correction
+Identifier série ou parallèle, calculer C équivalente puis q et E. Convertir μF en F et vérifier la tension admissible.
+:::
+
+### 3. Quel piège faut-il éviter ?
+Donnez une erreur fréquente et la précaution qui empêche de la commettre.
+
+:::correction
+Les règles d’association des condensateurs sont inverses de celles des résistances.
+:::
+
+## Exercice 3 — Transfert et justification
+Un condensateur de 10 µF est sous 12 V. Calculer sa charge et son énergie.
+
+:::correction
+Q=CU=10×10⁻⁶×12=120 µC. E=½CU²=0,5×10×10⁻⁶×144=0,00072 J. La charge et l’énergie ne suivent pas la même dépendance à la tension ; l’énergie varie comme U².
+:::
+
+## Mon parcours de consolidation
+- **Aujourd’hui :** refaites les applications sans les corrections. Notez la première étape qui vous a bloqué.
+- **Demain :** expliquez la notion et la méthode sans relire la fiche, puis vérifiez votre explication.
+- **Dans quelques jours :** reprenez les questions non acquises avec les données, les conditions et une justification complète.
+
+[Commencer ma révision interactive — 6 questions](/quiz/premiere-s2-condensateurs/)
+
+Les réponses rédigées sont comparées au corrigé par l’élève : le bilan est une **auto-évaluation**, pas une note attribuée automatiquement. En cas de doute sur une justification, faites-la vérifier par votre professeur.
+<!-- xam-revision:end -->

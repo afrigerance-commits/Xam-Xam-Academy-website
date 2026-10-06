@@ -2,6 +2,7 @@
 titre: "Ensembles de nombres, intervalles et valeur absolue"
 type: "Cours"
 niveau: "Seconde"
+serie: "S"
 matiere: "Mathématiques"
 chapitre: "Ensembles de nombres, intervalles et valeur absolue"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Ensembles de nombres, intervalles et valeur absolue."

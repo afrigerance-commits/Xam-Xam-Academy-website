@@ -5,6 +5,7 @@ import BandeauContact from '../components/BandeauContact.astro';
 import { ressourcesPubliees } from '../lib/contenus';
 const ressources = await ressourcesPubliees();
 const niveaux = ['4e', '3e', 'Seconde', 'Première', 'Terminale'];
+const libelle = (niveau: string) => niveau === 'Seconde' ? 'Seconde S' : niveau === 'Première' ? 'Première S2' : niveau;
 const groupes = [
   { nom: 'Mathématiques', matieres: ['Mathématiques'] },
   { nom: 'Physique-Chimie', matieres: ['Physique', 'Chimie', 'Physique-Chimie'] },
@@ -17,24 +18,24 @@ const examens = ressources.filter(r => /^(bfem|bac)-/.test(r.id));
   <section class="section section--tight">
     <div class="container parcours">
       <nav class="classes" aria-label="Choisir ma classe">
-        {niveaux.map((niveau, i) => <a href={`#classe-${i}`}>{niveau}</a>)}
+        {niveaux.map((niveau, i) => <a href={`#classe-${i}`}>{libelle(niveau)}</a>)}
       </nav>
       <aside class="perimetre">
         <strong>Ce que vous trouverez ici</strong>
-        <p>Des cours de révision originaux avec méthodes et applications corrigées. En PC, chaque chapitre des listes de référence de 4e, de 3e et de Terminale S1/S2 dispose d’une ressource. Les Maths proposent une sélection de thèmes de la 4e à la Terminale. La Seconde et la Première restent à compléter, notamment en PC.</p>
+        <p>Des cours de révision originaux avec méthodes et applications corrigées. En PC, chaque chapitre des listes de référence consultées dispose d’une fiche : 4e, 3e, Seconde S, Première S2 et Terminale S1/S2. Les Maths proposent une sélection de thèmes de la 4e à la Terminale. Les listes de Seconde et Première proviennent de documents pédagogiques antérieurs ; les éventuels aménagements annuels sont à vérifier avec votre professeur.</p>
         <p>Au lycée, vérifiez la série et les exigences de votre professeur : une fiche de révision traite les bases et ne remplace pas le cours complet.</p>
       </aside>
       {niveaux.map((niveau, i) => <section id={`classe-${i}`} class="classe" aria-labelledby={`titre-${i}`}>
-        <div class="classe__heading"><h2 id={`titre-${i}`}>{niveau}</h2><span>{cours.filter(r => r.data.niveau === niveau).length} cours disponibles</span></div>
+        <div class="classe__heading"><h2 id={`titre-${i}`}>{libelle(niveau)}</h2><span>{cours.filter(r => r.data.niveau === niveau).length} cours disponibles</span></div>
         <div class="matieres">
           {groupes.map(g => {
-            const liste = cours.filter(r => r.data.niveau === niveau && g.matieres.includes(r.data.matiere)).sort((a,b) => a.data.titre.localeCompare(b.data.titre, 'fr'));
-            return <div class="matiere"><h3>{g.nom}</h3>{liste.length ? <ol>{liste.map(r => <li><a href={`/ressources/${r.id}/`}><span>{r.data.titre}</span><span aria-hidden="true">↗</span></a></li>)}</ol> : <p>Ce parcours sera enrichi avec de nouveaux chapitres.</p>}<a class="catalogue-link" href={`/ressources/?niveau=${encodeURIComponent(niveau)}&matiere=${encodeURIComponent(g.nom === 'Mathématiques' ? 'Mathématiques' : '')}`}>Voir les ressources de cette classe</a></div>;
+            const liste = cours.filter(r => r.data.niveau === niveau && g.matieres.includes(r.data.matiere)).sort((a,b) => a.data.matiere.localeCompare(b.data.matiere, 'fr') || (a.data.ordre ?? 999) - (b.data.ordre ?? 999) || a.data.titre.localeCompare(b.data.titre, 'fr'));
+            return <div class="matiere"><h3>{g.nom}</h3>{liste.length ? <ol>{liste.map(r => <li><a href={`/ressources/${r.id}/`}><span>{r.data.ordre ? `${r.data.chapitre}` : r.data.titre}</span><span aria-hidden="true">↗</span></a></li>)}</ol> : <p>Ce parcours sera enrichi avec de nouveaux chapitres.</p>}<a class="catalogue-link" href={`/ressources/?niveau=${encodeURIComponent(niveau)}&matiere=${encodeURIComponent(g.nom === 'Mathématiques' ? 'Mathématiques' : '')}`}>Voir les ressources de cette classe</a></div>;
           })}
         </div>
       </section>)}
       <section class="examens"><h2>Préparer le BFEM et le Bac</h2><p>Les sujets blancs sont des créations Xam Xam Academy. Les annales officielles sont signalées et reliées à leur source.</p><ul>{examens.map(r => <li><a href={`/ressources/${r.id}/`}>{r.data.titre} →</a></li>)}</ul></section>
-      <section class="references"><h2>Références des parcours PC</h2><ul><li><a href="https://irempt.ucad.sn/node/218">Manuel IREMPT-UCAD — 4e</a></li><li><a href="https://irempt.ucad.sn/index.php/fr/manuel-de-physique-chimie-3eme-0">Manuel IREMPT-UCAD — 3e</a></li><li><a href="https://officedubac.sn/wp-content/uploads/2026/01/Programme_Sciences-Physiques_Tle_LS.pdf">Programme de Terminale publié par l’Office du Bac</a></li></ul></section>
+      <section class="references"><h2>Références des parcours PC</h2><ul><li><a href="https://irempt.ucad.sn/node/218">Manuel IREMPT-UCAD — 4e</a></li><li><a href="https://irempt.ucad.sn/index.php/fr/manuel-de-physique-chimie-3eme-0">Manuel IREMPT-UCAD — 3e</a></li><li><a href="https://fr.scribd.com/document/729724766/Fascicule-2s-Kaolack-Commune">Sommaire Seconde S — cellule de Kaolack (copie tierce, 2017–2018)</a></li><li><a href="https://fr.scribd.com/document/790936299/Fascicule-Pc-1s2-Kaolack-Commune">Sommaire Première S — cellule de Kaolack (copie tierce, 2018–2019)</a></li><li><a href="https://officedubac.sn/wp-content/uploads/2026/01/Programme_Sciences-Physiques_Tle_LS.pdf">Programme de Terminale publié par l’Office du Bac</a></li></ul></section>
     </div>
   </section>
   <BandeauContact />

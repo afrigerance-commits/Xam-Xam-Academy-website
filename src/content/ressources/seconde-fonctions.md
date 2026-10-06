@@ -2,6 +2,7 @@
 titre: "Fonctions : domaine, images et variations"
 type: "Cours"
 niveau: "Seconde"
+serie: "S"
 matiere: "Mathématiques"
 chapitre: "Fonctions : domaine, images et variations"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Fonctions : domaine, images et variations."

@@ -2,6 +2,7 @@
 titre: "Produit scalaire dans le plan"
 type: "Cours"
 niveau: "Première"
+serie: "S2"
 matiere: "Mathématiques"
 chapitre: "Produit scalaire dans le plan"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Produit scalaire dans le plan."

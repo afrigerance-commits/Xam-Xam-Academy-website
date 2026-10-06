@@ -17,6 +17,8 @@ const ressources = defineCollection({
     type: z.enum(TYPES_RESSOURCE),
     niveau: z.enum(NIVEAUX),
     matiere: z.enum(MATIERES).default('Physique-Chimie'),
+    serie: z.enum(['S', 'S1', 'S2', 'L']).optional(),
+    ordre: z.number().int().positive().optional(),
     chapitre: z.string().optional(),
     description: z.string().optional(),
     date: z.coerce.date(),

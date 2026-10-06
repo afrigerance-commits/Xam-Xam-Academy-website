@@ -13,6 +13,7 @@ import { NIVEAUX, TYPES_RESSOURCE, MATIERES } from '../../lib/constantes';
 const ressources = await ressourcesPubliees();
 const niveaux = NIVEAUX.filter((n) => ressources.some((r) => r.data.niveau === n));
 const matieres = MATIERES.filter((m) => ressources.some((r) => r.data.matiere === m));
+const series = ['S', 'S1', 'S2', 'L'].filter(s => ressources.some(r => r.data.serie === s));
 const types = TYPES_RESSOURCE.filter((t) => ressources.some((r) => r.data.type === t));
 ---
 <BaseLayout
@@ -38,6 +39,7 @@ const types = TYPES_RESSOURCE.filter((t) => ressources.some((r) => r.data.type =
             groupes={[
               { cle: 'niveau', libelle: 'Niveau', valeurs: niveaux },
               { cle: 'matiere', libelle: 'Matière', valeurs: matieres },
+              { cle: 'serie', libelle: 'Série', valeurs: series },
               { cle: 'type', libelle: 'Type', valeurs: types },
             ]}
           />

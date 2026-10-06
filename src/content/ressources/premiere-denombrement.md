@@ -2,6 +2,7 @@
 titre: "Dénombrement et probabilités simples"
 type: "Cours"
 niveau: "Première"
+serie: "S2"
 matiere: "Mathématiques"
 chapitre: "Dénombrement et probabilités simples"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Dénombrement et probabilités simples."

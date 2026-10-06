@@ -2,6 +2,7 @@
 titre: "Vecteurs et coordonnées"
 type: "Cours"
 niveau: "Seconde"
+serie: "S"
 matiere: "Mathématiques"
 chapitre: "Vecteurs et coordonnées"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Vecteurs et coordonnées."

@@ -2,6 +2,7 @@
 titre: "Polynômes et expressions rationnelles"
 type: "Cours"
 niveau: "Seconde"
+serie: "S"
 matiere: "Mathématiques"
 chapitre: "Polynômes et expressions rationnelles"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Polynômes et expressions rationnelles."

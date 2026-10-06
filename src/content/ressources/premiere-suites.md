@@ -2,6 +2,7 @@
 titre: "Suites arithmétiques et géométriques"
 type: "Cours"
 niveau: "Première"
+serie: "S2"
 matiere: "Mathématiques"
 chapitre: "Suites arithmétiques et géométriques"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Suites arithmétiques et géométriques."

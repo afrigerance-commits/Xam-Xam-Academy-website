@@ -2,6 +2,7 @@
 titre: "Second degré : équations et signes"
 type: "Cours"
 niveau: "Première"
+serie: "S2"
 matiere: "Mathématiques"
 chapitre: "Second degré : équations et signes"
 description: "Notions essentielles, méthode et deux exercices avec solutions expliquées : Second degré : équations et signes."

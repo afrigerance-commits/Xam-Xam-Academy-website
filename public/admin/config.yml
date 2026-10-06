@@ -51,6 +51,8 @@ collections:
         widget: select
         options: [Physique-Chimie, Physique, Chimie, Mathématiques]
         default: Physique-Chimie
+      - { name: serie, label: Série, widget: select, options: [S, S1, S2, L], required: false }
+      - { name: ordre, label: Numéro du chapitre, widget: number, value_type: int, min: 1, required: false }
       - { name: chapitre, label: Chapitre, widget: string, required: false }
       - name: description
         label: Description courte

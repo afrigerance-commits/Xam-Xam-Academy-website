@@ -11,12 +11,12 @@ const { ressource } = Astro.props;
 const { titre, type, niveau, chapitre, description, date, fichier, brouillon } = ressource.data;
 const electricity = /ohm|électric|circuit/i.test(titre + ' ' + chapitre);
 ---
-<li class="rcard" data-niveau={niveau} data-type={type} data-matiere={ressource.data.matiere}>
+<li class="rcard" data-niveau={niveau} data-type={type} data-matiere={ressource.data.matiere} data-serie={ressource.data.serie ?? ""}>
   <a class="rcard__link" href={`/ressources/${ressource.id}/`}>
     {electricity ? <div class="resource-cover resource-cover--illustrated"><Illustration name="electricity" /></div> : <div class:list={['resource-cover', { 'resource-cover--chemistry': ressource.data.matiere === 'Chimie' }]} aria-hidden="true"><span>{ressource.data.matiere}</span><svg class="icon"><use href={ressource.data.matiere === 'Chimie' ? '#i-flask' : ressource.data.matiere === 'Mathématiques' ? '#i-chart' : '#i-atom'}/></svg><small>XAM XAM / {niveau}</small></div>}
     <div class="rcard__badges">
       <span class="badge badge--type">{type}</span>
-      <span class="badge">{niveau}</span>
+      <span class="badge">{niveau}{ressource.data.serie ? ` ${ressource.data.serie}` : ""}</span>
       {fichier && <span class="badge badge--pdf"><svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>PDF</span>}
       {brouillon && <span class="badge badge--draft">Brouillon</span>}
     </div>

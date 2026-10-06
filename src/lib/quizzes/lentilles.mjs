@@ -5,8 +5,9 @@ export const competencies = {
   images: { label: 'Nature et taille des images', section: '7-décrire-limage-et-comprendre-la-loupe' },
   vision: { label: 'Loupe et vision', section: '8-lœil-et-les-défauts-simples-de-la-vision' },
 };
-const mc = (id, skill, prompt, options, correct, hint, explanation) => ({ id, skill, kind: 'choice', prompt, options, correct, hint, explanation });
-const num = (id, skill, prompt, correct, unit, tolerance, hint, explanation) => ({ id, skill, kind: 'number', prompt, correct, unit, tolerance, hint, explanation });
+const level = id => ['q01','q02','q03','q04','q07','q20'].includes(id) ? 1 : Number(id.slice(1)) < 13 ? 2 : 3;
+const mc = (id, skill, prompt, options, correct, hint, explanation) => ({ id, skill, kind: 'choice', prompt, options, correct, hint, explanation, level:level(id) });
+const num = (id, skill, prompt, correct, unit, tolerance, hint, explanation) => ({ id, skill, kind: 'number', prompt, correct, unit, tolerance, hint, explanation, level:level(id) });
 export const questions = [
   mc('q01','reperes','Une lentille usuelle dans l’air est plus épaisse au centre. Elle est…',['convergente','divergente','toujours opaque','un miroir plan'],0,'Compare la forme du centre et des bords.','Une lentille usuelle dans l’air, plus épaisse au centre, est convergente. Elle rapproche les rayons parallèles à son axe.'),
   mc('q02','reperes','Une lentille divergente agit sur un faisceau parallèle en…',['le concentrant en un foyer réel','écartant ses rayons','l’arrêtant totalement','le transformant en courant électrique'],1,'Le nom indique l’évolution de l’écartement des rayons.','Les rayons émergents s’écartent. Leurs prolongements semblent provenir d’un foyer virtuel.'),
@@ -28,7 +29,7 @@ export const questions = [
   mc('q18','vision','Dans le modèle de la myopie, l’image d’un objet éloigné se forme devant la rétine. Quelle lentille corrige ce défaut ?',['Convergente','Divergente','Un miroir','Une vitre plane dans tous les cas'],1,'Il faut réduire la convergence du système œil-correction.','Une lentille divergente réduit la convergence et aide à ramener l’image sur la rétine. La correction réelle est déterminée par un professionnel.'),
   mc('q19','vision','Dans le modèle de l’hypermétropie sans accommodation suffisante, quelle correction rapproche l’image de la rétine ?',['Une lentille divergente','Une lentille convergente','Un écran devant l’œil','Aucune correction optique possible'],1,'Le système doit devenir plus convergent.','Une lentille convergente apporte la convergence nécessaire dans ce modèle simplifié de l’hypermétropie.'),
   mc('q20','vision','Quelle règle de sécurité est correcte ?',['Regarder le Soleil à travers une loupe pour repérer le foyer','Concentrer le Soleil sur un écran tenu à la main','Utiliser une source choisie par le professeur, sans viser le Soleil','Supprimer toutes les précautions avec une petite lentille'],2,'Une lentille peut concentrer dangereusement la lumière solaire.','Ne jamais regarder le Soleil à travers une lentille ni concentrer sa lumière. Les observations utilisent une source et un montage choisis par le professeur.'),
-];
+].sort((a,b)=>a.level-b.level);
 export function parseNumber(value) {
   const normalized = String(value ?? '').trim().replace(',', '.');
   if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(normalized)) return null;

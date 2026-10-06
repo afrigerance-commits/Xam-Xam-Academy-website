@@ -1,11 +1,15 @@
 ---
+import { difficulty } from '../lib/quizzes/automatic.mjs';
 const { course, questions, competencies, minutes = Math.max(4, questions.length * 2) } = Astro.props;
+const route = Object.entries(difficulty).map(([level,details])=>({...details, count:questions.filter(q=>q.level===Number(level)).length}));
 const payload = JSON.stringify({ course, questions, competencies, minutes }).replace(/</g, '\\u003c');
 ---
 <div class="quiz-app" data-quiz>
   <script type="application/json" data-quiz-config set:html={payload} />
   <section data-setup class="quiz-panel">
-    <p class="quiz-skill">Correction automatique</p><h2 data-focus>Testez les notions du chapitre.</h2>
+    <p class="quiz-skill">Correction automatique · Difficulté progressive</p><h2 data-focus>Des bases au problème de synthèse.</h2>
+    <ol class="quiz-learning-path" aria-label="Étapes du parcours">{route.map((step,i)=><li><span aria-hidden="true">0{i+1}</span><strong>{step.label} · {step.count} questions</strong><p>{step.description}</p></li>)}</ol>
+    <p class="quiz-note">Situations originales d’entraînement aux méthodes du chapitre et, selon la classe, à la préparation BFEM/Bac. Ce parcours n’est pas un sujet officiel ni une épreuve complète.</p>
     <div class="quiz-modes">
       <div class="quiz-mode"><h3>Entraînement guidé</h3><p>{questions.length} questions avec indices, correction immédiate et explications. Reprenez ensuite vos erreurs.</p><button type="button" class="quiz-btn quiz-btn--primary" data-start="training">Commencer l’entraînement</button></div>
       <div class="quiz-mode"><h3>Mode examen</h3><p>{minutes} minutes, sans indices ni corrigés pendant la session. Retrouvez votre bilan à la fin.</p><button type="button" class="quiz-btn quiz-btn--quiet" data-start="exam">Lancer l’examen</button></div>

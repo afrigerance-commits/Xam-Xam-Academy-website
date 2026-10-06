@@ -38,7 +38,8 @@ if (root) {
       if (p.latest) {
         card.append(el('p',`Dernier quiz complet : ${p.latest.correct}/${p.latest.total} · ${mode(p.latest.mode)} · ${date(p.latest.at)}`));
         const bar = el('progress'); bar.max=100; bar.value=p.score; bar.setAttribute('aria-label',`Dernier résultat : ${p.score} %`); card.append(bar);
-        card.append(el('p',`Meilleur résultat complet : ${p.best} %${p.change !== null ? ` · Évolution : ${p.change>0?'+':''}${p.change} points` : ''}`));
+        card.append(el('p',`Meilleur résultat sur ${p.latest.total} questions : ${p.best} %${p.change !== null ? ` · Évolution : ${p.change>0?'+':''}${p.change} points` : ''}`));
+        if(p.latest.total!==c.count) card.append(el('p',`Ce résultat vient de l’ancien quiz. Le parcours actuel contient ${c.count} questions ; terminez-le pour obtenir un bilan actualisé.`,'quiz-note'));
         const weak = Object.entries(p.latest.skills).filter(([,g])=>g.correct<g.total).map(([key])=>competencies[key]?.label ?? key);
         card.append(el('p',weak.length ? `À retravailler : ${weak.join(', ')}.` : 'Toutes les questions de ce quiz sont réussies. Consolidez avec les exercices du cours.'));
         card.append(el('p',`${p.due<=Date.now()?'À réviser maintenant':'Prochaine révision'} · ${date(p.due)}`,'progress-due'));

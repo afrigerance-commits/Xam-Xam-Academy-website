@@ -18,6 +18,14 @@ test('comparisons use only complete attempts and scheduling respects thresholds'
   const p=chapterProgress(data([attempt(1,{at:now-1000}),attempt(2)]),'3e-resistances');assert.equal(p.change,34);assert.equal(p.best,67);
   assert.equal(nextReview(attempt(1)),now+DAY);assert.equal(nextReview(attempt(2)),now+3*DAY);assert.equal(nextReview(attempt(3)),now+7*DAY);
 });
+test('an expanded quiz retains old history without comparing three questions with ten',()=>{
+ const old=attempt(3,{at:now-1000});
+ const expanded=attempt(6,{total:10,missed:['d1','d2','d3','d4'],skills:{application:{total:10,correct:6}}});
+ const p=chapterProgress(data([old,expanded]),old.course);
+ assert.equal(p.attempts.length,2);assert.equal(p.score,60);assert.equal(p.best,60);assert.equal(p.change,null);
+ const recent={...expanded,at:now+1000,correct:8,missed:['d1','d2'],skills:{application:{total:10,correct:8}}};
+ const next=chapterProgress(data([old,expanded,recent]),old.course);assert.equal(next.change,20);assert.equal(next.best,80);
+});
 test('storage denial or malformed JSON does not prevent scoring',()=>{
   const unavailable={getItem(){throw Error('denied');},setItem(){throw Error('quota');}};
   assert.equal(loadProgress(unavailable).available,false);const s=saveAttempt(attempt(),unavailable);assert.equal(s.available,false);assert.equal(s.data.attempts.length,1);

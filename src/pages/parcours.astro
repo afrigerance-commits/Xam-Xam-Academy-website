@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EnTetePage from '../components/EnTetePage.astro';
+import BandeauContact from '../components/BandeauContact.astro';
+import { ressourcesPubliees } from '../lib/contenus';
+const ressources = await ressourcesPubliees();
+const niveaux = ['4e', '3e', 'Seconde', 'Première', 'Terminale'];
+const groupes = [
+  { nom: 'Mathématiques', matieres: ['Mathématiques'] },
+  { nom: 'Physique-Chimie', matieres: ['Physique', 'Chimie', 'Physique-Chimie'] },
+];
+const cours = ressources.filter(r => r.data.type === 'Cours');
+const examens = ressources.filter(r => /^(bfem|bac)-/.test(r.id));
+---
+<BaseLayout titre="Cours par chapitre — Maths et Physique-Chimie au Sénégal" description="Choisissez votre classe et retrouvez les cours de révision, méthodes et exercices corrigés de Xam Xam Academy. Parcours BFEM et Bac." actif="ressources">
+  <EnTetePage surtitre="Votre parcours" titre="Un chapitre. Un déclic." chapeau="Choisissez votre classe, retrouvez les notions essentielles et entraînez-vous avec les corrigés expliqués." />
+  <section class="section section--tight">
+    <div class="container parcours">
+      <nav class="classes" aria-label="Choisir ma classe">
+        {niveaux.map((niveau, i) => <a href={`#classe-${i}`}>{niveau}</a>)}
+      </nav>
+      <aside class="perimetre">
+        <strong>Ce que vous trouverez ici</strong>
+        <p>Des cours de révision originaux avec méthodes et applications corrigées. En PC, chaque chapitre des listes de référence de 4e, de 3e et de Terminale S1/S2 dispose d’une ressource. Les Maths proposent une sélection de thèmes de la 4e à la Terminale. La Seconde et la Première restent à compléter, notamment en PC.</p>
+        <p>Au lycée, vérifiez la série et les exigences de votre professeur : une fiche de révision traite les bases et ne remplace pas le cours complet.</p>
+      </aside>
+      {niveaux.map((niveau, i) => <section id={`classe-${i}`} class="classe" aria-labelledby={`titre-${i}`}>
+        <div class="classe__heading"><h2 id={`titre-${i}`}>{niveau}</h2><span>{cours.filter(r => r.data.niveau === niveau).length} cours disponibles</span></div>
+        <div class="matieres">
+          {groupes.map(g => {
+            const liste = cours.filter(r => r.data.niveau === niveau && g.matieres.includes(r.data.matiere)).sort((a,b) => a.data.titre.localeCompare(b.data.titre, 'fr'));
+            return <div class="matiere"><h3>{g.nom}</h3>{liste.length ? <ol>{liste.map(r => <li><a href={`/ressources/${r.id}/`}><span>{r.data.titre}</span><span aria-hidden="true">↗</span></a></li>)}</ol> : <p>Ce parcours sera enrichi avec de nouveaux chapitres.</p>}<a class="catalogue-link" href={`/ressources/?niveau=${encodeURIComponent(niveau)}&matiere=${encodeURIComponent(g.nom === 'Mathématiques' ? 'Mathématiques' : '')}`}>Voir les ressources de cette classe</a></div>;
+          })}
+        </div>
+      </section>)}
+      <section class="examens"><h2>Préparer le BFEM et le Bac</h2><p>Les sujets blancs sont des créations Xam Xam Academy. Les annales officielles sont signalées et reliées à leur source.</p><ul>{examens.map(r => <li><a href={`/ressources/${r.id}/`}>{r.data.titre} →</a></li>)}</ul></section>
+      <section class="references"><h2>Références des parcours PC</h2><ul><li><a href="https://irempt.ucad.sn/node/218">Manuel IREMPT-UCAD — 4e</a></li><li><a href="https://irempt.ucad.sn/index.php/fr/manuel-de-physique-chimie-3eme-0">Manuel IREMPT-UCAD — 3e</a></li><li><a href="https://officedubac.sn/wp-content/uploads/2026/01/Programme_Sciences-Physiques_Tle_LS.pdf">Programme de Terminale publié par l’Office du Bac</a></li></ul></section>
+    </div>
+  </section>
+  <BandeauContact />
+</BaseLayout>
+<style>
+.parcours{max-width:1100px}.classes{display:flex;gap:.65rem;flex-wrap:wrap;margin-bottom:2rem}.classes a{padding:.7rem 1.2rem;background:white;border:1px solid #dcd3bf;border-radius:99px;text-decoration:none;color:#183044;font-weight:600}.classes a:hover{background:#f2e7cc}.perimetre{background:#fffaf0;border:1px solid #e4d7b8;border-radius:18px;padding:1.4rem;margin-bottom:3rem}.perimetre p{margin:.6rem 0 0;max-width:85ch}.classe{scroll-margin-top:110px;margin-bottom:3.5rem}.classe__heading{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;border-bottom:1px solid #ded7ca;margin-bottom:1.4rem;padding-bottom:.8rem}.classe__heading h2{margin:0}.classe__heading span{font-size:.85rem;color:#606d77}.matieres{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}.matiere{background:#fff;border:1px solid #e5ded1;border-radius:20px;padding:1.5rem}.matiere h3{margin:0 0 1rem}.matiere ol{list-style:none;padding:0;margin:0;counter-reset:chapitre}.matiere li{counter-increment:chapitre;border-top:1px solid #eee8de}.matiere li a{display:flex;justify-content:space-between;gap:.8rem;padding:1rem 0;text-decoration:none;color:#1b3448}.matiere li a:before{content:counter(chapitre,decimal-leading-zero);font-size:.75rem;color:#947326;padding-top:.2rem}.matiere li a span:first-of-type{flex:1}.matiere li a:hover{color:#947326}.catalogue-link{display:inline-block;margin-top:1rem;font-size:.85rem}.examens,.references{margin:2rem 0;padding:1.5rem;background:#fff;border-radius:20px;border:1px solid #e5ded1}.examens li,.references li{margin:.75rem 0}@media(max-width:700px){.matieres{grid-template-columns:1fr}.classe__heading{align-items:start;flex-direction:column}.matiere{padding:1.2rem}}
+</style>

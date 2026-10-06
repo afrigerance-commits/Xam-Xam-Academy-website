@@ -8,33 +8,36 @@ import CarteRessource from '../../components/CarteRessource.astro';
 import EtatVide from '../../components/EtatVide.astro';
 import BandeauContact from '../../components/BandeauContact.astro';
 import { ressourcesPubliees } from '../../lib/contenus';
-import { NIVEAUX, TYPES_RESSOURCE } from '../../lib/constantes';
+import { NIVEAUX, TYPES_RESSOURCE, MATIERES } from '../../lib/constantes';
 
 const ressources = await ressourcesPubliees();
 const niveaux = NIVEAUX.filter((n) => ressources.some((r) => r.data.niveau === n));
+const matieres = MATIERES.filter((m) => ressources.some((r) => r.data.matiere === m));
 const types = TYPES_RESSOURCE.filter((t) => ressources.some((r) => r.data.type === t));
 ---
 <BaseLayout
-  titre="Cours et exercices corrigés de Physique-Chimie"
-  description="Cours, exercices corrigés, fiches de révision et méthodes de Physique-Chimie, du collège jusqu’à la Licence, par Xam Xam Academy."
+  titre="Cours et exercices corrigés de Maths et Physique-Chimie"
+  description="Cours et exercices corrigés de Mathématiques et Physique-Chimie au Sénégal. Révisions par classe et chapitre, préparation BFEM et Bac avec Xam Xam Academy."
   actif="ressources"
 >
   <EnTetePage
     surtitre="Pour apprendre"
     titre="Cours et exercices corrigés"
-    chapeau="Cours, exercices corrigés, fiches de révision et méthodes de Physique-Chimie, du collège jusqu’à la Licence."
+    chapeau="Mathématiques et Physique-Chimie : des cours de révision, des méthodes et des exercices corrigés, par classe et par chapitre."
   >
     <Onglets actif="ressources" />
   </EnTetePage>
 
   <section class="section section--tight">
     <div class="container">
+      <p><a class="btn btn--secondary" href="/parcours/">Explorer les chapitres par classe →</a></p>
       {ressources.length > 0 ? (
         <>
           <Filtres
             unite={['ressource', 'ressources']}
             groupes={[
               { cle: 'niveau', libelle: 'Niveau', valeurs: niveaux },
+              { cle: 'matiere', libelle: 'Matière', valeurs: matieres },
               { cle: 'type', libelle: 'Type', valeurs: types },
             ]}
           />

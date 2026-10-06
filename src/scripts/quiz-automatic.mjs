@@ -1,4 +1,4 @@
-import { answered, isCorrect, correctLabel, summarize } from '../lib/quizzes/automatic.mjs';
+import { answered, isCorrect, correctLabel, summarize, difficulty, levelSummary } from '../lib/quizzes/automatic.mjs';
 import { loadProgress, saveAttempt, chapterProgress, nextReview } from '../lib/quizzes/progress.mjs';
 for (const root of document.querySelectorAll('[data-quiz]')) {
   const { questions, competencies, course, minutes } = JSON.parse(root.querySelector('[data-quiz-config]').textContent);
@@ -81,6 +81,8 @@ for (const root of document.querySelectorAll('[data-quiz]')) {
     meta.append(el('span',`${mode==='exam'?'Examen':mode==='retry'?'Reprise ciblée':'Entraînement'} · Question ${index+1}/${bank.length}`));
     if (mode==='exam') { const clock=el('span','','quiz-clock'); clock.dataset.clock=''; clock.setAttribute('aria-label','Temps restant'); meta.append(clock); }
     arena.append(meta);
+    const stage=el('p',`Étape ${q.level}/3 · ${difficulty[q.level].label}`,'quiz-stage');
+    arena.append(stage);
     const progress=el('progress'); progress.max=bank.length; progress.value=index+1; progress.setAttribute('aria-label','Position dans le quiz'); arena.append(progress);
     const question=el('h2',q.prompt,'quiz-question'); question.dataset.focus=''; arena.append(el('p',competencies[q.skill].label,'quiz-skill'),question);
     const form=el('form'); form.noValidate=true;
@@ -157,6 +159,14 @@ for (const root of document.querySelectorAll('[data-quiz]')) {
     results.append(el('p',timedOut?'Temps écoulé · Bilan de votre examen':'Session terminée','quiz-skill'),heading);
     const score=el('div',undefined,'quiz-score');score.append(el('strong',`${summary.correct}/${summary.total}`),el('span','réponses correctes'));
     results.append(score,el('p',`${summary.attempted} question${summary.attempted>1?'s':''} répondue${summary.attempted>1?'s':''}${hints.size?` · ${hints.size} indice${hints.size>1?'s':''} consulté${hints.size>1?'s':''}`:''}. Ce résultat indique les notions à retravailler ; ce n’est pas une note officielle.`));
+    const stages=el('section',undefined,'quiz-stage-results');stages.setAttribute('aria-label','Bilan par difficulté');stages.append(el('h3','Mon bilan par étape'));
+    const stageRows=el('div',undefined,'quiz-learning-path');
+    for(const group of levelSummary(bank,answers)) {
+      const row=el('div');row.append(el('strong',`${group.label} · ${group.correct}/${group.total}`));
+      const bar=el('progress');bar.max=group.total;bar.value=group.correct;bar.setAttribute('aria-label',`${group.label} : ${group.correct} sur ${group.total}`);row.append(bar);
+      row.append(el('p',group.correct===group.total?'Réussi sur cette session.':group.level===1?'Reprenez les définitions et les conversions.':group.level===2?'Reprenez le choix de la relation et les étapes de calcul.':'Reprenez le raisonnement complet et vérifiez les conditions.'));stageRows.append(row);
+    }
+    stages.append(stageRows);results.append(stages);
     const skills=el('div',undefined,'quiz-skills');
     Object.entries(summary.skills).forEach(([key,data])=>{
       if(!data.total)return;
@@ -173,6 +183,7 @@ for (const root of document.querySelectorAll('[data-quiz]')) {
       const due = new Intl.DateTimeFormat('fr-FR', {dateStyle:'long', timeZone:'Africa/Dakar'}).format(nextReview({...attempt}));
       plan.append(el('p', `Révision conseillée le ${due}. Revenez sans les corrigés sous les yeux pour vérifier ce que vous retenez.`));
       if (complete.change !== null) plan.append(el('p', `Évolution depuis le précédent quiz complet : ${complete.change > 0 ? '+' : ''}${complete.change} points de pourcentage.`));
+      else if(complete.attempts.some(a=>a.mode!=='retry'&&a.total!==summary.total)) plan.append(el('p','Le nombre de questions a changé. Vos anciens résultats restent dans l’historique ; la comparaison repart sur les quiz de même longueur.'));
     }
     const overview = el('a', 'Voir ma progression', 'quiz-btn quiz-btn--quiet'); overview.href = '/progression/'; plan.append(overview); results.append(plan);
     const actions=el('div',undefined,'quiz-actions');

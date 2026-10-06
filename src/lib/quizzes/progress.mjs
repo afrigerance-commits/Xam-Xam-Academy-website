@@ -37,9 +37,10 @@ export function chapterProgress(data, course) {
   const attempts = data.attempts.filter(a => a.course === course);
   const full = attempts.filter(a => a.mode !== 'retry');
   const latest = full.at(-1) ?? null;
-  const previous = full.at(-2) ?? null;
+  const comparable = latest ? full.filter(a=>a.total===latest.total) : [];
+  const previous = comparable.at(-2) ?? null;
   const percent = a => Math.round(100 * a.correct / a.total);
-  return { attempts, latest, previous, best: full.length ? Math.max(...full.map(percent)) : null,
+  return { attempts, latest, previous, best: comparable.length ? Math.max(...comparable.map(percent)) : null,
     score: latest ? percent(latest) : null, change: latest && previous ? percent(latest) - percent(previous) : null,
     due: latest ? nextReview(latest) : null };
 }

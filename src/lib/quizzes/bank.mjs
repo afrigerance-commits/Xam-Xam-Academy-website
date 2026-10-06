@@ -1,4 +1,5 @@
-// Original short checks. Each answer is explicit; written reasoning is retained separately.
+import { deepeningBanks } from './deepening.mjs';
+// Stable original IDs retain the initial checks; new exercises deepen the same chapter.
 const choice = (skill, prompt, correct, wrong1, wrong2, explanation, hint = 'Identifiez la propriété utile avant de choisir.') => ({ kind: 'choice', skill, prompt, options: [correct, wrong1, wrong2], correct: 0, explanation, hint });
 const concept = (...args) => choice('comprehension', ...args);
 const trap = (...args) => choice('vigilance', ...args);
@@ -508,4 +509,19 @@ add('terminale-tampon-dosage',
   calculation('À la demi-équivalence d’un dosage idéal d’acide faible par base forte, pKₐ = 4,8. Quel est le pH ?', 4.8, '', 'À la demi-équivalence, [A⁻] ≈ [HA], donc pH ≈ pKₐ = 4,8.', 'Utilisez pH = pKₐ + log([A⁻]/[HA]) dans son domaine de validité.'),
   trap('Le pH d’équivalence d’un acide faible dosé par une base forte à 25 °C est usuellement…', 'supérieur à 7', 'toujours égal à 7', 'toujours inférieur à 7', 'La base conjuguée formée réagit avec l’eau et rend la solution basique dans le cas usuel.'));
 
+for (const [id, questions] of Object.entries(banks)) {
+  const original = questions.map((q, i) => ({...q, level:i === 1 ? 2 : 1}));
+  const extra = deepeningBanks[id].map((q, i) => {
+    const level = i < 2 ? 1 : i < 4 ? 2 : 3;
+    const skill = level === 3 ? 'transfert' : level === 2 ? 'application' : q.kind === 'number' ? 'methode' : 'comprehension';
+    const result = {...q, id:`deep-${i + 1}`, level, skill};
+    if (q.kind === 'choice') {
+      const shift = [...id].reduce((n,c)=>n+c.charCodeAt(0),i+3) % q.options.length;
+      result.options = [...q.options.slice(shift), ...q.options.slice(0,shift)];
+      result.correct = (q.correct - shift + q.options.length) % q.options.length;
+    }
+    return result;
+  });
+  banks[id] = [...original,...extra].sort((a,b)=>a.level-b.level);
+}
 export const automaticBanks = banks;

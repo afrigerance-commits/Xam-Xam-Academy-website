@@ -1,17 +1,18 @@
 ---
 /* Onglets d'apprentissage : Cours et exercices · Vidéos · Blog. */
 interface Props {
-  actif: 'ressources' | 'videos' | 'blog' | 'quiz';
+  actif: 'ressources' | 'videos' | 'blog' | 'quiz' | 'progression';
 }
 const { actif } = Astro.props;
 const onglets = [
   { id: 'ressources', libelle: 'Cours et exercices', href: '/ressources/', icone: 'i-book' },
   { id: 'quiz', libelle: 'Quiz', href: '/quiz/', icone: 'i-chart' },
+  { id: 'progression', libelle: 'Ma progression', href: '/progression/', icone: 'i-chart' },
   { id: 'videos', libelle: 'Vidéos', href: '/videos/', icone: 'i-play' },
   { id: 'blog', libelle: 'Blog', href: '/blog/', icone: 'i-file' },
 ];
 ---
-<nav class="tabs" aria-label="Cours, vidéos et blog">
+<nav class="tabs" aria-label="Apprentissage et progression">
   {onglets.map((o) => (
     <a class:list={['tabs__link', { 'is-active': o.id === actif }]} href={o.href} aria-current={o.id === actif ? 'page' : undefined}>
       <svg class="icon" aria-hidden="true"><use href={`#${o.icone}`} /></svg>

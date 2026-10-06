@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import catalog from '../../lib/quizzes/catalog.json';
+import QuizPlayer from '../../components/QuizPlayer.astro';
+import { automaticBanks } from '../../lib/quizzes/bank.mjs';
+import { competencies } from '../../lib/quizzes/automatic.mjs';
 import { skills } from '../../lib/quizzes/revision.mjs';
 import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
@@ -20,11 +23,13 @@ const questions = await Promise.all(quiz.questions.map(async q=>({...q,
 const duration=quiz.count*2;
 const course=`/ressources/${quiz.id}/`;
 ---
-<BaseLayout titre={`Révision interactive : ${quiz.title} — ${quiz.level}`} description={`${quiz.count} questions de révision avec réponses rédigées, corrigés et bilan d’auto-évaluation : ${quiz.title}, ${quiz.level}.`} actif="quiz">
+<BaseLayout titre={`Quiz corrigé : ${quiz.title} — ${quiz.level}`} description={`Quiz avec correction automatique, explications et suivi de progression, puis ${quiz.count} questions rédigées : ${quiz.title}, ${quiz.level}.`} actif="quiz">
   <link rel="stylesheet" href="/assets/css/quiz.css" />
   <section class="quiz-page container">
     <FilAriane etapes={[{libelle:'Quiz & révisions',href:'/quiz/'},{libelle:quiz.title}]} />
-    <div class="revision-intro"><p class="eyebrow">Comprendre · Justifier · Retenir</p><h1>{quiz.title}</h1><p class="revision-lead">Écrivez votre raisonnement, comparez-le au corrigé et choisissez ce qu’il faut revoir.</p><div class="quiz-tags"><span>{quiz.level}{quiz.series ? ` ${quiz.series}` : ''} · {quiz.subject}</span><span>{quiz.count} questions</span><span>Réponses rédigées</span></div></div>
+    <div class="revision-intro"><p class="eyebrow">Comprendre · Justifier · Retenir</p><h1>{quiz.title}</h1><p class="revision-lead">Testez les notions, comprenez vos erreurs, puis approfondissez votre raisonnement avec les exercices rédigés.</p><div class="quiz-tags"><span>{quiz.level}{quiz.series ? ` ${quiz.series}` : ''} · {quiz.subject}</span><span>{automaticBanks[quiz.id].length} questions corrigées automatiquement</span><span>{quiz.count} questions rédigées</span></div></div>
+    <QuizPlayer course={quiz.id} questions={automaticBanks[quiz.id]} competencies={competencies} />
+    <details class="quiz-written"><summary>Approfondir : {quiz.count} questions avec réponses rédigées</summary><p>Ces réponses ouvertes sont à comparer au corrigé. Leur bilan reste une auto-évaluation distincte des résultats automatiques.</p>
     <div class="quiz-app revision-app" data-revision data-course={quiz.id} data-duration={duration}>
       <section class="quiz-panel" data-setup><p class="quiz-skill">Votre temps, votre progression</p><h2 data-focus>Deux façons de travailler.</h2>
         <div class="quiz-modes"><div class="quiz-mode"><span class="quiz-mode-icon" aria-hidden="true">↗</span><h3>Entraînement guidé</h3><p>Un indice si besoin, votre réponse, puis le corrigé. À vous d’indiquer si votre raisonnement est acquis ou reste à travailler.</p><button class="quiz-btn quiz-btn--primary" data-start="training" type="button">Commencer l’entraînement</button></div><div class="quiz-mode"><span class="quiz-mode-icon" aria-hidden="true">◷</span><h3>Session chronométrée</h3><p>{duration} minutes sans consulter les corrigés. Comparez ensuite vos réponses et construisez votre bilan d’auto-évaluation.</p><button class="quiz-btn quiz-btn--quiet" data-start="exam" type="button">Lancer la session chronométrée</button></div></div>
@@ -40,6 +45,7 @@ const course=`/ressources/${quiz.id}/`;
       <aside class="quiz-history" data-history aria-label="Historique personnel"><h2>Mon historique sur ce chapitre</h2><ul data-history-list></ul><p class="quiz-note" data-storage-note>Les cinq derniers bilans sont conservés sur cet appareil. Vos réponses rédigées ne sont pas enregistrées.</p><button type="button" data-clear class="quiz-btn quiz-btn--quiet">Effacer mon historique</button></aside>
       <noscript><p class="quiz-panel">Le parcours interactif nécessite JavaScript. Les applications et les corrigés restent accessibles dans le <a href={course}>cours du chapitre</a>.</p></noscript>
     </div>
+    </details>
     <section class="quiz-bottom"><div><h2>Revenir à la bonne explication.</h2><p>Le cours réunit les notions, la méthode, les pièges et les applications corrigées de ce chapitre.</p><a class="quiz-btn quiz-btn--quiet" href={course}>Ouvrir le cours →</a></div><div><h3>Une révision qui dure</h3><p>Reprenez les questions hésitantes demain, puis quelques jours plus tard. En cas de doute sur un raisonnement, demandez l’avis de votre professeur.</p></div></section>
   </section>
 </BaseLayout>

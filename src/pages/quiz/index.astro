@@ -4,21 +4,23 @@ import EnTetePage from '../../components/EnTetePage.astro';
 import Onglets from '../../components/Onglets.astro';
 import Filtres from '../../components/Filtres.astro';
 import catalog from '../../lib/quizzes/catalog.json';
+import { automaticBanks } from '../../lib/quizzes/bank.mjs';
+const totalAutomatic = 20 + Object.values(automaticBanks).reduce((n, q) => n + q.length, 0);
 const order=['4e','3e','Seconde','Première','Terminale'];
 const quizzes=[...catalog].sort((a,b)=>order.indexOf(a.level)-order.indexOf(b.level)||a.subject.localeCompare(b.subject,'fr')||a.title.localeCompare(b.title,'fr'));
 const groups=[{cle:'niveau',libelle:'Classe',valeurs:order},{cle:'matiere',libelle:'Matière',valeurs:[...new Set(quizzes.map(q=>q.subject))]},{cle:'serie',libelle:'Série indiquée',valeurs:[...new Set(quizzes.map(q=>q.series).filter(Boolean))]}];
 ---
-<BaseLayout titre="Quiz & révisions — 123 chapitres de Maths et Physique-Chimie" description="Révisez de la 4e à la Terminale, avec la Seconde et la Première S2 : réponses rédigées, corrigés et auto-évaluation. Quiz automatique de 20 questions sur les lentilles en 3e." actif="quiz">
+<BaseLayout titre="Quiz & révisions — 123 chapitres de Maths et Physique-Chimie" description="Révisez 123 chapitres avec des quiz corrigés automatiquement, des explications, des exercices rédigés et un suivi de progression sur votre appareil." actif="quiz">
   <link rel="stylesheet" href="/assets/css/quiz.css" />
-  <EnTetePage surtitre="S’entraîner avec intention" titre="Le savoir devient un réflexe." chapeau="Choisissez votre chapitre. Écrivez votre raisonnement, comprenez vos erreurs et construisez votre prochaine révision."><Onglets actif="quiz" /></EnTetePage>
+  <EnTetePage surtitre="S’entraîner avec intention" titre="Le savoir devient un réflexe." chapeau="Choisissez un chapitre, testez les notions et retrouvez les explications qui vous aident à progresser."><Onglets actif="quiz" /></EnTetePage>
   <section class="container quiz-hub">
 
-    <div class="quiz-hub-note"><h2>123 cours, un parcours pour chacun.</h2><p>Les 122 autres chapitres proposent des réponses rédigées : notions, méthode, pièges et applications. Comparez votre travail au corrigé, puis indiquez vos acquis. Le bilan est une auto-évaluation.</p><p><a href="/quiz/lentilles-3e/">Lentilles en 3e : 20 questions avec correction automatique →</a></p></div>
+    <div class="quiz-hub-note"><h2>123 chapitres, des repères pour avancer.</h2><p>{totalAutomatic} questions corrigées automatiquement : un mini-test de 3 questions sur chaque chapitre, et 20 questions sur les lentilles en 3e. Les réponses rédigées restent disponibles pour approfondir la démarche.</p><a class="quiz-btn quiz-btn--primary" href="/progression/">Retrouver ma progression</a></div>
     <h2 class="quiz-catalog-heading">Trouver mon chapitre</h2>
     <Filtres groupes={groups} unite={['parcours','parcours']} />
     <label class="quiz-search-label" for="quiz-search">Rechercher une notion</label><input class="quiz-search" id="quiz-search" data-search type="search" placeholder="Ex. fractions, redox, dérivation…" autocomplete="off" />
-    <ul class="quiz-catalog" data-items>{quizzes.map(q=><li data-niveau={q.level} data-matiere={q.subject} data-serie={q.series} data-searchtext={`${q.title} ${q.level} ${q.subject} ${q.series}`}><a class="quiz-catalog-card" href={q.href}><div class="quiz-tags"><span>{q.level}{q.series?` ${q.series}`:''}</span><span>{q.subject}</span></div><h2>{q.title}</h2><p>{q.count} questions · {q.kind==='automatic'?'QCM & calculs · Correction automatique':'Réponses rédigées · Auto-évaluation'}</p><strong>Commencer ma révision →</strong></a></li>)}</ul>
+    <ul class="quiz-catalog" data-items>{quizzes.map(q=><li data-niveau={q.level} data-matiere={q.subject} data-serie={q.series} data-searchtext={`${q.title} ${q.level} ${q.subject} ${q.series}`}><a class="quiz-catalog-card" href={q.href}><div class="quiz-tags"><span>{q.level}{q.series?` ${q.series}`:''}</span><span>{q.subject}</span></div><h2>{q.title}</h2><p>{automaticBanks[q.id]?.length ?? 20} questions · Correction automatique{q.kind==='written' ? ` · ${q.count} questions rédigées en complément` : ''}</p><span class="quiz-card-progress" data-chapter-progress={q.id}></span><strong>Commencer ma révision →</strong></a></li>)}</ul>
     <p data-aucun hidden>Aucun chapitre ne correspond à ces filtres. Essayez une autre notion ou choisissez « Tous ».</p>
   </section>
 </BaseLayout>
-<script>import '../../scripts/filtres';</script>
+<script>import '../../scripts/filtres'; import '../../scripts/quiz-catalog-progress.mjs';</script>

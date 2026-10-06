@@ -34,4 +34,4 @@ export const TYPES_RESSOURCE = [
 ] as const;
 
 /** Matières. */
-export const MATIERES = ['Physique-Chimie', 'Physique', 'Chimie'] as const;
+export const MATIERES = ['Physique-Chimie', 'Physique', 'Chimie', 'Mathématiques'] as const;

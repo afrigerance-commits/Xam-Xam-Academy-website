@@ -11,7 +11,7 @@ export function lienWhatsApp(message?: string): string {
 
 /** Date au format français : « 27 septembre 2026 ». */
 export function formaterDate(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Dakar' }).format(date);
 }
 
 /** Date au format ISO (AAAA-MM-JJ) pour l'attribut datetime. */

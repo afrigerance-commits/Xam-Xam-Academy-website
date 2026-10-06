@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EnTetePage from '../../components/EnTetePage.astro';
+import Onglets from '../../components/Onglets.astro';
+---
+<BaseLayout titre="Quiz de révision — Maths et Physique-Chimie" description="Entraînez-vous avec les quiz Xam Xam Academy : indices, explications, mode examen et bilan par compétence. Premier parcours : lentilles minces, 3e." actif="quiz">
+  <link rel="stylesheet" href="/assets/css/quiz.css" />
+  <EnTetePage surtitre="S’entraîner avec intention" titre="Le savoir devient un réflexe." chapeau="Essayez, comprenez vos erreurs et repartez avec une prochaine étape précise."><Onglets actif="quiz" /></EnTetePage>
+  <section class="container quiz-hub"><a class="quiz-feature" href="/quiz/lentilles-3e/"><div><span class="quiz-tags"><span>3e · Physique</span><span>Disponible</span></span><h2>Lentilles minces</h2><p>Rayons, vergence, images et vision : 20 questions pour consolider les bases du chapitre.</p><span class="quiz-feature-meta">Indices · Corrigés expliqués · Examen de 20 minutes</span><strong>Choisir mon mode →</strong></div><img src="/assets/img/cours/lentilles-loupe.svg" alt="La loupe forme une image virtuelle agrandie." width="960" height="430" loading="lazy" /></a><div class="quiz-hub-note"><h2>Un bilan utile, au-delà du score.</h2><p>Chaque session indique les compétences à retravailler. Reprenez les questions ratées et ouvrez directement la section du cours qui vous aide.</p><p>Le premier quiz est consacré aux lentilles en 3e. Les autres chapitres seront ajoutés progressivement après préparation de leurs questions et corrigés.</p><a href="/parcours/">Explorer les cours par classe →</a></div></section>
+</BaseLayout>

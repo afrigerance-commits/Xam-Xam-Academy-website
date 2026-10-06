@@ -20,6 +20,7 @@ const examens = ressources.filter(r => /^(bfem|bac)-/.test(r.id));
       <nav class="classes" aria-label="Choisir ma classe">
         {niveaux.map((niveau, i) => <a href={`#classe-${i}`}>{libelle(niveau)}</a>)}
       </nav>
+      <p><a class="btn btn--secondary" href="/quiz/">Tester mes acquis avec les quiz →</a></p>
       <aside class="perimetre">
         <strong>Ce que vous trouverez ici</strong>
         <p>Des cours de révision originaux avec méthodes et applications corrigées. En PC, chaque chapitre des listes de référence consultées dispose d’une fiche : 4e, 3e, Seconde S, Première S2 et Terminale S1/S2. Les Maths proposent une sélection de thèmes de la 4e à la Terminale. Les listes de Seconde et Première proviennent de documents pédagogiques antérieurs ; les éventuels aménagements annuels sont à vérifier avec votre professeur.</p>

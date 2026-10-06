@@ -51,6 +51,7 @@ const message = `Bonjour Xam Xam Academy, j'ai une question sur la ressource « 
           {chapitre && <span>{chapitre}</span>}
           <span>Publié le <time datetime={dateIso(date)}>{formaterDate(date)}</time></span>
         </p>
+        {ressource.id === "3e-lentilles-minces" && <div class="doc__actions"><a class="btn btn--primary" href="/quiz/lentilles-3e/">Tester mes acquis · 20 questions →</a></div>}
         {fichier && (
           <div class="doc__actions">
             <a class="btn btn--primary" href={fichier} download={pdfExterne ? undefined : ''} target={pdfExterne ? '_blank' : undefined} rel={pdfExterne ? 'noopener' : undefined}>

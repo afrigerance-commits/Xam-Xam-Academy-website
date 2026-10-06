@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" role="img" aria-labelledby="title desc"><title id="title">Deux familles de lentilles</title><desc id="desc">À gauche, les rayons convergent vers un foyer réel. À droite, ils divergent et leurs prolongements se croisent en un foyer virtuel.</desc><defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7" fill="#18354e"/></marker></defs><style>text{font-family:Arial,sans-serif;fill:#18354e;font-size:18px}.axis{stroke:#8b98a1;stroke-width:1.5}.lens{fill:#dcecf1;stroke:#18354e;stroke-width:2.5}.ray{fill:none;stroke-width:2.5;stroke-linejoin:round}.blue{stroke:#237d99}.gold{stroke:#b98a21}.green{stroke:#428575}.dash{stroke-dasharray:7 5}.label{font-size:15px}.object{stroke:#18354e;stroke-width:3;marker-end:url(#arrow)}</style><rect width="960" height="340" rx="24" fill="#fffaf0"/>
+<text x="70" y="45">Convergente</text><text x="550" y="45">Divergente</text>
+<path class="axis" d="M60 200H450M530 200H930"/>
+<path class="lens" d="M240 95Q195 200 240 305Q285 200 240 95Z"/>
+<path class="lens" d="M697 95Q728 200 697 305L743 305Q712 200 743 95Z"/>
+<path class="ray blue" d="M70 150H240L440 241"/><path class="ray gold" d="M70 250H240L440 159"/>
+<circle cx="350" cy="200" r="4" fill="#18354e"/><text x="345" y="228">F′</text><text x="215" y="326" class="label">Centre épais</text>
+<path class="ray blue" d="M540 150H720L900 107.14"/><path class="ray gold" d="M540 250H720L900 292.86"/>
+<path class="ray blue dash" d="M720 150L510 200"/><path class="ray gold dash" d="M720 250L510 200"/>
+<circle cx="510" cy="200" r="4" fill="#18354e"/><text x="500" y="228">F′</text><text x="685" y="326" class="label">Centre mince</text>
+</svg>

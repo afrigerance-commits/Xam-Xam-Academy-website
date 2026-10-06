@@ -1,11 +1,12 @@
 ---
 /* Onglets d'apprentissage : Cours et exercices · Vidéos · Blog. */
 interface Props {
-  actif: 'ressources' | 'videos' | 'blog';
+  actif: 'ressources' | 'videos' | 'blog' | 'quiz';
 }
 const { actif } = Astro.props;
 const onglets = [
   { id: 'ressources', libelle: 'Cours et exercices', href: '/ressources/', icone: 'i-book' },
+  { id: 'quiz', libelle: 'Quiz', href: '/quiz/', icone: 'i-chart' },
   { id: 'videos', libelle: 'Vidéos', href: '/videos/', icone: 'i-play' },
   { id: 'blog', libelle: 'Blog', href: '/blog/', icone: 'i-file' },
 ];

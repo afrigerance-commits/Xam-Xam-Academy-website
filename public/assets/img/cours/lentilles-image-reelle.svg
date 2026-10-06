@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="title desc"><title id="title">Image réelle d’une convergente</title><desc id="desc">L’objet est à trois distances focales. Trois rayons issus de B se croisent en B prime, à une distance et demie focale. L’image est renversée et deux fois plus petite.</desc><defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7" fill="#18354e"/></marker></defs><style>text{font-family:Arial,sans-serif;fill:#18354e;font-size:18px}.axis{stroke:#8b98a1;stroke-width:1.5}.lens{fill:#dcecf1;stroke:#18354e;stroke-width:2.5}.ray{fill:none;stroke-width:2.5;stroke-linejoin:round}.blue{stroke:#237d99}.gold{stroke:#b98a21}.green{stroke:#428575}.dash{stroke-dasharray:7 5}.label{font-size:15px}.object{stroke:#18354e;stroke-width:3;marker-end:url(#arrow)}</style><rect width="960" height="430" rx="24" fill="#fffaf0"/>
+<text x="45" y="40">Objet au-delà de 2f → image réelle, renversée, réduite</text>
+<path class="axis" d="M45 210H910"/><path class="lens" d="M480 70V360" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<path class="object" d="M180 210V130"/><path class="object" d="M630 210V250"/>
+<path class="ray gold" d="M180 130H480L720 322"/><path class="ray blue" d="M180 130L720 274"/><path class="ray green" d="M180 130L480 250H740"/>
+<g fill="#18354e"><circle cx="380" cy="210" r="3"/><circle cx="580" cy="210" r="3"/><circle cx="280" cy="210" r="3"/><circle cx="680" cy="210" r="3"/></g>
+<text x="168" y="236">A</text><text x="167" y="118">B</text><text x="620" y="197">A′</text><text x="638" y="268">B′</text><text x="464" y="235">O</text><text x="373" y="235">F</text><text x="573" y="235">F′</text><text x="264" y="235" class="label">2F</text><text x="673" y="235" class="label">2F′</text>
+<text x="65" y="390" class="label">Doré : parallèle puis par F′ · Bleu : par O · Vert : par F puis parallèle</text>
+</svg>

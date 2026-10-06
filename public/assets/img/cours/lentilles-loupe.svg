@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="title desc"><title id="title">Image virtuelle d’une loupe</title><desc id="desc">L’objet est à la moitié de la distance focale. Les rayons émergents divergent. Leurs prolongements se croisent à gauche en B prime et donnent une image droite deux fois plus grande.</desc><defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7" fill="#18354e"/></marker></defs><style>text{font-family:Arial,sans-serif;fill:#18354e;font-size:18px}.axis{stroke:#8b98a1;stroke-width:1.5}.lens{fill:#dcecf1;stroke:#18354e;stroke-width:2.5}.ray{fill:none;stroke-width:2.5;stroke-linejoin:round}.blue{stroke:#237d99}.gold{stroke:#b98a21}.green{stroke:#428575}.dash{stroke-dasharray:7 5}.label{font-size:15px}.object{stroke:#18354e;stroke-width:3;marker-end:url(#arrow)}</style><rect width="960" height="430" rx="24" fill="#fffaf0"/>
+<text x="45" y="40">Objet entre O et F → image virtuelle, droite, agrandie</text>
+<path class="axis" d="M45 210H910"/><path class="lens" d="M480 65V360" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<path class="object" d="M430 210V150"/><path class="object" d="M380 210V90"/>
+<path class="ray gold" d="M430 150H480L780 330"/><path class="ray blue" d="M430 150L620 378"/>
+<path class="ray gold dash" d="M480 150L350 72"/><path class="ray blue dash" d="M480 210L360 66"/>
+<circle cx="580" cy="210" r="3" fill="#18354e"/><text x="571" y="237">F′</text><text x="363" y="237">F / A′</text><text x="426" y="237">A</text><text x="447" y="147">B</text><text x="354" y="87">B′</text><text x="483" y="237">O</text>
+<text x="65" y="390" class="label">Traits pleins : rayons · Pointillés : prolongements, pas des rayons réels</text>
+</svg>

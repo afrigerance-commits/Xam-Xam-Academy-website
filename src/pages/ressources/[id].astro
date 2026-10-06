@@ -19,7 +19,8 @@ export async function getStaticPaths() {
 
 const { ressource, autres } = Astro.props;
 const { titre, type, niveau, matiere, chapitre, description, date, fichier, brouillon } = ressource.data;
-const { Content } = await render(ressource);
+const { Content, headings } = await render(ressource);
+const sommaire = headings.filter((heading) => heading.depth === 2);
 const aDuContenu = (ressource.body ?? '').trim().length > 0;
 const pdfExterne = fichier ? /^https?:\/\//.test(fichier) : false;
 
@@ -69,6 +70,7 @@ const message = `Bonjour Xam Xam Academy, j'ai une question sur la ressource « 
 
     {aDuContenu && (
       <div class="container container--narrow">
+        {sommaire.length > 1 && <details class="doc-toc" open><summary>Dans ce chapitre</summary><nav aria-label="Sommaire du chapitre"><ol>{sommaire.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></nav></details>}
         <div class="prose">
           <Content />
         </div>

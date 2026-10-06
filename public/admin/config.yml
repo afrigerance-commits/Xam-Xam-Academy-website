@@ -49,7 +49,7 @@ collections:
       - name: matiere
         label: Matière
         widget: select
-        options: [Physique-Chimie, Physique, Chimie]
+        options: [Physique-Chimie, Physique, Chimie, Mathématiques]
         default: Physique-Chimie
       - { name: chapitre, label: Chapitre, widget: string, required: false }
       - name: description

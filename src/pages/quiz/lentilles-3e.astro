@@ -1,30 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FilAriane from '../../components/FilAriane.astro';
-import { competencies } from '../../lib/quizzes/lentilles.mjs';
+import { competencies, questions } from '../../lib/quizzes/lentilles.mjs';
+import QuizPlayer from '../../components/QuizPlayer.astro';
 ---
 <BaseLayout titre="Quiz lentilles minces — 20 questions corrigées, 3e" description="Testez les lentilles minces : 20 questions, mode entraînement avec indices, examen de 20 minutes et bilan par compétence. Xam Xam Academy, Sénégal." actif="quiz">
   <link rel="stylesheet" href="/assets/css/quiz.css" />
   <section class="quiz-page container">
     <FilAriane etapes={[{libelle:'Quiz',href:'/quiz/'},{libelle:'Lentilles minces · 3e'}]} />
     <div class="quiz-intro"><div><p class="eyebrow">Le déclic se vérifie</p><h1>Lentilles minces.<br /><em>À vous de jouer.</em></h1><p>Comprendre les rayons, maîtriser les images, choisir la bonne méthode. Un quiz pour savoir où vous en êtes et quoi revoir.</p><div class="quiz-tags"><span>3e · Physique</span><span>20 questions</span><span>5 compétences</span></div></div><img src="/assets/img/cours/lentilles-image-reelle.svg" alt="Deux rayons permettent de construire une image réelle renversée après une lentille convergente." width="960" height="430" /></div>
-    <div class="quiz-app" data-quiz>
-      <section data-setup class="quiz-panel">
-        <p class="quiz-skill">Choisissez votre rythme</p><h2 data-focus>Deux façons de progresser.</h2>
-        <div class="quiz-modes">
-          <div class="quiz-mode"><span class="quiz-mode-icon" aria-hidden="true">↗</span><h3>Entraînement</h3><p>Prenez votre temps. Un indice si vous bloquez, une explication après chaque réponse, puis un bilan pour cibler vos révisions.</p><button type="button" class="quiz-btn quiz-btn--primary" data-start="training">Commencer l’entraînement</button></div>
-          <div class="quiz-mode"><span class="quiz-mode-icon" aria-hidden="true">◷</span><h3>Mode examen</h3><p>20 minutes, sans indices ni corrigés pendant l’épreuve. Vous pouvez revenir sur vos réponses avant de rendre votre copie.</p><button type="button" class="quiz-btn quiz-btn--quiet" data-start="exam">Lancer l’examen</button></div>
-        </div>
-        <p class="quiz-note">Une question = un point. Les réponses numériques acceptent la virgule et le point. En examen, une question laissée vide compte comme non réussie. Quitter ou recharger la page interrompt la session.</p>
-      </section>
-      <section data-arena class="quiz-panel" hidden aria-label="Questions du quiz"></section>
-      <section data-results class="quiz-panel" hidden aria-label="Bilan et corrigés"></section>
-      <aside data-history class="quiz-history" aria-label="Historique personnel"></aside>
-      <noscript><p class="quiz-panel">Activez JavaScript pour utiliser le quiz interactif. Vous pouvez déjà consulter les <a href="/ressources/3e-lentilles-minces/">12 exercices corrigés du chapitre</a>.</p></noscript>
-    </div>
+    <QuizPlayer course="3e-lentilles-minces" questions={questions} competencies={competencies} minutes={20} />
     <section class="quiz-bottom"><div><h2>Une hésitation ? Revenez au raisonnement.</h2><p>Le cours complet explique les rayons, les foyers et les images avec trois schémas et douze exercices progressifs.</p><a class="quiz-btn quiz-btn--quiet" href="/ressources/3e-lentilles-minces/">Ouvrir le chapitre →</a></div><div><h3>Les compétences travaillées</h3><ul>{Object.values(competencies).map(c=><li>{c.label}</li>)}</ul></div></section>
   </section>
 </BaseLayout>
-<script>
-  import '../../scripts/quiz-lentilles.mjs';
-</script>

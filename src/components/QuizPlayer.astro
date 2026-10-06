@@ -1,0 +1,21 @@
+---
+const { course, questions, competencies, minutes = Math.max(4, questions.length * 2) } = Astro.props;
+const payload = JSON.stringify({ course, questions, competencies, minutes }).replace(/</g, '\\u003c');
+---
+<div class="quiz-app" data-quiz>
+  <script type="application/json" data-quiz-config set:html={payload} />
+  <section data-setup class="quiz-panel">
+    <p class="quiz-skill">Correction automatique</p><h2 data-focus>Testez les notions du chapitre.</h2>
+    <div class="quiz-modes">
+      <div class="quiz-mode"><h3>Entraînement guidé</h3><p>{questions.length} questions avec indices, correction immédiate et explications. Reprenez ensuite vos erreurs.</p><button type="button" class="quiz-btn quiz-btn--primary" data-start="training">Commencer l’entraînement</button></div>
+      <div class="quiz-mode"><h3>Mode examen</h3><p>{minutes} minutes, sans indices ni corrigés pendant la session. Retrouvez votre bilan à la fin.</p><button type="button" class="quiz-btn quiz-btn--quiet" data-start="exam">Lancer l’examen</button></div>
+    </div>
+    <p class="quiz-note">Une question = un point. Les calculs acceptent la virgule, le point et la notation scientifique (ex. 1,2e-3). Le quiz vérifie des réponses précises ; les exercices rédigés complètent le raisonnement. Une session en cours s’interrompt si vous rechargez la page.</p>
+    <a class="quiz-text-button" href="/progression/">Consulter ma progression</a>
+  </section>
+  <section data-arena class="quiz-panel" hidden aria-label="Questions du quiz"></section>
+  <section data-results class="quiz-panel" hidden aria-label="Bilan et corrigés"></section>
+  <aside data-history class="quiz-history" aria-label="Historique personnel"></aside>
+  <noscript><p class="quiz-panel">Activez JavaScript pour utiliser le quiz. Les exercices et corrigés restent disponibles dans le <a href={`/ressources/${course}/`}>cours du chapitre</a>.</p></noscript>
+</div>
+<script>import '../scripts/quiz-automatic.mjs';</script>

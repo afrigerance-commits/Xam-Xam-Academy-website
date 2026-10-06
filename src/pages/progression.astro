@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import Onglets from '../components/Onglets.astro';
+import catalog from '../lib/quizzes/catalog.json';
+import { automaticBanks } from '../lib/quizzes/bank.mjs';
+import { competencies as lensSkills } from '../lib/quizzes/lentilles.mjs';
+import { competencies } from '../lib/quizzes/automatic.mjs';
+const chapters = catalog.map(q => ({ id: q.id, title: q.title, level: q.level, subject: q.subject, href: q.href, count: automaticBanks[q.id]?.length ?? 20 }));
+const payload = JSON.stringify({ chapters, competencies: { ...competencies, ...lensSkills } }).replace(/</g, '\\u003c');
+---
+<BaseLayout titre="Ma progression — Quiz et révisions" description="Retrouvez vos résultats aux quiz, les compétences à retravailler et votre prochaine révision sur Xam Xam Academy." actif="quiz" noindex>
+  <link rel="stylesheet" href="/assets/css/quiz.css" />
+  <section class="quiz-page container" data-progression>
+    <FilAriane etapes={[{libelle:'Quiz', href:'/quiz/'}, {libelle:'Ma progression'}]} />
+    <div class="revision-intro"><p class="eyebrow">Mes repères pour avancer</p><h1>Ma progression.</h1><p class="revision-lead">Les résultats de vos quiz, les notions à reprendre et votre prochaine révision.</p><Onglets actif="progression" /></div>
+    <script type="application/json" data-progress-config set:html={payload} />
+    <p class="progress-storage" data-storage role="status">Résultats conservés sur cet appareil. Aucun compte nécessaire ; pas de synchronisation entre appareils.</p>
+    <div class="progress-stats" data-stats aria-live="polite"></div>
+    <section class="progress-recommendations"><h2>Ma prochaine étape</h2><div data-recommendations></div></section>
+    <section aria-labelledby="chapters-heading"><div class="progress-heading"><h2 id="chapters-heading">Mes chapitres</h2><label>Afficher <select data-filter><option value="started">Chapitres commencés</option><option value="due">À réviser maintenant</option><option value="all">Tous les chapitres</option></select></label></div><ul class="progress-chapters" data-chapters></ul><p data-empty hidden></p></section>
+    <section class="progress-history"><h2>Mes dernières sessions</h2><p>Les reprises d’erreurs sont indiquées séparément et ne remplacent pas le résultat d’un quiz complet. Les auto-évaluations des réponses rédigées restent dans leur chapitre.</p><ul data-attempts></ul></section>
+    <details class="progress-clear"><summary>Gérer mes résultats sur cet appareil</summary><p>L’effacement supprime les résultats automatiques et les historiques locaux des quiz. Cette action ne touche pas les cours.</p><button class="quiz-btn quiz-btn--quiet" data-clear-progress type="button">Effacer mes résultats</button></details>
+    <noscript><p class="quiz-panel">Activez JavaScript pour afficher vos résultats enregistrés. Vous pouvez consulter le <a href="/quiz/">catalogue des quiz</a>.</p></noscript>
+  </section>
+</BaseLayout>
+<script>import '../scripts/progression.mjs';</script>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="t d">
+<title id="t">Dilution d’un prélèvement</title><desc id="d">Un prélèvement de 20 millilitres à 50 grammes par litre est complété avec de l’eau jusqu’à un volume total de 100 millilitres. La masse de soluté reste 1 gramme et la concentration finale vaut 10 grammes par litre.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#021f4d"/></marker></defs>
+<rect width="960" height="430" rx="24" fill="#faf7ef"/>
+<path d="M110 100V270Q110 290 130 290H290Q310 290 310 270V100" fill="none" stroke="#021f4d" stroke-width="4"/><path d="M114 210H306V270Q306 286 290 286H130Q114 286 114 270Z" fill="#b89843"/>
+<path d="M620 100V270Q620 290 640 290H800Q820 290 820 270V100" fill="none" stroke="#021f4d" stroke-width="4"/><path d="M624 140H816V270Q816 286 800 286H640Q624 286 624 270Z" fill="#ebdcae"/>
+<path d="M350 190H570" stroke="#021f4d" stroke-width="4" marker-end="url(#a)"/>
+<g font-family="Arial,sans-serif" font-size="21" fill="#021f4d"><text x="115" y="65" font-weight="700">Prélèvement</text><text x="610" y="65" font-weight="700">Solution finale</text><text x="355" y="145">Ajouter de l’eau</text><text x="125" y="330">20 mL · 50 g/L</text><text x="630" y="330">100 mL · 10 g/L</text><text x="125" y="366">Soluté : 1,0 g</text><text x="630" y="366">Soluté : 1,0 g</text><text x="100" y="408" font-size="18">Volumes schématiques. Le volume final inclut le prélèvement et l’eau ajoutée.</text></g>
+</svg>

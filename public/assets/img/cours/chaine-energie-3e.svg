@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="t d">
+<title id="t">Bilan énergétique d’un moteur</title><desc id="d">Sur la durée étudiée, un moteur reçoit 800 joules électriques, fournit 600 joules mécaniques utiles et transfère 200 joules sous d’autres formes. Sa variation de stockage est négligée et son rendement vaut 75 pour cent.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="context-stroke"/></marker></defs>
+<rect width="960" height="420" rx="24" fill="#faf7ef"/><rect x="370" y="110" width="210" height="100" rx="20" fill="#021f4d"/>
+<path d="M80 160H355" stroke="#021f4d" stroke-width="5" marker-end="url(#a)"/><path d="M595 160H875" stroke="#997413" stroke-width="5" marker-end="url(#a)"/><path d="M475 225V310" stroke="#718096" stroke-width="5" marker-end="url(#a)"/>
+<g font-family="Arial,sans-serif" font-size="22" fill="#021f4d"><text x="425" y="170" fill="white" font-weight="700">Moteur</text><text x="72" y="105">Électrique reçue</text><text x="155" y="205">800 J</text><text x="625" y="105">Mécanique utile</text><text x="710" y="205">600 J</text><text x="515" y="290">Autres transferts : 200 J</text><text x="85" y="365" font-size="24">800 = 600 + 200 · Rendement : 600 / 800 = 75 %</text><text x="85" y="398" font-size="17">Variation du stockage interne négligée sur la durée étudiée.</text></g>
+</svg>

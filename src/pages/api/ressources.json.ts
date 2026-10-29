@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { ressourcesPubliees } from '../../lib/contenus';
+import { buildCourse } from '../../lib/mobile-course.mjs';
 
 export const prerender = true;
 
@@ -7,11 +8,12 @@ export const GET: APIRoute = async () => {
   const ressources = await ressourcesPubliees();
 
   const payload = {
-    version: 1,
+    version: 2,
     generatedAt: new Date().toISOString(),
-    count: ressources.length,
-    resources: ressources.map((ressource) => ({
+    count: ressources.filter((ressource) => !ressource.data.brouillon).length,
+    resources: ressources.filter((ressource) => !ressource.data.brouillon).map((ressource) => ({
       slug: ressource.id,
+      content: buildCourse(ressource.body),
       title: ressource.data.titre,
       level: ressource.data.niveau,
       subject: ressource.data.matiere,
